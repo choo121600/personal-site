@@ -75,14 +75,14 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
 
 export const BLOG_POSTS: BlogPost[] = [
   {
-    title: 'Apache Airflow를 시작하는 가장 쉬운 방법, Astro CLI',
-    description: 'Apache Airflow를 Astro CLI를 통해 시작하는 방법에 대해 정리한 글입니다.',
+    title: 'The Easiest Way to Get Started with Apache Airflow: Astro CLI',
+    description: 'How to quickly set up and run Apache Airflow projects using Astro CLI.',
     link: 'https://devocean.sk.com/search/techBoardDetail.do?ID=167304',
     uid: 'blog-1',
   },
   {
-    title: 'Apache Airflow 2.10.0의 특징들',
-    description: ' Airflow 2.10.0 버전의 특징에 대해 정리한 글입니다.',
+    title: 'What’s New in Apache Airflow 2.10.0',
+    description: 'A detailed overview of the new features introduced in Apache Airflow 2.10.0.',
     link: 'https://discourse.airflow-kr.org/t/apache-airflow-2-10-0/290',
     uid: 'blog-2',
   },
@@ -91,12 +91,11 @@ export const BLOG_POSTS: BlogPost[] = [
 export const TALK_POSTS: TalkPost[] = [
   {
     title: 'Airflow 101 with Astro CLI',
-    description: 'Hands-on: 데일리 뉴스 요약 및 투자 조언 메시징 서비스 구축하기',
+    description: 'Hands-on workshop: Build a daily news summary and investment advice messaging service.',
     link: 'https://www.meetup.com/apache-airflow-users-korea/events/303680210',
     uid: 'talk-1',
   }
 ]
-
 
 export const SOCIAL_LINKS: SocialLink[] = [
   {
