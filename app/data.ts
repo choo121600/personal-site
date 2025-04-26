@@ -91,7 +91,7 @@ export const BLOG_POSTS: BlogPost[] = [
 export const TALK_POSTS: TalkPost[] = [
   {
     title: 'Airflow 101 with Astro CLI',
-    description: 'Hands-on workshop: Build a daily news summary and investment advice messaging service.',
+    description: 'Hands-on workshop: Daily news summary and investment advice messaging service.',
     link: 'https://www.meetup.com/apache-airflow-users-korea/events/303680210',
     uid: 'talk-1',
   }
