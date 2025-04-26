@@ -29,18 +29,18 @@ type SocialLink = {
 
 export const PROJECTS: Project[] = [
   {
-    name: 'Motion Primitives Pro',
+    name: 'arxtrus-milkyway',
     description:
-      'Advanced components and templates to craft beautiful websites.',
-    link: 'https://pro.motion-primitives.com/',
+      'Data pipline for the financial industry that collects, cleans, and analyzes data from various sources.',
+    link: 'https://arxtrus.com',
     video:
       'https://res.cloudinary.com/read-cv/video/upload/t_v_b/v1/1/profileItems/W2azTw5BVbMXfj7F53G92hMVIn32/newProfileItem/d898be8a-7037-4c71-af0c-8997239b050d.mp4?_a=DATAdtAAZAA0',
     id: 'project1',
   },
   {
-    name: 'Motion Primitives',
-    description: 'UI kit to make beautiful, animated interfaces.',
-    link: 'https://motion-primitives.com/',
+    name: 'Smart Kickboard Module with Jetson Nano',
+    description: 'A module that detects helmet usage and entry into children protection zones to control the maximum output speed of the kickboard.',
+    link: 'https://github.com/choo121600/kickboardModule',
     video:
       'https://res.cloudinary.com/read-cv/video/upload/t_v_b/v1/1/profileItems/W2azTw5BVbMXfj7F53G92hMVIn32/XSfIvT7BUWbPRXhrbLed/ee6871c9-8400-49d2-8be9-e32675eabf7e.mp4?_a=DATAdtAAZAA0',
     id: 'project2',
@@ -49,19 +49,19 @@ export const PROJECTS: Project[] = [
 
 export const WORK_EXPERIENCE: WorkExperience[] = [
   {
-    company: 'Reglazed Studio',
-    title: 'CEO',
+    company: 'arxtrus',
+    title: 'Founder',
     start: '2024',
     end: 'Present',
-    link: 'https://ibelick.com',
+    link: 'https://arxtrus.com',
     id: 'work1',
   },
   {
-    company: 'Freelance',
-    title: 'Design Engineer',
-    start: '2022',
-    end: '2024',
-    link: 'https://ibelick.com',
+    company: 'Canonical',
+    title: 'Member of the Ubuntu',
+    start: '2024',
+    end: 'Present',
+    link: 'https://launchpad.net/~ubuntumembers',
     id: 'work2',
   }
 ]
