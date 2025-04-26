@@ -63,15 +63,7 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
     end: '2024',
     link: 'https://ibelick.com',
     id: 'work2',
-  },
-  {
-    company: 'Freelance',
-    title: 'Front-end Developer',
-    start: '2017',
-    end: 'Present',
-    link: 'https://ibelick.com',
-    id: 'work3',
-  },
+  }
 ]
 
 export const BLOG_POSTS: BlogPost[] = [
@@ -100,20 +92,16 @@ export const BLOG_POSTS: BlogPost[] = [
 export const SOCIAL_LINKS: SocialLink[] = [
   {
     label: 'Github',
-    link: 'https://github.com/ibelick',
-  },
-  {
-    label: 'Twitter',
-    link: 'https://twitter.com/ibelick',
+    link: 'https://github.com/choo121600',
   },
   {
     label: 'LinkedIn',
-    link: 'https://www.linkedin.com/in/ibelick',
+    link: 'https://www.linkedin.com/in/yeonguk-choo',
   },
   {
     label: 'Instagram',
-    link: 'https://www.instagram.com/ibelick',
+    link: 'https://www.instagram.com/yeong_uk._',
   },
 ]
 
-export const EMAIL = 'your@email.com'
+export const EMAIL = 'choo121600@gmail.com'

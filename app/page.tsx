@@ -137,8 +137,8 @@ export default function Personal() {
       >
         <div className="flex-1">
           <p className="text-zinc-600 dark:text-zinc-400">
-            Focused on creating intuitive and performant web experiences.
-            Bridging the gap between design and development.
+            제 이름은 추영욱입니다. 오픈소스 생태계와 데이터 엔지니어링 분야에서 활동하는 소프트웨어 엔지니어입니다.
+            다양한 산업 분야에서 쌓은 경험을 바탕으로 문제를 해결하는 능력을 자랑스럽게 생각하며, 작업을 효율화하여 더 나은 방향으로 이끄는 과정을 즐깁니다.
           </p>
         </div>
       </motion.section>
