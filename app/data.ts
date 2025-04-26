@@ -45,7 +45,7 @@ export const PROJECTS: Project[] = [
     id: 'project1',
   },
   {
-    name: 'Smart Kickboard Module with Jetson Nano',
+    name: 'Kickboard Module with Jetson Nano',
     description: 'A module that detects helmet usage and entry into children protection zones to control the maximum output speed of the kickboard.',
     link: 'https://github.com/choo121600/kickboardModule',
     video:
