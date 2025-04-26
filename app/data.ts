@@ -22,6 +22,13 @@ type BlogPost = {
   uid: string
 }
 
+type TalkPost = {
+  title: string
+  description: string
+  link: string
+  uid: string
+}
+
 type SocialLink = {
   label: string
   link: string
@@ -68,26 +75,28 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
 
 export const BLOG_POSTS: BlogPost[] = [
   {
-    title: 'Exploring the Intersection of Design, AI, and Design Engineering',
-    description: 'How AI is changing the way we design',
-    link: '/blog/exploring-the-intersection-of-design-ai-and-design-engineering',
+    title: 'Apache Airflow를 시작하는 가장 쉬운 방법, Astro CLI',
+    description: 'Apache Airflow는 설치와 실행 과정이 어려운 것으로 알려져 있지만, Astronomer가 개발한 Astro CLI를 통해 이를 쉽게 할 수 있게 되었습니다. Astro CLI는 단 세 개의 명령어로 프로젝트 설정 및 실행이 가능하며, 여러 운영체제(MacOS, Windows, Linux)에서도 사용이 가능하다는 장점이 있습니다. 이 도구는 직관적인 명령어 및 다양한 템플릿을 제공하여 Airflow의 학습 및 사용을 더욱 간단하고 효율적으로 만들어 줍니다.',
+    link: 'https://devocean.sk.com/search/techBoardDetail.do?ID=167304',
     uid: 'blog-1',
   },
   {
-    title: 'Why I left my job to start my own company',
-    description:
-      'A deep dive into my decision to leave my job and start my own company',
-    link: '/blog/exploring-the-intersection-of-design-ai-and-design-engineering',
+    title: 'Apache Airflow 2.10.0의 특징들',
+    description: ' Airflow 2.10.0 버전의 특징에 대해 정리한 글입니다.',
+    link: 'https://discourse.airflow-kr.org/t/apache-airflow-2-10-0/290',
     uid: 'blog-2',
   },
-  {
-    title: 'What I learned from my first year of freelancing',
-    description:
-      'A look back at my first year of freelancing and what I learned',
-    link: '/blog/exploring-the-intersection-of-design-ai-and-design-engineering',
-    uid: 'blog-3',
-  },
 ]
+
+export const TALK_POSTS: TalkPost[] = [
+  {
+    title: 'Airflow 101 with Astro CLI',
+    description: 'Hands-on: 데일리 뉴스 요약 및 투자 조언 메시징 서비스 구축하기',
+    link: 'https://www.meetup.com/apache-airflow-users-korea/events/303680210',
+    uid: 'talk-1',
+  }
+]
+
 
 export const SOCIAL_LINKS: SocialLink[] = [
   {
