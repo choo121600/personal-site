@@ -76,7 +76,7 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
 export const BLOG_POSTS: BlogPost[] = [
   {
     title: 'Apache Airflow를 시작하는 가장 쉬운 방법, Astro CLI',
-    description: 'Apache Airflow는 설치와 실행 과정이 어려운 것으로 알려져 있지만, Astronomer가 개발한 Astro CLI를 통해 이를 쉽게 할 수 있게 되었습니다. Astro CLI는 단 세 개의 명령어로 프로젝트 설정 및 실행이 가능하며, 여러 운영체제(MacOS, Windows, Linux)에서도 사용이 가능하다는 장점이 있습니다. 이 도구는 직관적인 명령어 및 다양한 템플릿을 제공하여 Airflow의 학습 및 사용을 더욱 간단하고 효율적으로 만들어 줍니다.',
+    description: 'Apache Airflow를 Astro CLI를 통해 시작하는 방법에 대해 정리한 글입니다.',
     link: 'https://devocean.sk.com/search/techBoardDetail.do?ID=167304',
     uid: 'blog-1',
   },
