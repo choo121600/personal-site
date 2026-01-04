@@ -56,12 +56,20 @@ export const PROJECTS: Project[] = [
 
 export const WORK_EXPERIENCE: WorkExperience[] = [
   {
+    company: 'Apache Software Foundation',
+    title: 'Committer for Apache Airflow',
+    start: '2025',
+    end: 'Present',
+    link: 'https://github.com/apache/airflow',
+    id: 'work1',
+  },  
+  {
     company: 'arxtrus',
     title: 'Founder',
     start: '2024',
     end: 'Present',
     link: 'https://arxtrus.com',
-    id: 'work1',
+    id: 'work2',
   },
   {
     company: 'Canonical',
@@ -69,7 +77,7 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
     start: '2024',
     end: 'Present',
     link: 'https://launchpad.net/~ubuntumembers',
-    id: 'work2',
+    id: 'work3',
   }
 ]
 
