@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, Suspense } from 'react'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/navigation'
 import { Save, Eye, FileText, X, Plus, Trash2, Image } from 'lucide-react'
+import type { CodeMirrorEditorHandle } from './CodeMirrorEditor'
 
 // MarkdownRenderer를 동적으로 로드 (SSR 방지)
 const MarkdownRenderer = dynamic(
@@ -46,6 +47,7 @@ export default function EditorPage() {
   const [isLoading, setIsLoading] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const thumbnailInputRef = useRef<HTMLInputElement>(null)
+  const editorRef = useRef<CodeMirrorEditorHandle>(null)
 
   // 포스트 목록 로드
   useEffect(() => {
@@ -196,11 +198,16 @@ export default function EditorPage() {
         const data = await response.json()
         const imageMarkdown = `![${file.name}](${data.path})`
         
-        // 끝에 이미지 마크다운 추가
-        setContent((prev) => {
-          const trimmed = prev.trim()
-          return trimmed ? `${trimmed}\n\n${imageMarkdown}\n` : `${imageMarkdown}\n`
-        })
+        // 커서 위치에 이미지 마크다운 삽입
+        if (editorRef.current) {
+          editorRef.current.insertAtCursor(`\n${imageMarkdown}\n`)
+        } else {
+          // 폴백: 끝에 추가
+          setContent((prev) => {
+            const trimmed = prev.trim()
+            return trimmed ? `${trimmed}\n\n${imageMarkdown}\n` : `${imageMarkdown}\n`
+          })
+        }
       } else {
         alert('이미지 업로드에 실패했습니다.')
       }
@@ -462,6 +469,7 @@ export default function EditorPage() {
                     }
                   >
                     <CodeMirrorEditor
+                      ref={editorRef}
                       value={content}
                       onChange={setContent}
                       onPaste={handlePaste}
@@ -491,6 +499,7 @@ export default function EditorPage() {
                   }
                 >
                   <CodeMirrorEditor
+                    ref={editorRef}
                     value={content}
                     onChange={setContent}
                     onPaste={handlePaste}
