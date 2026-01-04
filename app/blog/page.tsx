@@ -21,7 +21,7 @@ export default function BlogListPage() {
               className="group flex gap-4 rounded-lg border border-zinc-200 p-3 transition-colors hover:bg-zinc-50 dark:border-zinc-800 dark:hover:bg-zinc-900"
             >
               {post.thumbnail && (
-                <div className="relative aspect-[4/3] w-24 flex-shrink-0 overflow-hidden rounded-md sm:w-32">
+                <div className="relative aspect-video w-32 flex-shrink-0 overflow-hidden rounded-md sm:w-40">
                   <Image
                     src={post.thumbnail}
                     alt={post.title}
