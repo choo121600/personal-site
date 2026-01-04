@@ -15,13 +15,6 @@ type WorkExperience = {
   id: string
 }
 
-type BlogPost = {
-  title: string
-  description: string
-  link: string
-  uid: string
-}
-
 type TalkPost = {
   title: string
   description: string
@@ -79,21 +72,6 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
     link: 'https://launchpad.net/~ubuntumembers',
     id: 'work3',
   }
-]
-
-export const BLOG_POSTS: BlogPost[] = [
-  {
-    title: 'The Easiest Way to Get Started with Apache Airflow: Astro CLI',
-    description: 'How to quickly set up and run Apache Airflow projects using Astro CLI.',
-    link: 'https://devocean.sk.com/search/techBoardDetail.do?ID=167304',
-    uid: 'blog-1',
-  },
-  {
-    title: 'What’s New in Apache Airflow 2.10.0',
-    description: 'A detailed overview of the new features introduced in Apache Airflow 2.10.0.',
-    link: 'https://discourse.airflow-kr.org/t/apache-airflow-2-10-0/290',
-    uid: 'blog-2',
-  },
 ]
 
 export const TALK_POSTS: TalkPost[] = [
