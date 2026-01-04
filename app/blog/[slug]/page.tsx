@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
 import { getPostBySlug, getAllPosts } from '@/lib/posts'
-import ReactMarkdown from 'react-markdown'
+import { MarkdownRenderer } from '@/components/MarkdownRenderer'
 import type { Metadata } from 'next'
 
 interface PageProps {
@@ -59,9 +59,7 @@ export default async function BlogPostPage({ params }: PageProps) {
           </time>
         )}
       </header>
-      <div className="prose prose-gray max-w-none dark:prose-invert">
-        <ReactMarkdown>{post.content}</ReactMarkdown>
-      </div>
+      <MarkdownRenderer content={post.content} />
     </article>
   )
 }

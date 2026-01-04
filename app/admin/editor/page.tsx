@@ -5,9 +5,9 @@ import dynamic from 'next/dynamic'
 import { useRouter } from 'next/navigation'
 import { Save, Eye, FileText, X, Plus, Trash2, Image } from 'lucide-react'
 
-// ReactMarkdown을 동적으로 로드 (SSR 방지)
-const ReactMarkdown = dynamic(
-  () => import('react-markdown'),
+// MarkdownRenderer를 동적으로 로드 (SSR 방지)
+const MarkdownRenderer = dynamic(
+  () => import('@/components/MarkdownRenderer').then((mod) => mod.MarkdownRenderer),
   { ssr: false }
 )
 
@@ -477,9 +477,7 @@ export default function EditorPage() {
                       </div>
                     }
                   >
-                    <div className="prose prose-gray max-w-none dark:prose-invert">
-                      <ReactMarkdown>{content}</ReactMarkdown>
-                    </div>
+                    <MarkdownRenderer content={content} />
                   </Suspense>
                 </div>
               </>
