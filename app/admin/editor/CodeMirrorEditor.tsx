@@ -14,7 +14,7 @@ export default function CodeMirrorEditorComponent({
   onPaste,
 }: CodeMirrorEditorProps) {
   const [isMounted, setIsMounted] = useState(false)
-  const [extensions, setExtensions] = useState<{ CodeMirror: any; markdown: any } | null>(null)
+  const [extensions, setExtensions] = useState<{ CodeMirror: any; markdown: any; lineWrapping: any } | null>(null)
   const [theme, setTheme] = useState<any>(null)
 
   useEffect(() => {
@@ -26,8 +26,9 @@ export default function CodeMirrorEditorComponent({
       import('@uiw/react-codemirror').then((mod) => mod.default),
       import('@codemirror/lang-markdown').then((mod) => mod.markdown),
       import('@codemirror/theme-one-dark').then((mod) => mod.oneDark),
-    ]).then(([CodeMirrorComponent, mdExt, darkTheme]) => {
-      setExtensions({ CodeMirror: CodeMirrorComponent, markdown: mdExt })
+      import('@codemirror/view').then((mod) => mod.EditorView.lineWrapping),
+    ]).then(([CodeMirrorComponent, mdExt, darkTheme, lineWrap]) => {
+      setExtensions({ CodeMirror: CodeMirrorComponent, markdown: mdExt, lineWrapping: lineWrap })
       setTheme(darkTheme)
     })
   }, [])
@@ -40,14 +41,14 @@ export default function CodeMirrorEditorComponent({
     )
   }
 
-  const { CodeMirror, markdown: markdownExt } = extensions
+  const { CodeMirror, markdown: markdownExt, lineWrapping } = extensions
 
   return (
     <div onPaste={onPaste} className="h-full overflow-hidden">
       <CodeMirror
         value={value}
         onChange={onChange}
-        extensions={[markdownExt()]}
+        extensions={[markdownExt(), lineWrapping]}
         theme={theme}
         basicSetup={{
           lineNumbers: true,

@@ -453,7 +453,7 @@ export default function EditorPage() {
             {splitView ? (
               <>
                 {/* 에디터 */}
-                <div className="flex-1 border-r border-zinc-200 dark:border-zinc-800">
+                <div className="w-1/2 min-w-0 flex-shrink-0 border-r border-zinc-200 dark:border-zinc-800">
                   <Suspense
                     fallback={
                       <div className="flex h-full items-center justify-center">
@@ -469,7 +469,7 @@ export default function EditorPage() {
                   </Suspense>
                 </div>
                 {/* 미리보기 */}
-                <div className="flex-1 overflow-y-auto p-8">
+                <div className="w-1/2 min-w-0 flex-shrink-0 overflow-y-auto p-8">
                   <Suspense
                     fallback={
                       <div className="flex h-full items-center justify-center">
