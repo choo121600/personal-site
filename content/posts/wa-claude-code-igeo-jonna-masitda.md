@@ -112,3 +112,5 @@ Pro 쓰다가 “다 쓰면 막히는 게 아니라 추가 과금”인 줄 모�
 > 네, 형  
 > 바이브요?  
 > 제가 한번 존나 흔들어볼게요.
+
+![image.gif](/images/2026/01/VXPNOcId_NLYKMjoq3FJ4-lqAIWaTblofD1iPbHwGEl76P05D0S4OmwWaehsUBOxBwIUi1HeZmyMGQU2kv3w_g.gif)
