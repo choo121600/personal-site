@@ -1,0 +1,142 @@
+{
+  "name": "추영욱",
+  "title": "소프트웨어 엔지니어",
+  "email": "choo121600@gmail.com",
+  "phone": "+82-10-8815-8118",
+  "location": "대한민국 서울",
+  "summary": "Apache Airflow Committer. Core UI, Backend, 테스트 등 다양한 영역에 기여하며, 기술 밋업과 컨퍼런스에서 발표 활동을 병행하는 소프트웨어 엔지니어.",
+  "links": [
+    {
+      "label": "GitHub",
+      "url": "https://github.com/choo121600"
+    },
+    {
+      "label": "LinkedIn",
+      "url": "https://www.linkedin.com/in/yeonguk-choo"
+    }
+  ],
+  "experience": [
+    {
+      "id": "exp-1",
+      "company": "Apache Software Foundation",
+      "title": "Committer, Apache Airflow",
+      "location": "원격 근무",
+      "startDate": "2025년 12월",
+      "endDate": "",
+      "description": "",
+      "highlights": [
+        "월간 1,500만+ 다운로드 프로젝트의 Core UI, Backend에 50개 이상 PR 기여",
+        "Core UI, API, E2E Test, Breeze, i18n 등 100건 이상의 커뮤니티 PR 리뷰",
+        "Flaky 테스트 안정화로 CI 파이프라인 신뢰성 개선"
+      ]
+    },
+    {
+      "id": "exp-3",
+      "company": "Canonical",
+      "title": "Ubuntu Member",
+      "location": "원격 근무",
+      "startDate": "2024년 6월",
+      "endDate": "",
+      "description": "",
+      "highlights": [
+        "Launchpad를 통해 가장 널리 배포된 Linux 배포판인 Ubuntu의 한국어 번역(i18n) 기여",
+        "Ubuntu Release Party & InstallFest에서 주요 릴리즈 변경점 발표 및 설치 시연"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "id": "edu-1",
+      "institution": "한국해양대학교",
+      "degree": "학사",
+      "field": "데이터사이언스",
+      "startDate": "2023년 3월",
+      "endDate": "2026년 2월 (예정)",
+      "gpa": "",
+      "highlights": []
+    }
+  ],
+  "projects": [
+    {
+      "id": "proj-2",
+      "name": "킥보드 안전 모듈",
+      "description": "엣지 디바이스에서 실시간 헬멧 감지(94% 정확도) 및 지오펜싱을 위한 컴퓨터 비전 시스템",
+      "url": "https://github.com/choo121600/kickboardModule",
+      "startDate": "",
+      "endDate": "",
+      "highlights": [
+        "엣지 하드웨어에서 15-20 FPS 실시간 추론으로 94% 감지 정확도 달성",
+        "저지연 위치 기반 알림을 위한 MQTT 지오펜싱 구현"
+      ],
+      "technologies": [
+        "Python",
+        "YOLOv5",
+        "NVIDIA Jetson Nano",
+        "MQTT"
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "category": "프로그래밍 언어",
+      "items": [
+        "Python",
+        "SQL",
+        "TypeScript",
+        "Bash"
+      ]
+    },
+    {
+      "category": "데이터 및 ML",
+      "items": [
+        "Apache Airflow",
+        "Pandas",
+        "PyTorch"
+      ]
+    },
+    {
+      "category": "인프라",
+      "items": [
+        "AWS",
+        "Snowflake",
+        "Docker",
+        "Linux"
+      ]
+    }
+  ],
+  "certifications": [
+    {
+      "id": "cert-1",
+      "name": "DAG Authoring for Apache Airflow",
+      "issuer": "Astronomer",
+      "date": "2025년 1월",
+      "url": ""
+    },
+    {
+      "id": "cert-2",
+      "name": "Apache Airflow Fundamentals",
+      "issuer": "Astronomer",
+      "date": "2025년 1월",
+      "url": ""
+    }
+  ],
+  "awards": [],
+  "talks": [
+    {
+      "id": "talk-1",
+      "title": "Airflow + Snowflake: Building the Perfect Harmony",
+      "event": "Snowflake World Tour Seoul 2025",
+      "date": "2025년",
+      "url": "",
+      "description": "3,000명 이상의 참석자를 가진 Snowflake의 한국 컨퍼런스에서 Airflow와 Snowflake 통합 전략 발표"
+    },
+    {
+      "id": "talk-2",
+      "title": "Airflow 101 with Astro CLI",
+      "event": "Apache Airflow Users Korea Meetup",
+      "date": "2024년 10월",
+      "url": "",
+      "description": "40명 이상의 참석자에게 Astro CLI를 활용한 Apache Airflow 개발 워크플로우 소개, 로컬 개발 환경 설정, DAG 작성 모범 사례 다룸"
+    }
+  ]
+}

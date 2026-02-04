@@ -19,3 +19,99 @@
     border-color: var(--color-gray-200, currentColor);
   }
 }
+
+/* A4 Page styles for resume */
+.a4-page {
+  /* A4 size: 210mm x 297mm = 794px x 1123px at 96dpi */
+  width: 794px;
+  min-height: 1123px;
+  /* Single column ATS-friendly layout */
+}
+
+/* Resume wrapper - center the A4 page */
+.resume-wrapper {
+  padding: 2rem 1rem;
+  background: linear-gradient(135deg, #f5f5f5 0%, #e5e5e5 100%);
+  min-height: 100vh;
+}
+
+.dark .resume-wrapper {
+  background: linear-gradient(135deg, #18181b 0%, #09090b 100%);
+}
+
+/* Responsive: scale down on smaller screens */
+@media (max-width: 830px) {
+  .a4-page {
+    width: 100%;
+    min-height: auto;
+    transform: none;
+  }
+
+  .resume-wrapper {
+    padding: 1rem 0;
+    background: transparent;
+  }
+}
+
+/* Print styles for resume */
+@media print {
+  /* Hide non-essential elements */
+  .print\:hidden {
+    display: none !important;
+  }
+
+  /* Reset page margins */
+  @page {
+    margin: 0;
+    size: A4;
+  }
+
+  /* Hide header and footer from layout */
+  body > div > div > div > header,
+  body > div > div > div > footer {
+    display: none !important;
+  }
+
+  /* Reset wrapper styles */
+  .resume-wrapper {
+    padding: 0 !important;
+    background: none !important;
+    min-height: auto !important;
+  }
+
+  /* A4 page for print */
+  .a4-page {
+    width: 100% !important;
+    min-height: auto !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+  }
+
+  /* Ensure proper page breaks */
+  .resume-content section {
+    break-inside: avoid;
+  }
+
+  /* Reset background colors for printing */
+  body {
+    background: white !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Ensure dark sidebar prints correctly */
+  .a4-page aside {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Make links readable */
+  a {
+    text-decoration: none !important;
+  }
+
+  /* Remove shadows */
+  * {
+    box-shadow: none !important;
+  }
+}

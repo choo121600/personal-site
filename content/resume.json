@@ -1,0 +1,144 @@
+{
+  "name": "Yeonguk Choo",
+  "title": "Software Engineer",
+  "email": "choo121600@gmail.com",
+  "phone": "+82-10-8815-8118",
+  "location": "Seoul, South Korea",
+  "summary": "Apache Airflow Committer. Software Engineer contributing across Core UI, Backend, and testing, with speaking engagements at tech meetups and conferences.",
+  "links": [
+    {
+      "label": "GitHub",
+      "url": "https://github.com/choo121600"
+    },
+    {
+      "label": "LinkedIn",
+      "url": "https://www.linkedin.com/in/yeonguk-choo"
+    }
+  ],
+  "experience": [
+    {
+      "id": "exp-1",
+      "company": "Apache Software Foundation",
+      "title": "Committer, Apache Airflow",
+      "location": "Remote",
+      "startDate": "Dec 2025",
+      "endDate": "",
+      "description": "",
+      "highlights": [
+        "Contributed 50+ PRs to Core UI and Backend of a project with 15M+ monthly downloads",
+        "Reviewed 100+ community PRs across Core UI, API, E2E Test, Breeze, and i18n",
+        "Improved CI pipeline reliability by stabilizing flaky tests"
+      ]
+    },
+    {
+      "id": "exp-3",
+      "company": "Canonical",
+      "title": "Ubuntu Member",
+      "location": "Remote",
+      "startDate": "Jun 2024",
+      "endDate": "",
+      "description": "",
+      "highlights": [
+        "Contributed Korean translations (i18n) via Launchpad for Ubuntu, the most widely deployed Linux distribution",
+        "Presented major release changes and installation demos at Ubuntu Release Party & InstallFest"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "id": "edu-1",
+      "institution": "Korea Maritime and Ocean University",
+      "degree": "Bachelor of Science",
+      "field": "Data Science",
+      "startDate": "Mar 2023",
+      "endDate": "Feb 2026 (Expected)",
+      "gpa": "",
+      "highlights": []
+    }
+  ],
+  "projects": [
+    {
+      "id": "proj-2",
+      "name": "Kickboard Safety Module",
+      "description": "Computer vision system for real-time helmet detection (94% accuracy) and geofencing on edge devices",
+      "url": "https://github.com/choo121600/kickboardModule",
+      "startDate": "",
+      "endDate": "",
+      "highlights": [
+        "Achieved 94% detection accuracy with 15-20 FPS real-time inference on edge hardware",
+        "Optimized YOLOv5 model with TensorRT for 3x faster inference on Jetson Nano",
+        "Implemented geofencing with MQTT for low-latency location-based alerts"
+      ],
+      "technologies": [
+        "Python",
+        "YOLOv5",
+        "TensorRT",
+        "NVIDIA Jetson Nano",
+        "MQTT"
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "category": "Languages",
+      "items": [
+        "Python",
+        "SQL",
+        "TypeScript",
+        "Bash"
+      ]
+    },
+    {
+      "category": "Data and ML",
+      "items": [
+        "Apache Airflow",
+        "Pandas",
+        "PyTorch"
+      ]
+    },
+    {
+      "category": "Infrastructure",
+      "items": [
+        "AWS",
+        "Snowflake",
+        "Docker",
+        "Linux"
+      ]
+    }
+  ],
+  "certifications": [
+    {
+      "id": "cert-1",
+      "name": "DAG Authoring for Apache Airflow",
+      "issuer": "Astronomer",
+      "date": "Jan 2025",
+      "url": ""
+    },
+    {
+      "id": "cert-2",
+      "name": "Apache Airflow Fundamentals",
+      "issuer": "Astronomer",
+      "date": "Jan 2025",
+      "url": ""
+    }
+  ],
+  "awards": [],
+  "talks": [
+    {
+      "id": "talk-1",
+      "title": "Airflow + Snowflake: Building the Perfect Harmony",
+      "event": "Snowflake World Tour Seoul 2025",
+      "date": "2025",
+      "url": "",
+      "description": "Presented Airflow and Snowflake integration strategies to 3,000+ attendees at Snowflake's flagship conference in Korea"
+    },
+    {
+      "id": "talk-2",
+      "title": "Airflow 101 with Astro CLI",
+      "event": "Apache Airflow Users Korea Meetup",
+      "date": "Oct 2024",
+      "url": "",
+      "description": "Presented introduction to Apache Airflow development workflow using Astro CLI to 40+ attendees, covering local development setup, DAG authoring best practices, and deployment strategies"
+    }
+  ]
+}
