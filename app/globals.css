@@ -60,9 +60,9 @@
     display: none !important;
   }
 
-  /* Reset page margins */
+  /* Reset page margins - tight margins for more content */
   @page {
-    margin: 0;
+    margin: 8mm;
     size: A4;
   }
 
@@ -79,16 +79,53 @@
     min-height: auto !important;
   }
 
-  /* A4 page for print */
+  /* A4 page for print - minimal padding */
   .a4-page {
     width: 100% !important;
     min-height: auto !important;
     box-shadow: none !important;
     margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Tighter spacing for print */
+  .a4-page main {
+    margin-top: 0.75rem !important;
+  }
+
+  .a4-page main > * + * {
+    margin-top: 0.5rem !important;
+  }
+
+  /* Reduce spacing within sections */
+  .a4-page section > div {
+    margin-top: 0.375rem !important;
+  }
+
+  .a4-page section > div > * + * {
+    margin-top: 0.375rem !important;
+  }
+
+  /* Smaller font for print */
+  .a4-page {
+    font-size: 11px !important;
+  }
+
+  .a4-page h1 {
+    font-size: 1.25rem !important;
+  }
+
+  .a4-page h2 {
+    font-size: 0.75rem !important;
+    padding-bottom: 0.125rem !important;
+  }
+
+  .a4-page h3 {
+    font-size: 0.8125rem !important;
   }
 
   /* Ensure proper page breaks */
-  .resume-content section {
+  .a4-page section {
     break-inside: avoid;
   }
 
@@ -113,5 +150,21 @@
   /* Remove shadows */
   * {
     box-shadow: none !important;
+  }
+
+  /* Tighter line height for print */
+  .a4-page p,
+  .a4-page li,
+  .a4-page span {
+    line-height: 1.4 !important;
+  }
+
+  /* Reduce header padding */
+  .a4-page header {
+    padding-bottom: 0.5rem !important;
+  }
+
+  .a4-page header > * + * {
+    margin-top: 0.25rem !important;
   }
 }

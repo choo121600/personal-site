@@ -87,7 +87,7 @@ export function ResumeClient({ resume, locale = 'en' }: ResumeClientProps) {
       </div>
 
       {/* A4 Page - Conservative Single Column ATS-Optimized */}
-      <div className="a4-page mx-auto bg-white px-16 py-12 shadow-2xl print:px-12 print:py-10 print:shadow-none">
+      <div className="a4-page mx-auto bg-white px-16 py-12 shadow-2xl print:px-0 print:py-0 print:shadow-none">
 
         {/* Header */}
         <header className="text-center border-b border-zinc-300 pb-4">
