@@ -167,6 +167,17 @@ export default function EditorPage() {
     })
   }
 
+  // 이미지 드래그 앤 드롭 처리
+  const handleDrop = async (e: React.DragEvent) => {
+    e.preventDefault()
+    const files = e.dataTransfer.files
+    for (let i = 0; i < files.length; i++) {
+      if (files[i].type.startsWith('image/')) {
+        await uploadImage(files[i])
+      }
+    }
+  }
+
   // 이미지 붙여넣기 처리
   const handlePaste = async (e: React.ClipboardEvent) => {
     const items = e.clipboardData.items
@@ -450,7 +461,7 @@ export default function EditorPage() {
                 본문 이미지 파일 선택
               </button>
               <span className="ml-2 text-xs text-zinc-500">
-                또는 클립보드에서 이미지를 붙여넣으세요
+                또는 에디터에 이미지를 드래그하거나 붙여넣으세요
               </span>
             </div>
           </div>
@@ -473,6 +484,7 @@ export default function EditorPage() {
                       value={content}
                       onChange={setContent}
                       onPaste={handlePaste}
+                    onDrop={handleDrop}
                     />
                   </Suspense>
                 </div>

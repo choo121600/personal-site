@@ -7,6 +7,7 @@ interface CodeMirrorEditorProps {
   value: string
   onChange: (value: string) => void
   onPaste?: (e: React.ClipboardEvent) => void
+  onDrop?: (e: React.DragEvent) => void
 }
 
 export interface CodeMirrorEditorHandle {
@@ -14,7 +15,7 @@ export interface CodeMirrorEditorHandle {
 }
 
 const CodeMirrorEditorComponent = forwardRef<CodeMirrorEditorHandle, CodeMirrorEditorProps>(
-  function CodeMirrorEditorComponent({ value, onChange, onPaste }, ref) {
+  function CodeMirrorEditorComponent({ value, onChange, onPaste, onDrop }, ref) {
     const [isMounted, setIsMounted] = useState(false)
     const [extensions, setExtensions] = useState<{ CodeMirror: any; markdown: any; lineWrapping: any } | null>(null)
     const [theme, setTheme] = useState<any>(null)
@@ -61,7 +62,7 @@ const CodeMirrorEditorComponent = forwardRef<CodeMirrorEditorHandle, CodeMirrorE
     const { CodeMirror, markdown: markdownExt, lineWrapping } = extensions
 
     return (
-      <div onPaste={onPaste} className="h-full overflow-auto">
+      <div onPaste={onPaste} onDrop={onDrop} onDragOver={(e) => e.preventDefault()} className="h-full overflow-auto">
         <CodeMirror
           ref={editorRef}
           value={value}
