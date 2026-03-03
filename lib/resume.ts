@@ -1,93 +1,24 @@
 import fs from 'fs'
 import path from 'path'
 
-// Resume types
-export interface ResumeLink {
-  label: string
-  url: string
-}
+// Re-export all types from client-safe module
+export type {
+  ResumeLink,
+  Experience,
+  Education,
+  Project,
+  SkillCategory,
+  Certification,
+  Award,
+  Talk,
+  Community,
+  SectionKey,
+  Resume,
+  Locale,
+} from './resume-types'
+export { DEFAULT_SECTION_ORDER } from './resume-types'
 
-export interface Experience {
-  id: string
-  company: string
-  title: string
-  location?: string
-  startDate: string
-  endDate?: string
-  description?: string
-  highlights?: string[]
-}
-
-export interface Education {
-  id: string
-  institution: string
-  degree: string
-  field?: string
-  startDate: string
-  endDate?: string
-  gpa?: string
-  highlights?: string[]
-}
-
-export interface Project {
-  id: string
-  name: string
-  description: string
-  url?: string
-  startDate?: string
-  endDate?: string
-  highlights?: string[]
-  technologies?: string[]
-}
-
-export interface SkillCategory {
-  category: string
-  items: string[]
-}
-
-export interface Certification {
-  id: string
-  name: string
-  issuer: string
-  date: string
-  url?: string
-}
-
-export interface Award {
-  id: string
-  name: string
-  issuer: string
-  date: string
-  description?: string
-}
-
-export interface Talk {
-  id: string
-  title: string
-  event: string
-  date: string
-  url?: string
-  description?: string
-}
-
-export interface Resume {
-  name: string
-  title: string
-  email: string
-  phone?: string
-  location?: string
-  summary?: string
-  links: ResumeLink[]
-  experience: Experience[]
-  education: Education[]
-  projects: Project[]
-  skills: SkillCategory[]
-  certifications: Certification[]
-  awards: Award[]
-  talks: Talk[]
-}
-
-export type Locale = 'en' | 'ko'
+import type { Resume, Locale } from './resume-types'
 
 function getResumePath(locale: Locale = 'en'): string {
   const filename = locale === 'en' ? 'resume.json' : `resume.${locale}.json`
@@ -129,6 +60,7 @@ export function getDefaultResume(): Resume {
     certifications: [],
     awards: [],
     talks: [],
+    community: [],
   }
 }
 
