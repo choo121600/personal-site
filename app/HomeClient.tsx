@@ -19,6 +19,7 @@ import {
   EMAIL,
   SOCIAL_LINKS,
   TALK_POSTS,
+  COMMUNITY,
 } from './data'
 import type { PostMetadata } from '@/lib/posts'
 
@@ -143,9 +144,9 @@ export default function HomeClient({ latestPosts }: HomeClientProps) {
       >
         <div className="flex-1">
           <p className="text-zinc-600 dark:text-zinc-400">
-            My name is Yeonguk Choo, a software engineer specializing in the open-source ecosystem and data engineering. 
-            I take pride in my ability to solve problems based on experience across various industries,
-            and I enjoy driving improvements by streamlining workflows and making processes more efficient.
+            Apache Airflow Committer with full-stack expertise spanning React UI, REST API, and Python backend.
+            Operated a self-hosted platform orchestrating 300+ DAGs for quantitative finance.
+            Passionate about the intersection of AI and data infrastructure.
           </p>
         </div>
       </motion.section>
@@ -295,13 +296,20 @@ export default function HomeClient({ latestPosts }: HomeClientProps) {
               <Link
                 key={post.uid}
                 className="-mx-3 rounded-xl px-3 py-3"
-                href={post.link}
+                href={post.link || '#'}
                 data-id={post.uid}
               >
                 <div className="flex flex-col space-y-1">
-                  <h4 className="font-normal dark:text-zinc-100">
-                    {post.title}
-                  </h4>
+                  <div className="flex items-center justify-between">
+                    <h4 className="font-normal dark:text-zinc-100">
+                      {post.title}
+                    </h4>
+                    {post.date && (
+                      <span className="shrink-0 text-sm text-zinc-400 dark:text-zinc-500">
+                        {post.date}
+                      </span>
+                    )}
+                  </div>
                   <p className="text-zinc-500 dark:text-zinc-400">
                     {post.description}
                   </p>
@@ -309,6 +317,48 @@ export default function HomeClient({ latestPosts }: HomeClientProps) {
               </Link>
             ))}
           </AnimatedBackground>
+        </div>
+      </motion.section>
+
+      <motion.section
+        variants={VARIANTS_SECTION}
+        transition={TRANSITION_SECTION}
+      >
+        <h3 className="mb-5 text-lg font-medium">Community</h3>
+        <div className="flex flex-col space-y-2">
+          {COMMUNITY.map((item) => (
+            <div
+              className="relative overflow-hidden rounded-2xl bg-zinc-300/30 p-[1px] dark:bg-zinc-600/30"
+              key={item.id}
+            >
+              <Spotlight
+                className="from-zinc-900 via-zinc-800 to-zinc-700 blur-2xl dark:from-zinc-100 dark:via-zinc-200 dark:to-zinc-50"
+                size={64}
+              />
+              <div className="relative h-full w-full rounded-[15px] bg-white p-4 dark:bg-zinc-950">
+                <div className="flex w-full flex-row justify-between">
+                  <div>
+                    <h4 className="font-normal dark:text-zinc-100">
+                      {item.role}
+                    </h4>
+                    <p className="text-zinc-500 dark:text-zinc-400">
+                      {item.organization}
+                    </p>
+                  </div>
+                  <p className="text-zinc-600 dark:text-zinc-400">
+                    {item.start} - {item.end}
+                  </p>
+                </div>
+                {item.highlights.length > 0 && (
+                  <ul className="mt-3 list-disc space-y-1 pl-4 text-sm text-zinc-600 dark:text-zinc-400">
+                    {item.highlights.map((highlight) => (
+                      <li key={highlight}>{highlight}</li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </div>
+          ))}
         </div>
       </motion.section>
 

@@ -20,6 +20,16 @@ type TalkPost = {
   description: string
   link: string
   uid: string
+  date: string
+}
+
+type CommunityItem = {
+  organization: string
+  role: string
+  start: string
+  end: string
+  highlights: string[]
+  id: string
 }
 
 type SocialLink = {
@@ -58,7 +68,7 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
   },  
   {
     company: 'arxtrus',
-    title: 'Founder',
+    title: 'Founder & Software Engineer',
     start: '2024',
     end: 'Present',
     link: 'https://arxtrus.com',
@@ -76,11 +86,40 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
 
 export const TALK_POSTS: TalkPost[] = [
   {
+    title: 'Airflow Contributions Using Breeze & Astronomer Agents',
+    description: 'Live demonstration of the Airflow OSS contribution workflow and production-grade Agent automation patterns.',
+    link: '',
+    uid: 'talk-3',
+    date: 'Feb 2026',
+  },
+  {
+    title: 'Airflow + Snowflake: Building the Perfect Harmony',
+    description: 'Presented end-to-end ML workflow architecture integrating Apache Airflow with Snowflake to 3,000+ attendees.',
+    link: '',
+    uid: 'talk-2',
+    date: 'Aug 2025',
+  },
+  {
     title: 'Airflow 101 with Astro CLI',
     description: 'Hands-on workshop: Daily news summary and investment advice messaging service.',
     link: 'https://www.meetup.com/apache-airflow-users-korea/events/303680210',
     uid: 'talk-1',
-  }
+    date: '',
+  },
+]
+
+export const COMMUNITY: CommunityItem[] = [
+  {
+    organization: 'Apache Airflow Korea User Group',
+    role: 'Founder & Leader',
+    start: 'Dec 2023',
+    end: 'Present',
+    highlights: [
+      'Founded and scaled a 400+ member open-source community, organizing 5 meetups and 3 workshops',
+      'Built and operate a community Discourse forum with 100+ posts covering technical guides, Q&A, and OSS contribution onboarding',
+    ],
+    id: 'community-1',
+  },
 ]
 
 export const SOCIAL_LINKS: SocialLink[] = [
@@ -98,4 +137,4 @@ export const SOCIAL_LINKS: SocialLink[] = [
   },
 ]
 
-export const EMAIL = 'choo121600@gmail.com'
+export const EMAIL = 'choo121600@apache.org'
