@@ -14,6 +14,7 @@ export interface Experience {
   endDate?: string
   description?: string
   highlights?: string[]
+  technologies?: string[]
 }
 
 export interface Education {

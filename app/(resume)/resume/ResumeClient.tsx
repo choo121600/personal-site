@@ -144,8 +144,6 @@ export function ResumeClient({ resume, locale = 'en' }: ResumeClientProps) {
                 {resume.location}
               </span>
             )}
-          </div>
-          <div className="mt-1 flex items-center justify-center gap-4 text-sm text-zinc-600">
             {resume.links.map((link, index) => (
               <a
                 key={index}
@@ -186,8 +184,10 @@ export function ResumeClient({ resume, locale = 'en' }: ResumeClientProps) {
                       <div key={exp.id}>
                         <div className="flex items-start justify-between">
                           <div>
-                            <h3 className="text-sm font-bold text-zinc-900">{exp.company}</h3>
-                            <p className="text-sm text-zinc-600">{exp.title}{exp.location && ` | ${exp.location}`}</p>
+                            <h3 className="text-sm font-bold text-zinc-900">{exp.company}<span className="font-normal text-zinc-600"> — {exp.title}</span></h3>
+                            {exp.technologies?.length ? (
+                              <p className="text-sm text-zinc-600">{exp.technologies.join(', ')}</p>
+                            ) : null}
                           </div>
                           <span className="text-sm text-zinc-500 whitespace-nowrap">{formatDateRange(exp.startDate, exp.endDate)}</span>
                         </div>

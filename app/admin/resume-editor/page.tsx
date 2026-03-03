@@ -678,6 +678,7 @@ export default function ResumeEditorPage() {
                               <InputField label="시작일" value={exp.startDate} onChange={(v) => updateExperience(index, 'startDate', v)} placeholder="2024" />
                               <InputField label="종료일" value={exp.endDate || ''} onChange={(v) => updateExperience(index, 'endDate', v)} placeholder="현재 (비워두면 'Present')" />
                             </div>
+                            <ArrayInput label="기술 스택" items={exp.technologies || []} onChange={(v) => updateExperience(index, 'technologies', v)} placeholder="Python, React 등" />
                             <InputField label="설명" value={exp.description || ''} onChange={(v) => updateExperience(index, 'description', v)} placeholder="담당 업무 설명" multiline />
                             <ArrayInput label="주요 성과" items={exp.highlights || []} onChange={(v) => updateExperience(index, 'highlights', v)} placeholder="성과 항목" />
                           </div>
