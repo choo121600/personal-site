@@ -2,6 +2,7 @@
 
 import ReactMarkdown from 'react-markdown'
 import rehypeRaw from 'rehype-raw'
+import remarkBreaks from 'remark-breaks'
 import { YouTubeEmbed, extractYouTubeId, isYouTubeUrl } from './YouTubeEmbed'
 import type { Components } from 'react-markdown'
 
@@ -68,6 +69,7 @@ export function MarkdownRenderer({ content, className = '' }: MarkdownRendererPr
   return (
     <div className={`prose prose-gray max-w-none dark:prose-invert ${className}`}>
       <ReactMarkdown
+        remarkPlugins={[remarkBreaks]}
         rehypePlugins={[rehypeRaw]}
         components={components}
       >
