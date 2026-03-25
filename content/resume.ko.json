@@ -26,7 +26,7 @@
       "description": "",
       "technologies": [],
       "highlights": [
-        "core ui, core API, e2e 전반에 걸쳐 100건 이상의 PR을 기여하고, 200건 이상의 커뮤니티 PR을 리뷰",
+        "Core UI, core API, E2E 전반에 걸쳐 100건 이상의 PR을 기여하고, 200건 이상의 커뮤니티 PR을 리뷰",
         "Grid UI에 Dag/Bundle 버전 변경 인디케이터를 설계·구현하여, 운영자가 배포 간 설정 변경을 즉시 감지할 수 있도록 개선",
         "불안정한 E2E 테스트를 수정하여 CI 안정성 향상"
       ]
