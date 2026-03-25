@@ -4,7 +4,7 @@
   "email": "choo121600@apache.org",
   "phone": "",
   "location": "",
-  "summary": "React UI, REST API, Python 백엔드를 아우르는 풀스택 역량의 Apache Airflow Committer. 퀀트 금융을 위한 300개 이상의 Dag를 오케스트레이션하는 셀프 호스팅 플랫폼을 구축·운영했으며, AI와 데이터 인프라의 교차점에 깊은 관심을 가지고 있습니다.",
+  "summary": "React UI, REST API, Python 백엔드를 아우르는 풀스택 역량의 Apache Airflow Committer. 금융 데이터 분석을 위한 300개 이상의 Dag를 오케스트레이션하는 셀프 호스팅 플랫폼을 구축·운영했으며, AI와 데이터 분석에 깊은 관심을 가지고 있습니다.",
   "links": [
     {
       "label": "GitHub",
@@ -26,7 +26,7 @@
       "description": "",
       "technologies": [],
       "highlights": [
-        "프론트엔드, API, 백엔드 전반에 걸쳐 50건 이상의 PR을 기여하고, 100건 이상의 커뮤니티 PR을 리뷰",
+        "core ui, core API, e2e 전반에 걸쳐 100건 이상의 PR을 기여하고, 200건 이상의 커뮤니티 PR을 리뷰",
         "Grid UI에 Dag/Bundle 버전 변경 인디케이터를 설계·구현하여, 운영자가 배포 간 설정 변경을 즉시 감지할 수 있도록 개선",
         "불안정한 E2E 테스트를 수정하여 CI 안정성 향상"
       ]

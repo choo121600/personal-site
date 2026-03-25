@@ -26,7 +26,7 @@
       "description": "",
       "technologies": [],
       "highlights": [
-        "Delivered 50+ PRs across frontend, API, and backend; reviewed 100+ community PRs",
+        "Delivered 100+ PRs across core ui, core api, and e2e; reviewed 200+ community PRs",
         "Designed and shipped Dag/Bundle version change indicators in Grid UI, enabling operators to detect configuration drift instantly across deployments",
         "Fixed flaky E2E tests to improve CI stability"
       ]
