@@ -28,8 +28,7 @@
       "highlights": [
         "Delivered 100+ PRs across core UI, API, and E2E layers; reviewed 200+ community contributions",
         "Designed and implemented Dag and bundle version change indicators in the Grid UI,   enabling real-time detection of configuration drift across distributed deployments",
-        "Eliminated flaky E2E failures by redesigning synchronization and retry strategies,   significantly improving CI reliability under high-load conditions",
-        "Contributed to Apache Airflow, a widely adopted open-source workflow orchestration platform"
+        "Eliminated flaky E2E failures by redesigning synchronization and retry strategies,   significantly improving CI reliability under high-load conditions"
       ]
     },
     {
@@ -48,18 +47,7 @@
       ]
     }
   ],
-  "education": [
-    {
-      "id": "edu-1",
-      "institution": "Korea Maritime and Ocean University",
-      "degree": "B.S.",
-      "field": "Data Science",
-      "startDate": "Mar 2023",
-      "endDate": "Feb 2026",
-      "gpa": "",
-      "highlights": []
-    }
-  ],
+  "education": [],
   "projects": [],
   "skills": [
     {
@@ -103,7 +91,7 @@
       "event": "Apache Airflow Users Korea Meetup",
       "date": "Feb 2026",
       "url": "",
-      "description": "Live demonstration of the Airflow OSS contribution workflow and production-grade Agent automation patterns."
+      "description": "Live demonstration of the Airflow OSS contribution workflow and production-grade Agent automation patterns"
     },
     {
       "id": "talk-1",
@@ -111,7 +99,7 @@
       "event": "Snowflake World Tour Seoul 2025",
       "date": "Aug 2025",
       "url": "",
-      "description": "Presented end-to-end ML workflow architecture integrating Apache Airflow with Snowflake to 3,000+ attendees at Snowflake's flagship Korean conference."
+      "description": "Presented end-to-end ML workflow architecture integrating Apache Airflow with Snowflake"
     }
   ],
   "community": [
