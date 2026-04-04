@@ -1,6 +1,6 @@
 {
   "name": "Yeonguk Choo",
-  "title": "",
+  "title": "Data Platform Engineer | Apache Airflow Committer | Distributed Systems",
   "email": "choo121600@apache.org",
   "phone": "",
   "location": "",
@@ -42,7 +42,7 @@
       "description": "Quantitative research startup",
       "technologies": [],
       "highlights": [
-        "Architected and operated a self-hosted data platform orchestrating 300+ Dags,   processing multi-source financial data pipelines for automated alpha signal generation",
+        "Architected and operated a self-hosted data platform orchestrating 300+ DAGs,   processing multi-source financial data pipelines for automated alpha signal generation",
         "Designed end-to-end ingestion and transformation workflows across 10+ sources,   producing 20+ quantitative signals daily",
         "Built LLM-powered agent pipelines integrating retrieval and code generation,   automating research workflows and reducing manual analysis cycles"
       ]
