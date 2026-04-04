@@ -4,7 +4,7 @@
   "email": "choo121600@apache.org",
   "phone": "",
   "location": "",
-  "summary": "Apache Airflow Committer with full-stack expertise spanning React UI, REST API, and Python backend. Operated a self-hosted platform orchestrating 300+ Dags for quantitative finance. Passionate about the intersection of AI and data infrastructure.",
+  "summary": "Apache Airflow Committer specializing in data platforms and distributed systems.\n\nExperienced in designing and operating large-scale workflow orchestration systems, with a focus on system reliability, CI stability, and scalable data pipelines.\n\nBuilt and operated a quantitative research platform processing multi-source financial data, leveraging automation and LLM-based pipelines to improve research efficiency.",
   "links": [
     {
       "label": "GitHub",
@@ -26,9 +26,10 @@
       "description": "",
       "technologies": [],
       "highlights": [
-        "Delivered 100+ PRs across core ui, core api, and e2e; reviewed 200+ community PRs",
-        "Designed and shipped Dag/Bundle version change indicators in Grid UI, enabling operators to detect configuration drift instantly across deployments",
-        "Fixed flaky E2E tests to improve CI stability"
+        "Delivered 100+ PRs across core UI, API, and E2E layers; reviewed 200+ community contributions",
+        "Designed and implemented Dag and bundle version change indicators in the Grid UI,   enabling real-time detection of configuration drift across distributed deployments",
+        "Eliminated flaky E2E failures by redesigning synchronization and retry strategies,   significantly improving CI reliability under high-load conditions",
+        "Contributed to Apache Airflow, a widely adopted open-source workflow orchestration platform"
       ]
     },
     {
@@ -41,8 +42,9 @@
       "description": "Quantitative research startup",
       "technologies": [],
       "highlights": [
-        "Architected a self-hosted quantitative research platform orchestrating 300+ Dags that ingest and transform financial data from 10+ sources to generate 20+ alpha signal types daily",
-        "Built LLM-powered agent pipelines integrating retrieval and code generation to automate end-to-end research workflows, cutting manual analysis cycles significantly"
+        "Architected and operated a self-hosted data platform orchestrating 300+ Dags,   processing multi-source financial data pipelines for automated alpha signal generation",
+        "Designed end-to-end ingestion and transformation workflows across 10+ sources,   producing 20+ quantitative signals daily",
+        "Built LLM-powered agent pipelines integrating retrieval and code generation,   automating research workflows and reducing manual analysis cycles"
       ]
     }
   ],
