@@ -316,7 +316,14 @@ test.afterAll(async ({ authenticatedRequest }) => {
 ![image.png](/images/2026/03/image-1774310501859-eihoy4.png)
 
 몇 번을 돌려야 겨우 통과하던 테스트들이 이제는 한 번에 안정적으로 통과합니다.
-그리고 disable 해놨던 테스트들도 하나씩 다시 살릴 수 있었습니다.
+그리고 disable 해놨던 테스트들도 모두 다시 살릴 수 있었습니다.
+
+
+![image.png](/images/2026/05/image-1778477129789-nag4o4.png)
+
+
+그리고 그 무엇보다 가장 뿌듯했던 건,
+정말 많은 기여자분들이 참여한 Meta 이슈를 무사히 마무리할 수 있었다는 점이었습니다.
 
 ## 마무리
 
