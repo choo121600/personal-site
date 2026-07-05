@@ -144,9 +144,7 @@ export default function HomeClient({ latestPosts }: HomeClientProps) {
       >
         <div className="flex-1">
           <p className="text-zinc-600 dark:text-zinc-400">
-            Apache Airflow Committer with full-stack expertise spanning React UI, REST API, and Python backend.
-            Operated a self-hosted platform orchestrating 300+ DAGs for quantitative finance.
-            Passionate about the intersection of AI and data infrastructure.
+            Exploring the world through curiosity and creation.
           </p>
         </div>
       </motion.section>
