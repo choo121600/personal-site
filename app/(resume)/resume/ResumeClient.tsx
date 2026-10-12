@@ -1,6 +1,15 @@
 'use client'
 
-import { Download, Mail, MapPin, Phone, Github, Linkedin, Globe, Languages } from 'lucide-react'
+import {
+  Download,
+  Mail,
+  MapPin,
+  Phone,
+  Github,
+  Linkedin,
+  Globe,
+  Languages,
+} from 'lucide-react'
 import Link from 'next/link'
 import type { Resume, Locale, SectionKey } from '@/lib/resume-types'
 import { DEFAULT_SECTION_ORDER } from '@/lib/resume-types'
@@ -112,16 +121,11 @@ export function ResumeClient({ resume, locale = 'en' }: ResumeClientProps) {
 
       {/* A4 Page - Conservative Single Column ATS-Optimized */}
       <div className="a4-page mx-auto bg-white px-16 py-12 shadow-2xl print:px-0 print:py-0 print:shadow-none">
-
         {/* Header */}
-        <header className="text-center border-b border-zinc-300 pb-4">
-          <h1 className="text-2xl font-bold text-zinc-900">
-            {resume.name}
-          </h1>
+        <header className="border-b border-zinc-300 pb-4 text-center">
+          <h1 className="text-2xl font-bold text-zinc-900">{resume.name}</h1>
           {resume.title && (
-            <p className="mt-1 text-base text-zinc-600">
-              {resume.title}
-            </p>
+            <p className="mt-1 text-base text-zinc-600">{resume.title}</p>
           )}
 
           {/* Contact - Single line, centered */}
@@ -161,11 +165,10 @@ export function ResumeClient({ resume, locale = 'en' }: ResumeClientProps) {
 
         {/* Content */}
         <main className="mt-5 space-y-5">
-
           {/* Summary */}
           {resume.summary && (
             <section>
-              <h2 className="text-sm font-bold uppercase tracking-wide text-zinc-900 border-b border-zinc-200 pb-1">
+              <h2 className="border-b border-zinc-200 pb-1 text-sm font-bold tracking-wide text-zinc-900 uppercase">
                 {t.summary}
               </h2>
               <p className="mt-2 text-sm leading-relaxed text-zinc-700">
@@ -176,169 +179,260 @@ export function ResumeClient({ resume, locale = 'en' }: ResumeClientProps) {
 
           {(resume.sectionOrder ?? DEFAULT_SECTION_ORDER).map((key) => {
             const renderers: Record<SectionKey, () => React.ReactNode> = {
-              experience: () => resume.experience.length > 0 ? (
-                <section key="experience">
-                  <h2 className="text-sm font-bold uppercase tracking-wide text-zinc-900 border-b border-zinc-200 pb-1">{t.experience}</h2>
-                  <div className="mt-3 space-y-4">
-                    {resume.experience.map((exp) => (
-                      <div key={exp.id}>
-                        <div className="flex items-start justify-between">
-                          <div>
-                            <h3 className="text-sm font-bold text-zinc-900">{exp.company}<span className="font-normal text-zinc-600"> — {exp.title}</span></h3>
-                            {exp.technologies?.length ? (
-                              <p className="text-sm text-zinc-600">{exp.technologies.join(', ')}</p>
-                            ) : null}
+              experience: () =>
+                resume.experience.length > 0 ? (
+                  <section key="experience">
+                    <h2 className="border-b border-zinc-200 pb-1 text-sm font-bold tracking-wide text-zinc-900 uppercase">
+                      {t.experience}
+                    </h2>
+                    <div className="mt-3 space-y-4">
+                      {resume.experience.map((exp) => (
+                        <div key={exp.id}>
+                          <div className="flex items-start justify-between">
+                            <div>
+                              <h3 className="text-sm font-bold text-zinc-900">
+                                {exp.company}
+                                <span className="font-normal text-zinc-600">
+                                  {' '}
+                                  — {exp.title}
+                                </span>
+                              </h3>
+                              {exp.technologies?.length ? (
+                                <p className="text-sm text-zinc-600">
+                                  {exp.technologies.join(', ')}
+                                </p>
+                              ) : null}
+                            </div>
+                            <span className="text-sm whitespace-nowrap text-zinc-500">
+                              {formatDateRange(exp.startDate, exp.endDate)}
+                            </span>
                           </div>
-                          <span className="text-sm text-zinc-500 whitespace-nowrap">{formatDateRange(exp.startDate, exp.endDate)}</span>
+                          {exp.highlights && exp.highlights.length > 0 && (
+                            <ul className="mt-1.5 space-y-1 text-sm text-zinc-700">
+                              {exp.highlights.map((highlight, i) => (
+                                <li key={i} className="flex">
+                                  <span className="mr-2 text-zinc-400">•</span>
+                                  <span>{renderTextWithLinks(highlight)}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          )}
                         </div>
-                        {exp.highlights && exp.highlights.length > 0 && (
-                          <ul className="mt-1.5 space-y-1 text-sm text-zinc-700">
-                            {exp.highlights.map((highlight, i) => (
-                              <li key={i} className="flex">
-                                <span className="mr-2 text-zinc-400">•</span>
-                                <span>{renderTextWithLinks(highlight)}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </section>
-              ) : null,
-              skills: () => resume.skills.length > 0 ? (
-                <section key="skills">
-                  <h2 className="text-sm font-bold uppercase tracking-wide text-zinc-900 border-b border-zinc-200 pb-1">{t.skills}</h2>
-                  <div className="mt-2 space-y-1">
-                    {resume.skills.map((skillGroup, index) => (
-                      <div key={index} className="text-sm">
-                        <span className="font-semibold text-zinc-800">{skillGroup.category}: </span>
-                        <span className="text-zinc-700">{skillGroup.items.join(', ')}</span>
-                      </div>
-                    ))}
-                  </div>
-                </section>
-              ) : null,
-              projects: () => resume.projects.length > 0 ? (
-                <section key="projects">
-                  <h2 className="text-sm font-bold uppercase tracking-wide text-zinc-900 border-b border-zinc-200 pb-1">{t.projects}</h2>
-                  <div className="mt-3 space-y-3">
-                    {resume.projects.map((project) => (
-                      <div key={project.id}>
-                        <h3 className="text-sm font-bold text-zinc-900">
-                          {project.name}
-                          {project.url && <span className="font-normal text-zinc-500"> - {project.url}</span>}
-                        </h3>
-                        <p className="text-sm text-zinc-700">{project.description}</p>
-                        {project.technologies && project.technologies.length > 0 && (
-                          <p className="mt-0.5 text-sm text-zinc-500">{t.technologies}: {project.technologies.join(', ')}</p>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </section>
-              ) : null,
-              education: () => resume.education.length > 0 ? (
-                <section key="education">
-                  <h2 className="text-sm font-bold uppercase tracking-wide text-zinc-900 border-b border-zinc-200 pb-1">{t.education}</h2>
-                  <div className="mt-3 space-y-2">
-                    {resume.education.map((edu) => (
-                      <div key={edu.id} className="flex items-start justify-between">
-                        <div>
-                          <h3 className="text-sm font-bold text-zinc-900">{edu.institution}</h3>
-                          <p className="text-sm text-zinc-600">
-                            {locale === 'ko' ? `${edu.field ? `${edu.field} ` : ''}${edu.degree}` : `${edu.degree}${edu.field ? ` in ${edu.field}` : ''}`}
-                            {edu.gpa && ` | ${t.gpa}: ${edu.gpa}`}
+                      ))}
+                    </div>
+                  </section>
+                ) : null,
+              skills: () =>
+                resume.skills.length > 0 ? (
+                  <section key="skills">
+                    <h2 className="border-b border-zinc-200 pb-1 text-sm font-bold tracking-wide text-zinc-900 uppercase">
+                      {t.skills}
+                    </h2>
+                    <div className="mt-2 space-y-1">
+                      {resume.skills.map((skillGroup, index) => (
+                        <div key={index} className="text-sm">
+                          <span className="font-semibold text-zinc-800">
+                            {skillGroup.category}:{' '}
+                          </span>
+                          <span className="text-zinc-700">
+                            {skillGroup.items.join(', ')}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </section>
+                ) : null,
+              projects: () =>
+                resume.projects.length > 0 ? (
+                  <section key="projects">
+                    <h2 className="border-b border-zinc-200 pb-1 text-sm font-bold tracking-wide text-zinc-900 uppercase">
+                      {t.projects}
+                    </h2>
+                    <div className="mt-3 space-y-3">
+                      {resume.projects.map((project) => (
+                        <div key={project.id}>
+                          <h3 className="text-sm font-bold text-zinc-900">
+                            {project.name}
+                            {project.url && (
+                              <span className="font-normal text-zinc-500">
+                                {' '}
+                                - {project.url}
+                              </span>
+                            )}
+                          </h3>
+                          <p className="text-sm text-zinc-700">
+                            {project.description}
                           </p>
+                          {project.technologies &&
+                            project.technologies.length > 0 && (
+                              <p className="mt-0.5 text-sm text-zinc-500">
+                                {t.technologies}:{' '}
+                                {project.technologies.join(', ')}
+                              </p>
+                            )}
                         </div>
-                        <span className="text-sm text-zinc-500 whitespace-nowrap">{formatDateRange(edu.startDate, edu.endDate)}</span>
-                      </div>
-                    ))}
-                  </div>
-                </section>
-              ) : null,
-              certifications: () => resume.certifications.length > 0 ? (
-                <section key="certifications">
-                  <h2 className="text-sm font-bold uppercase tracking-wide text-zinc-900 border-b border-zinc-200 pb-1">{t.certifications}</h2>
-                  <div className="mt-2 space-y-1">
-                    {resume.certifications.map((cert) => (
-                      <div key={cert.id} className="flex items-start justify-between text-sm">
-                        <div>
-                          <span className="font-semibold text-zinc-800">{cert.name}</span>
-                          <span className="text-zinc-600"> - {cert.issuer}</span>
-                        </div>
-                        <span className="text-zinc-500">{cert.date}</span>
-                      </div>
-                    ))}
-                  </div>
-                </section>
-              ) : null,
-              talks: () => resume.talks.length > 0 ? (
-                <section key="talks">
-                  <h2 className="text-sm font-bold uppercase tracking-wide text-zinc-900 border-b border-zinc-200 pb-1">{t.presentations}</h2>
-                  <div className="mt-3 space-y-4">
-                    {resume.talks.map((talk) => (
-                      <div key={talk.id} className="text-sm">
-                        <div className="flex items-start justify-between">
-                          <h3 className="font-bold text-zinc-900">{talk.title}</h3>
-                          <span className="text-zinc-500 whitespace-nowrap">{talk.date}</span>
-                        </div>
-                        <p className="text-zinc-600">{talk.event}</p>
-                        {talk.description && <p className="mt-0.5 text-zinc-600">{talk.description}</p>}
-                      </div>
-                    ))}
-                  </div>
-                </section>
-              ) : null,
-              awards: () => resume.awards.length > 0 ? (
-                <section key="awards">
-                  <h2 className="text-sm font-bold uppercase tracking-wide text-zinc-900 border-b border-zinc-200 pb-1">{t.awards}</h2>
-                  <div className="mt-2 space-y-1">
-                    {resume.awards.map((award) => (
-                      <div key={award.id} className="flex items-start justify-between text-sm">
-                        <div>
-                          <span className="font-semibold text-zinc-800">{award.name}</span>
-                          <span className="text-zinc-600"> - {award.issuer}</span>
-                        </div>
-                        <span className="text-zinc-500">{award.date}</span>
-                      </div>
-                    ))}
-                  </div>
-                </section>
-              ) : null,
-              community: () => resume.community && resume.community.length > 0 ? (
-                <section key="community">
-                  <h2 className="text-sm font-bold uppercase tracking-wide text-zinc-900 border-b border-zinc-200 pb-1">{t.community}</h2>
-                  <div className="mt-3 space-y-4">
-                    {resume.community.map((item) => (
-                      <div key={item.id}>
-                        <div className="flex items-start justify-between">
+                      ))}
+                    </div>
+                  </section>
+                ) : null,
+              education: () =>
+                resume.education.length > 0 ? (
+                  <section key="education">
+                    <h2 className="border-b border-zinc-200 pb-1 text-sm font-bold tracking-wide text-zinc-900 uppercase">
+                      {t.education}
+                    </h2>
+                    <div className="mt-3 space-y-2">
+                      {resume.education.map((edu) => (
+                        <div
+                          key={edu.id}
+                          className="flex items-start justify-between"
+                        >
                           <div>
-                            <h3 className="text-sm font-bold text-zinc-900">{item.organization}</h3>
-                            <p className="text-sm text-zinc-600">{item.role}</p>
+                            <h3 className="text-sm font-bold text-zinc-900">
+                              {edu.institution}
+                            </h3>
+                            <p className="text-sm text-zinc-600">
+                              {locale === 'ko'
+                                ? `${edu.field ? `${edu.field} ` : ''}${edu.degree}`
+                                : `${edu.degree}${edu.field ? ` in ${edu.field}` : ''}`}
+                              {edu.gpa && ` | ${t.gpa}: ${edu.gpa}`}
+                            </p>
                           </div>
-                          <span className="text-sm text-zinc-500 whitespace-nowrap">{formatDateRange(item.startDate, item.endDate)}</span>
+                          <span className="text-sm whitespace-nowrap text-zinc-500">
+                            {formatDateRange(edu.startDate, edu.endDate)}
+                          </span>
                         </div>
-                        {item.description && <p className="mt-1 text-sm text-zinc-700">{item.description}</p>}
-                        {item.highlights && item.highlights.length > 0 && (
-                          <ul className="mt-1.5 space-y-1 text-sm text-zinc-700">
-                            {item.highlights.map((highlight, i) => (
-                              <li key={i} className="flex">
-                                <span className="mr-2 text-zinc-400">•</span>
-                                <span>{renderTextWithLinks(highlight)}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </section>
-              ) : null,
+                      ))}
+                    </div>
+                  </section>
+                ) : null,
+              certifications: () =>
+                resume.certifications.length > 0 ? (
+                  <section key="certifications">
+                    <h2 className="border-b border-zinc-200 pb-1 text-sm font-bold tracking-wide text-zinc-900 uppercase">
+                      {t.certifications}
+                    </h2>
+                    <div className="mt-2 space-y-1">
+                      {resume.certifications.map((cert) => (
+                        <div
+                          key={cert.id}
+                          className="flex items-start justify-between text-sm"
+                        >
+                          <div>
+                            <span className="font-semibold text-zinc-800">
+                              {cert.name}
+                            </span>
+                            <span className="text-zinc-600">
+                              {' '}
+                              - {cert.issuer}
+                            </span>
+                          </div>
+                          <span className="text-zinc-500">{cert.date}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </section>
+                ) : null,
+              talks: () =>
+                resume.talks.length > 0 ? (
+                  <section key="talks">
+                    <h2 className="border-b border-zinc-200 pb-1 text-sm font-bold tracking-wide text-zinc-900 uppercase">
+                      {t.presentations}
+                    </h2>
+                    <div className="mt-3 space-y-4">
+                      {resume.talks.map((talk) => (
+                        <div key={talk.id} className="text-sm">
+                          <div className="flex items-start justify-between">
+                            <h3 className="font-bold text-zinc-900">
+                              {talk.title}
+                            </h3>
+                            <span className="whitespace-nowrap text-zinc-500">
+                              {talk.date}
+                            </span>
+                          </div>
+                          <p className="text-zinc-600">{talk.event}</p>
+                          {talk.description && (
+                            <p className="mt-0.5 text-zinc-600">
+                              {talk.description}
+                            </p>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </section>
+                ) : null,
+              awards: () =>
+                resume.awards.length > 0 ? (
+                  <section key="awards">
+                    <h2 className="border-b border-zinc-200 pb-1 text-sm font-bold tracking-wide text-zinc-900 uppercase">
+                      {t.awards}
+                    </h2>
+                    <div className="mt-2 space-y-1">
+                      {resume.awards.map((award) => (
+                        <div
+                          key={award.id}
+                          className="flex items-start justify-between text-sm"
+                        >
+                          <div>
+                            <span className="font-semibold text-zinc-800">
+                              {award.name}
+                            </span>
+                            <span className="text-zinc-600">
+                              {' '}
+                              - {award.issuer}
+                            </span>
+                          </div>
+                          <span className="text-zinc-500">{award.date}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </section>
+                ) : null,
+              community: () =>
+                resume.community && resume.community.length > 0 ? (
+                  <section key="community">
+                    <h2 className="border-b border-zinc-200 pb-1 text-sm font-bold tracking-wide text-zinc-900 uppercase">
+                      {t.community}
+                    </h2>
+                    <div className="mt-3 space-y-4">
+                      {resume.community.map((item) => (
+                        <div key={item.id}>
+                          <div className="flex items-start justify-between">
+                            <div>
+                              <h3 className="text-sm font-bold text-zinc-900">
+                                {item.organization}
+                              </h3>
+                              <p className="text-sm text-zinc-600">
+                                {item.role}
+                              </p>
+                            </div>
+                            <span className="text-sm whitespace-nowrap text-zinc-500">
+                              {formatDateRange(item.startDate, item.endDate)}
+                            </span>
+                          </div>
+                          {item.description && (
+                            <p className="mt-1 text-sm text-zinc-700">
+                              {item.description}
+                            </p>
+                          )}
+                          {item.highlights && item.highlights.length > 0 && (
+                            <ul className="mt-1.5 space-y-1 text-sm text-zinc-700">
+                              {item.highlights.map((highlight, i) => (
+                                <li key={i} className="flex">
+                                  <span className="mr-2 text-zinc-400">•</span>
+                                  <span>{renderTextWithLinks(highlight)}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </section>
+                ) : null,
             }
             return renderers[key]?.()
           })}
-
         </main>
       </div>
     </div>

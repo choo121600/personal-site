@@ -7,17 +7,14 @@ export async function POST(request: NextRequest) {
     const file = formData.get('file') as File
 
     if (!file) {
-      return NextResponse.json(
-        { error: 'No file provided' },
-        { status: 400 }
-      )
+      return NextResponse.json({ error: 'No file provided' }, { status: 400 })
     }
 
     // 이미지 파일만 허용
     if (!file.type.startsWith('image/')) {
       return NextResponse.json(
         { error: 'File must be an image' },
-        { status: 400 }
+        { status: 400 },
       )
     }
 
@@ -33,9 +30,7 @@ export async function POST(request: NextRequest) {
     console.error('Image upload error:', error)
     return NextResponse.json(
       { error: 'Failed to upload image' },
-      { status: 500 }
+      { status: 500 },
     )
   }
 }
-
-

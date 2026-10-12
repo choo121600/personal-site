@@ -35,7 +35,10 @@ export async function getResume(locale: Locale = 'en'): Promise<Resume> {
   }
 }
 
-export async function saveResume(data: Resume, locale: Locale = 'en'): Promise<void> {
+export async function saveResume(
+  data: Resume,
+  locale: Locale = 'en',
+): Promise<void> {
   const resumePath = getResumePath(locale)
   const dir = path.dirname(resumePath)
   if (!fs.existsSync(dir)) {

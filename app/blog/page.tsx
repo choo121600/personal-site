@@ -32,7 +32,9 @@ export default function BlogListPage() {
                 </div>
               )}
               <div className="flex min-w-0 flex-1 flex-col justify-center">
-                <h1 className="text-base font-medium leading-snug sm:text-lg">{post.title}</h1>
+                <h1 className="text-base leading-snug font-medium sm:text-lg">
+                  {post.title}
+                </h1>
                 {post.description && (
                   <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
                     {post.description}
@@ -55,4 +57,3 @@ export default function BlogListPage() {
     </div>
   )
 }
-

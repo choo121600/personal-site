@@ -49,7 +49,8 @@ export const PROJECTS: Project[] = [
   },
   {
     name: 'Kickboard Module with Jetson Nano',
-    description: 'A module that detects helmet usage and entry into children protection zones to control the maximum output speed of the kickboard.',
+    description:
+      'A module that detects helmet usage and entry into children protection zones to control the maximum output speed of the kickboard.',
     link: 'https://github.com/choo121600/kickboardModule',
     video:
       'https://res.cloudinary.com/read-cv/video/upload/t_v_b/v1/1/profileItems/W2azTw5BVbMXfj7F53G92hMVIn32/XSfIvT7BUWbPRXhrbLed/ee6871c9-8400-49d2-8be9-e32675eabf7e.mp4?_a=DATAdtAAZAA0',
@@ -65,7 +66,7 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
     end: 'Present',
     link: 'https://github.com/apache/airflow',
     id: 'work1',
-  },  
+  },
   {
     company: 'arxtrus',
     title: 'Founder & Software Engineer',
@@ -81,27 +82,30 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
     end: 'Present',
     link: 'https://launchpad.net/~ubuntumembers',
     id: 'work3',
-  }
+  },
 ]
 
 export const TALK_POSTS: TalkPost[] = [
   {
     title: 'Airflow Contributions Using Breeze & Astronomer Agents',
-    description: 'Live demonstration of the Airflow OSS contribution workflow and production-grade Agent automation patterns.',
+    description:
+      'Live demonstration of the Airflow OSS contribution workflow and production-grade Agent automation patterns.',
     link: '',
     uid: 'talk-3',
     date: 'Feb 2026',
   },
   {
     title: 'Airflow + Snowflake: Building the Perfect Harmony',
-    description: 'Presented end-to-end ML workflow architecture integrating Apache Airflow with Snowflake to 3,000+ attendees.',
+    description:
+      'Presented end-to-end ML workflow architecture integrating Apache Airflow with Snowflake to 3,000+ attendees.',
     link: '',
     uid: 'talk-2',
     date: 'Aug 2025',
   },
   {
     title: 'Airflow 101 with Astro CLI',
-    description: 'Hands-on workshop: Daily news summary and investment advice messaging service.',
+    description:
+      'Hands-on workshop: Daily news summary and investment advice messaging service.',
     link: 'https://www.meetup.com/apache-airflow-users-korea/events/303680210',
     uid: 'talk-1',
     date: '',

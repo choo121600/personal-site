@@ -9,10 +9,7 @@ export async function GET(request: NextRequest) {
   if (slug) {
     const post = getPostBySlug(slug)
     if (!post) {
-      return NextResponse.json(
-        { error: 'Post not found' },
-        { status: 404 }
-      )
+      return NextResponse.json({ error: 'Post not found' }, { status: 404 })
     }
     return NextResponse.json(post)
   }
@@ -30,7 +27,7 @@ export async function POST(request: NextRequest) {
     if (!slug || !content) {
       return NextResponse.json(
         { error: 'Slug and content are required' },
-        { status: 400 }
+        { status: 400 },
       )
     }
 
@@ -42,10 +39,7 @@ export async function POST(request: NextRequest) {
     })
   } catch (error) {
     console.error('Save post error:', error)
-    return NextResponse.json(
-      { error: 'Failed to save post' },
-      { status: 500 }
-    )
+    return NextResponse.json({ error: 'Failed to save post' }, { status: 500 })
   }
 }
 
@@ -56,19 +50,13 @@ export async function DELETE(request: NextRequest) {
     const slug = searchParams.get('slug')
 
     if (!slug) {
-      return NextResponse.json(
-        { error: 'Slug is required' },
-        { status: 400 }
-      )
+      return NextResponse.json({ error: 'Slug is required' }, { status: 400 })
     }
 
     const deleted = deletePost(slug)
 
     if (!deleted) {
-      return NextResponse.json(
-        { error: 'Post not found' },
-        { status: 404 }
-      )
+      return NextResponse.json({ error: 'Post not found' }, { status: 404 })
     }
 
     return NextResponse.json({
@@ -79,9 +67,7 @@ export async function DELETE(request: NextRequest) {
     console.error('Delete post error:', error)
     return NextResponse.json(
       { error: 'Failed to delete post' },
-      { status: 500 }
+      { status: 500 },
     )
   }
 }
-
-

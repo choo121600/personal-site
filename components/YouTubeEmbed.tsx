@@ -5,7 +5,10 @@ interface YouTubeEmbedProps {
   title?: string
 }
 
-export function YouTubeEmbed({ videoId, title = 'YouTube video' }: YouTubeEmbedProps) {
+export function YouTubeEmbed({
+  videoId,
+  title = 'YouTube video',
+}: YouTubeEmbedProps) {
   return (
     <div className="relative my-6 aspect-video w-full overflow-hidden rounded-xl">
       <iframe
@@ -40,5 +43,3 @@ export function extractYouTubeId(url: string): string | null {
 export function isYouTubeUrl(url: string): boolean {
   return extractYouTubeId(url) !== null
 }
-
-

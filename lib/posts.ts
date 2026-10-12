@@ -26,7 +26,7 @@ export function ensurePostsDirectory() {
 // 모든 포스트 목록 가져오기
 export function getAllPosts(): PostMetadata[] {
   ensurePostsDirectory()
-  
+
   if (!fs.existsSync(postsDirectory)) {
     return []
   }
@@ -62,9 +62,9 @@ export function getAllPosts(): PostMetadata[] {
 // 특정 포스트 가져오기
 export function getPostBySlug(slug: string): Post | null {
   ensurePostsDirectory()
-  
+
   const fullPath = path.join(postsDirectory, `${slug}.md`)
-  
+
   if (!fs.existsSync(fullPath)) {
     return null
   }
@@ -83,15 +83,19 @@ export function getPostBySlug(slug: string): Post | null {
 }
 
 // 포스트 저장
-export function savePost(slug: string, content: string, metadata: Partial<PostMetadata> = {}) {
+export function savePost(
+  slug: string,
+  content: string,
+  metadata: Partial<PostMetadata> = {},
+) {
   ensurePostsDirectory()
-  
+
   const frontmatter: Record<string, string> = {
     title: metadata.title || slug,
     description: metadata.description || '',
     date: metadata.date || new Date().toISOString().split('T')[0],
   }
-  
+
   // thumbnail이 있을 때만 추가
   if (metadata.thumbnail) {
     frontmatter.thumbnail = metadata.thumbnail
@@ -99,19 +103,18 @@ export function savePost(slug: string, content: string, metadata: Partial<PostMe
 
   const matterString = matter.stringify(content, frontmatter)
   const fullPath = path.join(postsDirectory, `${slug}.md`)
-  
+
   fs.writeFileSync(fullPath, matterString, 'utf8')
 }
 
 // 포스트 삭제
 export function deletePost(slug: string) {
   const fullPath = path.join(postsDirectory, `${slug}.md`)
-  
+
   if (fs.existsSync(fullPath)) {
     fs.unlinkSync(fullPath)
     return true
   }
-  
+
   return false
 }
-

@@ -17,7 +17,7 @@ interface MarkdownRendererProps {
 // remark-gfm의 autolink 때문에 맨 URL도 <a>로 변환되므로 텍스트와 링크를 모두 본다.
 function soleYouTubeUrl(node: Element | undefined): string | null {
   const children = (node?.children ?? []).filter(
-    (child) => !(child.type === 'text' && child.value.trim() === '')
+    (child) => !(child.type === 'text' && child.value.trim() === ''),
   )
   if (children.length !== 1) return null
 
@@ -87,9 +87,14 @@ const components: Components = {
   },
 }
 
-export function MarkdownRenderer({ content, className = '' }: MarkdownRendererProps) {
+export function MarkdownRenderer({
+  content,
+  className = '',
+}: MarkdownRendererProps) {
   return (
-    <div className={`prose prose-gray max-w-none dark:prose-invert ${className}`}>
+    <div
+      className={`prose prose-gray dark:prose-invert max-w-none ${className}`}
+    >
       <ReactMarkdown
         remarkPlugins={[remarkGfm, remarkBreaks]}
         rehypePlugins={[rehypeRaw]}
@@ -100,5 +105,3 @@ export function MarkdownRenderer({ content, className = '' }: MarkdownRendererPr
     </div>
   )
 }
-
-

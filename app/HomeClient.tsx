@@ -222,8 +222,8 @@ export default function HomeClient({ latestPosts }: HomeClientProps) {
       >
         <div className="mb-3 flex items-center justify-between">
           <h3 className="text-lg font-medium">Blog</h3>
-          <Link 
-            href="/blog" 
+          <Link
+            href="/blog"
             className="text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-zinc-100"
           >
             View all →
@@ -253,7 +253,9 @@ export default function HomeClient({ latestPosts }: HomeClientProps) {
                   </div>
                 )}
                 <div className="flex min-w-0 flex-1 flex-col justify-center">
-                  <h4 className="text-base font-medium leading-snug sm:text-lg">{post.title}</h4>
+                  <h4 className="text-base leading-snug font-medium sm:text-lg">
+                    {post.title}
+                  </h4>
                   {post.description && (
                     <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
                       {post.description}
@@ -382,4 +384,3 @@ export default function HomeClient({ latestPosts }: HomeClientProps) {
     </motion.main>
   )
 }
-

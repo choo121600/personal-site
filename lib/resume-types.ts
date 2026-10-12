@@ -79,10 +79,25 @@ export interface Community {
   highlights?: string[]
 }
 
-export type SectionKey = 'experience' | 'education' | 'projects' | 'skills' | 'certifications' | 'awards' | 'talks' | 'community'
+export type SectionKey =
+  | 'experience'
+  | 'education'
+  | 'projects'
+  | 'skills'
+  | 'certifications'
+  | 'awards'
+  | 'talks'
+  | 'community'
 
 export const DEFAULT_SECTION_ORDER: SectionKey[] = [
-  'experience', 'skills', 'projects', 'education', 'certifications', 'talks', 'awards', 'community',
+  'experience',
+  'skills',
+  'projects',
+  'education',
+  'certifications',
+  'talks',
+  'awards',
+  'community',
 ]
 
 export interface Resume {

@@ -8,22 +8,20 @@ import type { CodeMirrorEditorHandle } from './CodeMirrorEditor'
 
 // MarkdownRenderer를 동적으로 로드 (SSR 방지)
 const MarkdownRenderer = dynamic(
-  () => import('@/components/MarkdownRenderer').then((mod) => mod.MarkdownRenderer),
-  { ssr: false }
+  () =>
+    import('@/components/MarkdownRenderer').then((mod) => mod.MarkdownRenderer),
+  { ssr: false },
 )
 
 // CodeMirror 에디터 컴포넌트를 완전히 클라이언트 전용으로 분리
-const CodeMirrorEditor = dynamic(
-  () => import('./CodeMirrorEditor'),
-  { 
-    ssr: false,
-    loading: () => (
-      <div className="flex h-full items-center justify-center">
-        <div className="text-sm text-zinc-500">에디터 로딩 중...</div>
-      </div>
-    )
-  }
-)
+const CodeMirrorEditor = dynamic(() => import('./CodeMirrorEditor'), {
+  ssr: false,
+  loading: () => (
+    <div className="flex h-full items-center justify-center">
+      <div className="text-sm text-zinc-500">에디터 로딩 중...</div>
+    </div>
+  ),
+})
 
 interface PostMetadata {
   title: string
@@ -208,7 +206,7 @@ export default function EditorPage() {
       if (response.ok) {
         const data = await response.json()
         const imageMarkdown = `![${file.name}](${data.path})`
-        
+
         // 커서 위치에 이미지 마크다운 삽입
         if (editorRef.current) {
           editorRef.current.insertAtCursor(`\n${imageMarkdown}\n`)
@@ -216,7 +214,9 @@ export default function EditorPage() {
           // 폴백: 끝에 추가
           setContent((prev) => {
             const trimmed = prev.trim()
-            return trimmed ? `${trimmed}\n\n${imageMarkdown}\n` : `${imageMarkdown}\n`
+            return trimmed
+              ? `${trimmed}\n\n${imageMarkdown}\n`
+              : `${imageMarkdown}\n`
           })
         }
       } else {
@@ -263,7 +263,9 @@ export default function EditorPage() {
   }
 
   // 썸네일 파일 선택
-  const handleThumbnailSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleThumbnailSelect = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const file = e.target.files?.[0]
     if (file && file.type.startsWith('image/')) {
       await uploadThumbnail(file)
@@ -284,14 +286,17 @@ export default function EditorPage() {
               onClick={createNewPost}
               className="flex items-center gap-2 rounded-lg bg-zinc-100 px-4 py-2 text-sm font-medium transition-colors hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700"
             >
-              <Plus className="h-4 w-4" />
-              새 포스트
+              <Plus className="h-4 w-4" />새 포스트
             </button>
             <button
               onClick={() => setSplitView(!splitView)}
               className="flex items-center gap-2 rounded-lg bg-zinc-100 px-4 py-2 text-sm font-medium transition-colors hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700"
             >
-              {splitView ? <FileText className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+              {splitView ? (
+                <FileText className="h-4 w-4" />
+              ) : (
+                <Eye className="h-4 w-4" />
+              )}
               {splitView ? '에디터만' : '나란히 보기'}
             </button>
             <button
@@ -427,7 +432,9 @@ export default function EditorPage() {
                   </button>
                   {metadata.thumbnail && (
                     <button
-                      onClick={() => setMetadata({ ...metadata, thumbnail: '' })}
+                      onClick={() =>
+                        setMetadata({ ...metadata, thumbnail: '' })
+                      }
                       className="flex items-center rounded-lg bg-red-100 px-3 py-2 text-sm text-red-600 transition-colors hover:bg-red-200 dark:bg-red-900/30 dark:text-red-400 dark:hover:bg-red-900/50"
                       title="썸네일 제거"
                     >
@@ -475,7 +482,9 @@ export default function EditorPage() {
                   <Suspense
                     fallback={
                       <div className="flex h-full items-center justify-center">
-                        <div className="text-sm text-zinc-500">에디터 로딩 중...</div>
+                        <div className="text-sm text-zinc-500">
+                          에디터 로딩 중...
+                        </div>
                       </div>
                     }
                   >
@@ -484,7 +493,7 @@ export default function EditorPage() {
                       value={content}
                       onChange={setContent}
                       onPaste={handlePaste}
-                    onDrop={handleDrop}
+                      onDrop={handleDrop}
                     />
                   </Suspense>
                 </div>
@@ -493,7 +502,9 @@ export default function EditorPage() {
                   <Suspense
                     fallback={
                       <div className="flex h-full items-center justify-center">
-                        <div className="text-sm text-zinc-500">미리보기 로딩 중...</div>
+                        <div className="text-sm text-zinc-500">
+                          미리보기 로딩 중...
+                        </div>
                       </div>
                     }
                   >
@@ -506,7 +517,9 @@ export default function EditorPage() {
                 <Suspense
                   fallback={
                     <div className="flex h-full items-center justify-center">
-                      <div className="text-sm text-zinc-500">에디터 로딩 중...</div>
+                      <div className="text-sm text-zinc-500">
+                        에디터 로딩 중...
+                      </div>
                     </div>
                   }
                 >
@@ -525,4 +538,3 @@ export default function EditorPage() {
     </div>
   )
 }
-
