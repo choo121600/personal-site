@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, Suspense } from 'react'
 import dynamic from 'next/dynamic'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Save, Eye, FileText, X, Plus, Trash2, Image } from 'lucide-react'
 import type { CodeMirrorEditorHandle } from './CodeMirrorEditor'
@@ -289,7 +290,15 @@ export default function EditorPage() {
       {/* 헤더 */}
       <header className="border-b border-zinc-200 bg-white px-6 py-4 dark:border-zinc-800 dark:bg-zinc-900">
         <div className="flex items-center justify-between">
-          <h1 className="text-xl font-semibold">블로그 에디터</h1>
+          <div className="flex items-baseline gap-4">
+            <h1 className="text-xl font-semibold">블로그 에디터</h1>
+            <Link
+              href="/admin/talks"
+              className="text-sm text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100"
+            >
+              발표 에디터
+            </Link>
+          </div>
           <div className="flex items-center gap-2">
             <button
               onClick={createNewPost}

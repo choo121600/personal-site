@@ -1445,8 +1445,14 @@ export default function ResumeEditorPage() {
             {openSections.talks && (
               <div className="space-y-2 pl-6">
                 <p className="text-sm text-zinc-500">
-                  발표는 content/talks/*.md에서 관리합니다. 이 목록은 읽기
-                  전용입니다.
+                  발표는{' '}
+                  <a
+                    href="/admin/talks"
+                    className="text-zinc-900 underline underline-offset-2 dark:text-zinc-100"
+                  >
+                    발표 에디터
+                  </a>
+                  에서 관리합니다. 이 목록은 읽기 전용입니다.
                 </p>
                 {resume.talks.map((talk) => (
                   <div

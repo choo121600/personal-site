@@ -4,7 +4,8 @@ import type { Metadata } from 'next'
 import { getAllTalks, getTalkBySlug, formatTalkDate } from '@/lib/talks'
 import { MarkdownRenderer } from '@/components/MarkdownRenderer'
 import { expandMapLinks } from '@/lib/map-links'
-import { YouTubeEmbed, extractYouTubeId } from '@/components/YouTubeEmbed'
+import { YouTubeEmbed } from '@/components/YouTubeEmbed'
+import { extractYouTubeId } from '@/lib/youtube'
 
 interface PageProps {
   params: Promise<{ slug: string }>

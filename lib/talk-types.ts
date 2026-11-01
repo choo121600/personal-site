@@ -2,7 +2,12 @@
 
 import type { Locale } from './resume-types'
 
-export type TalkType = 'talk' | 'workshop'
+export const TALK_TYPES = [
+  { value: 'talk', label: '발표' },
+  { value: 'workshop', label: '워크숍' },
+] as const
+
+export type TalkType = (typeof TALK_TYPES)[number]['value']
 
 export interface TalkMetadata {
   slug: string
@@ -22,6 +27,9 @@ export interface TalkMetadata {
 export interface TalkDetail extends TalkMetadata {
   content: string
 }
+
+// 파일 이름으로 쓰이므로 경로 문자가 들어가지 않게 제한한다
+export const TALK_SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
 
 export const TALK_DATE_PATTERN = /^(\d{4})-(\d{2})(?:-(\d{2}))?$/
 

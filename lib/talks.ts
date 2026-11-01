@@ -3,6 +3,8 @@ import path from 'path'
 import matter from 'gray-matter'
 import {
   TALK_DATE_PATTERN,
+  TALK_SLUG_PATTERN,
+  TALK_TYPES,
   type TalkDetail,
   type TalkMetadata,
   type TalkType,
@@ -13,62 +15,87 @@ export { formatTalkDate } from './talk-types'
 
 const talksDirectory = path.join(process.cwd(), 'content', 'talks')
 
-const TALK_TYPES: TalkType[] = ['talk', 'workshop']
+// frontmatter에 쓰는 선택 필드. 비어 있으면 파일에서 뺀다
+const OPTIONAL_FIELDS = [
+  'descriptionKo',
+  'eventUrl',
+  'slides',
+  'video',
+] as const
+
+export class TalkValidationError extends Error {}
 
 function optionalString(value: unknown): string | undefined {
-  return typeof value === 'string' && value.trim() !== '' ? value : undefined
+  return typeof value === 'string' && value.trim() !== ''
+    ? value.trim()
+    : undefined
 }
 
 function requireString(
   data: Record<string, unknown>,
   key: string,
-  file: string,
+  source: string,
 ) {
-  const value = data[key]
-  if (typeof value !== 'string' || value.trim() === '') {
-    throw new Error(`content/talks/${file}: '${key}' is required`)
+  const value = optionalString(data[key])
+  if (!value) {
+    throw new TalkValidationError(`${source}: '${key}' is required`)
   }
   return value
 }
 
-function parseTalk(fileName: string): { meta: TalkMetadata; content: string } {
-  const slug = fileName.replace(/\.md$/, '')
-  const raw = fs.readFileSync(path.join(talksDirectory, fileName), 'utf8')
-  const { data, content } = matter(raw)
-
-  // 따옴표 없이 쓴 YAML 날짜는 Date 객체로 파싱된다
-  if (data.date instanceof Date) {
-    data.date = data.date.toISOString().slice(0, 10)
+function talkPath(slug: string, source: string) {
+  if (!TALK_SLUG_PATTERN.test(slug)) {
+    throw new TalkValidationError(
+      `${source}: slug must be lowercase letters, digits and hyphens, got '${slug}'`,
+    )
   }
+  return path.join(talksDirectory, `${slug}.md`)
+}
 
-  const date = requireString(data, 'date', fileName)
+// frontmatter → TalkMetadata. 파일을 읽을 때와 저장할 때 같은 규칙으로 검사한다
+function toTalkMetadata(
+  slug: string,
+  data: Record<string, unknown>,
+  source: string,
+): TalkMetadata {
+  // 따옴표 없이 쓴 YAML 날짜는 Date 객체로 파싱된다
+  const rawDate =
+    data.date instanceof Date ? data.date.toISOString().slice(0, 10) : data.date
+  const date = requireString({ date: rawDate }, 'date', source)
   if (!TALK_DATE_PATTERN.test(date)) {
-    throw new Error(
-      `content/talks/${fileName}: 'date' must be YYYY-MM or YYYY-MM-DD, got '${date}'`,
+    throw new TalkValidationError(
+      `${source}: 'date' must be YYYY-MM or YYYY-MM-DD, got '${date}'`,
     )
   }
 
   const type = data.type ?? 'talk'
-  if (!TALK_TYPES.includes(type)) {
-    throw new Error(
-      `content/talks/${fileName}: 'type' must be one of ${TALK_TYPES.join(', ')}`,
+  if (!TALK_TYPES.some((t) => t.value === type)) {
+    throw new TalkValidationError(
+      `${source}: 'type' must be one of ${TALK_TYPES.map((t) => t.value).join(', ')}`,
     )
   }
 
-  const meta: TalkMetadata = {
+  return {
     slug,
-    title: requireString(data, 'title', fileName),
-    event: requireString(data, 'event', fileName),
+    title: requireString(data, 'title', source),
+    event: requireString(data, 'event', source),
     date,
-    type,
-    description: requireString(data, 'description', fileName),
+    type: type as TalkType,
+    description: requireString(data, 'description', source),
     descriptionKo: optionalString(data.descriptionKo),
     eventUrl: optionalString(data.eventUrl),
     slides: optionalString(data.slides),
     video: optionalString(data.video),
     hideOnResume: data.hideOnResume === true,
   }
-  return { meta, content: content.trim() }
+}
+
+function readTalk(slug: string): TalkDetail {
+  const source = `content/talks/${slug}.md`
+  const { data, content } = matter(
+    fs.readFileSync(talkPath(slug, source), 'utf8'),
+  )
+  return { ...toTalkMetadata(slug, data, source), content: content.trim() }
 }
 
 // 최신순 발표 목록 (본문 제외)
@@ -78,13 +105,61 @@ export function getAllTalks(): TalkMetadata[] {
   return fs
     .readdirSync(talksDirectory)
     .filter((name) => name.endsWith('.md'))
-    .map((fileName) => parseTalk(fileName).meta)
+    .map((fileName) => {
+      const talk: TalkMetadata & { content?: string } = readTalk(
+        fileName.replace(/\.md$/, ''),
+      )
+      delete talk.content
+      return talk
+    })
     .sort((a, b) => (a.date < b.date ? 1 : -1))
 }
 
 export function getTalkBySlug(slug: string): TalkDetail | null {
-  const fileName = `${slug}.md`
-  if (!fs.existsSync(path.join(talksDirectory, fileName))) return null
-  const { meta, content } = parseTalk(fileName)
-  return { ...meta, content }
+  if (!TALK_SLUG_PATTERN.test(slug)) return null
+  if (!fs.existsSync(path.join(talksDirectory, `${slug}.md`))) return null
+  return readTalk(slug)
+}
+
+// 발표 저장. 잘못된 값이면 TalkValidationError를 던지고 파일은 건드리지 않는다
+export function saveTalk(talk: TalkDetail): void {
+  const filePath = talkPath(talk.slug, 'talk')
+  const meta = toTalkMetadata(
+    talk.slug,
+    talk as unknown as Record<string, unknown>,
+    'talk',
+  )
+
+  // 에디터가 다루지 않는 frontmatter 필드는 기존 파일 값을 유지한다
+  const existing = fs.existsSync(filePath)
+    ? matter(fs.readFileSync(filePath, 'utf8')).data
+    : {}
+  const frontmatter: Record<string, unknown> = {
+    ...existing,
+    title: meta.title,
+    event: meta.event,
+    date: meta.date,
+    type: meta.type,
+    description: meta.description,
+  }
+  for (const key of OPTIONAL_FIELDS) {
+    if (meta[key]) frontmatter[key] = meta[key]
+    else delete frontmatter[key]
+  }
+  if (meta.hideOnResume) frontmatter.hideOnResume = true
+  else delete frontmatter.hideOnResume
+
+  fs.mkdirSync(talksDirectory, { recursive: true })
+  const body = (talk.content ?? '').trim()
+  // 본문이 없을 때 matter가 붙이는 빈 줄은 떼어 낸다
+  const file = matter.stringify(body, frontmatter).replace(/\n+$/, '\n')
+  fs.writeFileSync(filePath, file, 'utf8')
+}
+
+export function deleteTalk(slug: string): boolean {
+  if (!TALK_SLUG_PATTERN.test(slug)) return false
+  const filePath = path.join(talksDirectory, `${slug}.md`)
+  if (!fs.existsSync(filePath)) return false
+  fs.unlinkSync(filePath)
+  return true
 }
