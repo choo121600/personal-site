@@ -1,12 +1,14 @@
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
+import { isCategory, type CategorySlug } from './categories'
 
 export interface PostMetadata {
   title: string
   description?: string
   date?: string
   thumbnail?: string
+  category?: CategorySlug
   slug: string
 }
 
@@ -15,6 +17,30 @@ export interface Post extends PostMetadata {
 }
 
 const postsDirectory = path.join(process.cwd(), 'content', 'posts')
+
+function parseCategory(value: unknown, slug: string): CategorySlug | undefined {
+  if (value === undefined || value === null || value === '') return undefined
+  if (!isCategory(value)) {
+    throw new Error(
+      `content/posts/${slug}.md: unknown category '${String(value)}' (see lib/categories.ts)`,
+    )
+  }
+  return value
+}
+
+function toMetadata(
+  slug: string,
+  data: Record<string, unknown>,
+): PostMetadata & { date: string } {
+  return {
+    slug,
+    title: (data.title as string) || slug,
+    description: (data.description as string) || '',
+    date: (data.date as string) || '',
+    thumbnail: (data.thumbnail as string) || '',
+    category: parseCategory(data.category, slug),
+  }
+}
 
 // 디렉토리가 없으면 생성
 export function ensurePostsDirectory() {
@@ -40,13 +66,7 @@ export function getAllPosts(): PostMetadata[] {
       const fileContents = fs.readFileSync(fullPath, 'utf8')
       const { data } = matter(fileContents)
 
-      return {
-        slug,
-        title: data.title || slug,
-        description: data.description || '',
-        date: data.date || '',
-        thumbnail: data.thumbnail || '',
-      }
+      return toMetadata(slug, data)
     })
     .sort((a, b) => {
       if (a.date < b.date) {
@@ -72,14 +92,7 @@ export function getPostBySlug(slug: string): Post | null {
   const fileContents = fs.readFileSync(fullPath, 'utf8')
   const { data, content } = matter(fileContents)
 
-  return {
-    slug,
-    title: data.title || slug,
-    description: data.description || '',
-    date: data.date || '',
-    thumbnail: data.thumbnail || '',
-    content,
-  }
+  return { ...toMetadata(slug, data), content }
 }
 
 // 포스트 저장
@@ -90,19 +103,27 @@ export function savePost(
 ) {
   ensurePostsDirectory()
 
-  const frontmatter: Record<string, string> = {
+  const fullPath = path.join(postsDirectory, `${slug}.md`)
+  // 에디터가 다루지 않는 frontmatter 필드는 기존 파일 값을 유지한다
+  const existing = fs.existsSync(fullPath)
+    ? matter(fs.readFileSync(fullPath, 'utf8')).data
+    : {}
+
+  const frontmatter: Record<string, unknown> = {
+    ...existing,
     title: metadata.title || slug,
     description: metadata.description || '',
     date: metadata.date || new Date().toISOString().split('T')[0],
   }
 
-  // thumbnail이 있을 때만 추가
-  if (metadata.thumbnail) {
-    frontmatter.thumbnail = metadata.thumbnail
+  // 비어 있으면 필드 자체를 뺀다
+  for (const key of ['thumbnail', 'category'] as const) {
+    if (metadata[key]) frontmatter[key] = metadata[key]
+    else delete frontmatter[key]
   }
+  parseCategory(frontmatter.category, slug)
 
   const matterString = matter.stringify(content, frontmatter)
-  const fullPath = path.join(postsDirectory, `${slug}.md`)
 
   fs.writeFileSync(fullPath, matterString, 'utf8')
 }

@@ -3,6 +3,7 @@ title: 오픈소스 AI・SW 개발자・커뮤니티 지원 사업 발대식에 
 description: ''
 date: '2026-07-26'
 thumbnail: /images/2026/07/image-1785214138086-fjq0h1.png
+category: life
 ---
 
 ![image.png](/images/2026/07/image-1785214138086-fjq0h1.png)

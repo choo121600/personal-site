@@ -3,6 +3,7 @@ title: Airflow e2e 테스트 현대화를 하다... CI를 터트린 이야기
 description: 'playwright e2e 테스트 입문을 하자마자, CI 지킴이가 된 이야기'
 date: '2026-03-23'
 thumbnail: /images/2026/03/16911eff5b8305cbd-1774309308434-mxz14m.gif
+category: dev
 ---
 ## 분명 시작은 가벼웠는데…
 

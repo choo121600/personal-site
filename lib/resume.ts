@@ -18,21 +18,47 @@ export type {
 } from './resume-types'
 export { DEFAULT_SECTION_ORDER } from './resume-types'
 
-import type { Resume, Locale } from './resume-types'
+import type { Resume, Locale, Talk } from './resume-types'
+import { getAllTalks, formatTalkDate } from './talks'
+
+// 발표는 content/talks/*.md가 원본이라 resume JSON에는 저장하지 않는다
+type StoredResume = Omit<Resume, 'talks'>
 
 function getResumePath(locale: Locale = 'en'): string {
   const filename = locale === 'en' ? 'resume.json' : `resume.${locale}.json`
   return path.join(process.cwd(), 'content', filename)
 }
 
+function getResumeTalks(locale: Locale): Talk[] {
+  return getAllTalks()
+    .filter((talk) => !talk.hideOnResume)
+    .map((talk) => ({
+      id: talk.slug,
+      title: talk.title,
+      event: talk.event,
+      date: formatTalkDate(talk.date, locale),
+      url: talk.eventUrl,
+      description:
+        locale === 'ko' && talk.descriptionKo
+          ? talk.descriptionKo
+          : talk.description,
+    }))
+}
+
+function stripTalks(resume: Resume): StoredResume {
+  const stored: StoredResume & { talks?: Talk[] } = { ...resume }
+  delete stored.talks
+  return stored
+}
+
+function readStoredResume(locale: Locale): StoredResume {
+  const resumePath = getResumePath(locale)
+  if (!fs.existsSync(resumePath)) return stripTalks(getDefaultResume())
+  return JSON.parse(fs.readFileSync(resumePath, 'utf-8')) as StoredResume
+}
+
 export async function getResume(locale: Locale = 'en'): Promise<Resume> {
-  try {
-    const content = fs.readFileSync(getResumePath(locale), 'utf-8')
-    return JSON.parse(content) as Resume
-  } catch {
-    // Return default empty resume if file doesn't exist
-    return getDefaultResume()
-  }
+  return { ...readStoredResume(locale), talks: getResumeTalks(locale) }
 }
 
 export async function saveResume(
@@ -44,7 +70,11 @@ export async function saveResume(
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true })
   }
-  fs.writeFileSync(resumePath, JSON.stringify(data, null, 2), 'utf-8')
+  fs.writeFileSync(
+    resumePath,
+    JSON.stringify(stripTalks(data), null, 2),
+    'utf-8',
+  )
 }
 
 export function getDefaultResume(): Resume {

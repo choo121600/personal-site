@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { savePost, getPostBySlug, getAllPosts, deletePost } from '@/lib/posts'
+import { expandMapLinks } from '@/lib/map-links'
 
 // GET: 포스트 목록 또는 특정 포스트 가져오기
 export async function GET(request: NextRequest) {
@@ -31,11 +32,14 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    savePost(slug, content, metadata)
+    // 지도 링크(구글 단축/네이버)는 저장할 때 임베드 가능한 형태로 펼쳐 둔다 (빌드 시 네트워크 의존 제거)
+    const savedContent = await expandMapLinks(content)
+    savePost(slug, savedContent, metadata)
 
     return NextResponse.json({
       success: true,
       slug,
+      content: savedContent,
     })
   } catch (error) {
     console.error('Save post error:', error)

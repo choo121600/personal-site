@@ -18,10 +18,10 @@ import {
   WORK_EXPERIENCE,
   EMAIL,
   SOCIAL_LINKS,
-  TALK_POSTS,
   COMMUNITY,
 } from './data'
 import type { PostMetadata } from '@/lib/posts'
+import { formatTalkDate, type TalkMetadata } from '@/lib/talk-types'
 
 const VARIANTS_CONTAINER = {
   hidden: { opacity: 0 },
@@ -128,9 +128,13 @@ function MagneticSocialLink({
 
 interface HomeClientProps {
   latestPosts: PostMetadata[]
+  latestTalks: TalkMetadata[]
 }
 
-export default function HomeClient({ latestPosts }: HomeClientProps) {
+export default function HomeClient({
+  latestPosts,
+  latestTalks,
+}: HomeClientProps) {
   return (
     <motion.main
       className="space-y-24"
@@ -281,7 +285,15 @@ export default function HomeClient({ latestPosts }: HomeClientProps) {
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
-        <h3 className="mb-3 text-lg font-medium">My 3 latest talks</h3>
+        <div className="mb-3 flex items-center justify-between">
+          <h3 className="text-lg font-medium">My 3 latest talks</h3>
+          <Link
+            href="/talks"
+            className="text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-zinc-100"
+          >
+            View all →
+          </Link>
+        </div>
         <div className="flex flex-col space-y-0">
           <AnimatedBackground
             enableHover
@@ -292,26 +304,24 @@ export default function HomeClient({ latestPosts }: HomeClientProps) {
               duration: 0.2,
             }}
           >
-            {TALK_POSTS.map((post) => (
+            {latestTalks.map((talk) => (
               <Link
-                key={post.uid}
+                key={talk.slug}
                 className="-mx-3 rounded-xl px-3 py-3"
-                href={post.link || '#'}
-                data-id={post.uid}
+                href={`/talks/${talk.slug}`}
+                data-id={talk.slug}
               >
                 <div className="flex flex-col space-y-1">
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between gap-3">
                     <h4 className="font-normal dark:text-zinc-100">
-                      {post.title}
+                      {talk.title}
                     </h4>
-                    {post.date && (
-                      <span className="shrink-0 text-sm text-zinc-400 dark:text-zinc-500">
-                        {post.date}
-                      </span>
-                    )}
+                    <span className="shrink-0 text-sm text-zinc-400 dark:text-zinc-500">
+                      {formatTalkDate(talk.date, 'en')}
+                    </span>
                   </div>
                   <p className="text-zinc-500 dark:text-zinc-400">
-                    {post.description}
+                    {talk.description}
                   </p>
                 </div>
               </Link>

@@ -4,6 +4,7 @@ description: 바이브 코딩 싫어했는데... 2026년도엔 클로드 코드 
 date: '2026-01-04'
 thumbnail: >-
   /images/2026/01/oOHQStjXp0tSJR-3zP4AHM7Yj9-I0i0TSrIxNQB7BF3sDfJRReDAs1kJEKzm9loOgIWn1HXPOUc_Y1X8R_i3SQ-1767519087896-1cfksy.webp
+category: dev
 ---
 사실 나는 바이브 코딩을 좋아하지 않았다.
 

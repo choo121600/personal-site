@@ -84,24 +84,6 @@
   ],
   "certifications": [],
   "awards": [],
-  "talks": [
-    {
-      "id": "talk-2",
-      "title": "Airflow Contributions Using Breeze & Astronomer Agents",
-      "event": "Apache Airflow Users Korea Meetup",
-      "date": "Feb 2026",
-      "url": "",
-      "description": "Live demonstration of the Airflow OSS contribution workflow and production-grade Agent automation patterns"
-    },
-    {
-      "id": "talk-1",
-      "title": "Airflow + Snowflake: Building the Perfect Harmony",
-      "event": "Snowflake World Tour Seoul 2025",
-      "date": "Aug 2025",
-      "url": "",
-      "description": "Presented end-to-end ML workflow architecture integrating Apache Airflow with Snowflake"
-    }
-  ],
   "community": [
     {
       "id": "1772535306102-ls4kff7pc",

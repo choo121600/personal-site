@@ -35,7 +35,6 @@ import type {
   SkillCategory,
   Certification,
   Award,
-  Talk,
   Community,
   ResumeLink,
   SectionKey,
@@ -106,7 +105,7 @@ interface SectionHeaderProps {
   title: string
   isOpen: boolean
   onToggle: () => void
-  onAdd: () => void
+  onAdd?: () => void
 }
 
 function SectionHeader({ title, isOpen, onToggle, onAdd }: SectionHeaderProps) {
@@ -123,13 +122,15 @@ function SectionHeader({ title, isOpen, onToggle, onAdd }: SectionHeaderProps) {
         )}
         {title}
       </button>
-      <button
-        onClick={onAdd}
-        className="flex items-center gap-1 rounded bg-zinc-100 px-2 py-1 text-xs hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700"
-      >
-        <Plus className="h-3 w-3" />
-        추가
-      </button>
+      {onAdd && (
+        <button
+          onClick={onAdd}
+          className="flex items-center gap-1 rounded bg-zinc-100 px-2 py-1 text-xs hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700"
+        >
+          <Plus className="h-3 w-3" />
+          추가
+        </button>
+      )}
     </div>
   )
 }
@@ -638,34 +639,6 @@ export default function ResumeEditorPage() {
     setResume((prev) => ({
       ...prev,
       awards: prev.awards.filter((_, i) => i !== index),
-    }))
-  }
-
-  // Talk handlers
-  const addTalk = () => {
-    const newTalk: Talk = {
-      id: generateId(),
-      title: '',
-      event: '',
-      date: '',
-      url: '',
-      description: '',
-    }
-    setResume((prev) => ({ ...prev, talks: [...prev.talks, newTalk] }))
-  }
-
-  const updateTalk = (index: number, field: keyof Talk, value: string) => {
-    setResume((prev) => {
-      const newTalks = [...prev.talks]
-      newTalks[index] = { ...newTalks[index], [field]: value }
-      return { ...prev, talks: newTalks }
-    })
-  }
-
-  const removeTalk = (index: number) => {
-    setResume((prev) => ({
-      ...prev,
-      talks: prev.talks.filter((_, i) => i !== index),
     }))
   }
 
@@ -1466,94 +1439,30 @@ export default function ResumeEditorPage() {
                   title={`발표/강연 (${resume.talks.length})`}
                   isOpen={openSections.talks}
                   onToggle={() => toggleSection('talks')}
-                  onAdd={addTalk}
                 />
               </div>
             </div>
             {openSections.talks && (
-              <DndContext
-                sensors={sensors}
-                collisionDetection={closestCenter}
-                onDragEnd={handleDragEnd('talks')}
-              >
-                <SortableContext
-                  items={resume.talks.map((e) => e.id)}
-                  strategy={verticalListSortingStrategy}
-                >
-                  <div className="space-y-4 pl-6">
-                    {resume.talks.map((talk, index) => (
-                      <SortableItemWithHandle key={talk.id} id={talk.id}>
-                        {(listeners) => (
-                          <div className="rounded-lg border border-zinc-200 p-4 dark:border-zinc-700">
-                            <div className="mb-3 flex items-center justify-between">
-                              <div className="flex items-center gap-2">
-                                <button
-                                  type="button"
-                                  {...listeners}
-                                  className="cursor-grab touch-none active:cursor-grabbing"
-                                >
-                                  <GripVertical className="h-4 w-4 text-zinc-400" />
-                                </button>
-                                <span className="text-sm font-medium">
-                                  {talk.title || `발표 ${index + 1}`}
-                                </span>
-                              </div>
-                              <button
-                                onClick={() => removeTalk(index)}
-                                className="text-red-500 hover:text-red-700"
-                              >
-                                <Trash2 className="h-4 w-4" />
-                              </button>
-                            </div>
-                            <div className="space-y-3">
-                              <InputField
-                                label="제목"
-                                value={talk.title}
-                                onChange={(v) => updateTalk(index, 'title', v)}
-                                placeholder="발표 제목"
-                              />
-                              <InputField
-                                label="행사/장소"
-                                value={talk.event}
-                                onChange={(v) => updateTalk(index, 'event', v)}
-                                placeholder="PyCon Korea 2024"
-                              />
-                              <div className="grid grid-cols-2 gap-3">
-                                <InputField
-                                  label="날짜"
-                                  value={talk.date}
-                                  onChange={(v) => updateTalk(index, 'date', v)}
-                                  placeholder="2024"
-                                />
-                                <InputField
-                                  label="URL"
-                                  value={talk.url || ''}
-                                  onChange={(v) => updateTalk(index, 'url', v)}
-                                  placeholder="https://"
-                                />
-                              </div>
-                              <InputField
-                                label="설명"
-                                value={talk.description || ''}
-                                onChange={(v) =>
-                                  updateTalk(index, 'description', v)
-                                }
-                                placeholder="발표 내용 요약"
-                                multiline
-                              />
-                            </div>
-                          </div>
-                        )}
-                      </SortableItemWithHandle>
-                    ))}
-                    {resume.talks.length === 0 && (
-                      <p className="text-sm text-zinc-500">
-                        발표/강연을 추가해주세요.
-                      </p>
-                    )}
+              <div className="space-y-2 pl-6">
+                <p className="text-sm text-zinc-500">
+                  발표는 content/talks/*.md에서 관리합니다. 이 목록은 읽기
+                  전용입니다.
+                </p>
+                {resume.talks.map((talk) => (
+                  <div
+                    key={talk.id}
+                    className="rounded-lg border border-zinc-200 p-3 text-sm dark:border-zinc-700"
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <span className="font-medium">{talk.title}</span>
+                      <span className="shrink-0 text-zinc-500">
+                        {talk.date}
+                      </span>
+                    </div>
+                    <p className="text-zinc-500">{talk.event}</p>
                   </div>
-                </SortableContext>
-              </DndContext>
+                ))}
+              </div>
             )}
           </section>
         )}
@@ -1761,7 +1670,6 @@ export default function ResumeEditorPage() {
                 title="기본 정보"
                 isOpen={openSections.basic}
                 onToggle={() => toggleSection('basic')}
-                onAdd={() => {}}
               />
               {openSections.basic && (
                 <div className="space-y-4 pl-6">

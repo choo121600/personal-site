@@ -15,14 +15,6 @@ type WorkExperience = {
   id: string
 }
 
-type TalkPost = {
-  title: string
-  description: string
-  link: string
-  uid: string
-  date: string
-}
-
 type CommunityItem = {
   organization: string
   role: string
@@ -82,33 +74,6 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
     end: 'Present',
     link: 'https://launchpad.net/~ubuntumembers',
     id: 'work3',
-  },
-]
-
-export const TALK_POSTS: TalkPost[] = [
-  {
-    title: 'Airflow Contributions Using Breeze & Astronomer Agents',
-    description:
-      'Live demonstration of the Airflow OSS contribution workflow and production-grade Agent automation patterns.',
-    link: '',
-    uid: 'talk-3',
-    date: 'Feb 2026',
-  },
-  {
-    title: 'Airflow + Snowflake: Building the Perfect Harmony',
-    description:
-      'Presented end-to-end ML workflow architecture integrating Apache Airflow with Snowflake to 3,000+ attendees.',
-    link: '',
-    uid: 'talk-2',
-    date: 'Aug 2025',
-  },
-  {
-    title: 'Airflow 101 with Astro CLI',
-    description:
-      'Hands-on workshop: Daily news summary and investment advice messaging service.',
-    link: 'https://www.meetup.com/apache-airflow-users-korea/events/303680210',
-    uid: 'talk-1',
-    date: '',
   },
 ]
 

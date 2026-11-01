@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic'
 import { useRouter } from 'next/navigation'
 import { Save, Eye, FileText, X, Plus, Trash2, Image } from 'lucide-react'
 import type { CodeMirrorEditorHandle } from './CodeMirrorEditor'
+import { CATEGORIES, type CategorySlug } from '@/lib/categories'
 
 // MarkdownRenderer를 동적으로 로드 (SSR 방지)
 const MarkdownRenderer = dynamic(
@@ -28,6 +29,7 @@ interface PostMetadata {
   description: string
   date: string
   thumbnail: string
+  category: CategorySlug | ''
 }
 
 export default function EditorPage() {
@@ -39,6 +41,7 @@ export default function EditorPage() {
     description: '',
     date: new Date().toISOString().split('T')[0],
     thumbnail: '',
+    category: '',
   })
   const [splitView, setSplitView] = useState(true)
   const [posts, setPosts] = useState<Array<{ slug: string; title: string }>>([])
@@ -76,6 +79,7 @@ export default function EditorPage() {
           description: data.description || '',
           date: data.date || new Date().toISOString().split('T')[0],
           thumbnail: data.thumbnail || '',
+          category: data.category || '',
         })
       }
     } catch (error) {
@@ -107,6 +111,9 @@ export default function EditorPage() {
       })
 
       if (response.ok) {
+        // 서버가 지도 링크를 펼친 본문을 돌려준다 → 미리보기에도 지도가 뜨도록 반영
+        const saved: { content: string } = await response.json()
+        setContent(saved.content)
         await loadPosts()
         alert('저장되었습니다!')
         router.refresh()
@@ -143,6 +150,7 @@ export default function EditorPage() {
             description: '',
             date: new Date().toISOString().split('T')[0],
             thumbnail: '',
+            category: '',
           })
         }
         alert('삭제되었습니다.')
@@ -162,6 +170,7 @@ export default function EditorPage() {
       description: '',
       date: new Date().toISOString().split('T')[0],
       thumbnail: '',
+      category: '',
     })
   }
 
@@ -346,7 +355,7 @@ export default function EditorPage() {
         <main className="flex flex-1 flex-col overflow-hidden">
           {/* 메타데이터 입력 */}
           <div className="border-b border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
               <div>
                 <label className="mb-1 block text-xs font-medium text-zinc-600 dark:text-zinc-400">
                   슬러그 (URL 경로)
@@ -385,6 +394,32 @@ export default function EditorPage() {
                   }
                   className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-800"
                 />
+              </div>
+              <div>
+                <label
+                  htmlFor="post-category"
+                  className="mb-1 block text-xs font-medium text-zinc-600 dark:text-zinc-400"
+                >
+                  카테고리
+                </label>
+                <select
+                  id="post-category"
+                  value={metadata.category}
+                  onChange={(e) =>
+                    setMetadata({
+                      ...metadata,
+                      category: e.target.value as CategorySlug | '',
+                    })
+                  }
+                  className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-800"
+                >
+                  <option value="">없음</option>
+                  {CATEGORIES.map((category) => (
+                    <option key={category.slug} value={category.slug}>
+                      {category.label}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
             <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">

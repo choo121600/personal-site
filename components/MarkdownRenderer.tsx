@@ -5,6 +5,8 @@ import rehypeRaw from 'rehype-raw'
 import remarkBreaks from 'remark-breaks'
 import remarkGfm from 'remark-gfm'
 import { YouTubeEmbed, extractYouTubeId, isYouTubeUrl } from './YouTubeEmbed'
+import { MapEmbed } from './MapEmbed'
+import { parsePlaceUrl } from '@/lib/map-coords'
 import type { Components } from 'react-markdown'
 import type { Element } from 'hast'
 
@@ -13,23 +15,67 @@ interface MarkdownRendererProps {
   className?: string
 }
 
-// 문단이 유튜브 URL 하나로만 이루어졌는지 확인한다.
+function textOf(node: Element): string {
+  return node.children
+    .map((child) =>
+      child.type === 'text'
+        ? child.value
+        : child.type === 'element'
+          ? textOf(child)
+          : '',
+    )
+    .join('')
+}
+
+// 문단이 URL(또는 링크) 하나로만 이루어졌는지 확인한다.
 // remark-gfm의 autolink 때문에 맨 URL도 <a>로 변환되므로 텍스트와 링크를 모두 본다.
-function soleYouTubeUrl(node: Element | undefined): string | null {
+// label은 [이름](url) 형태일 때의 링크 텍스트다.
+function soleLink(
+  node: Element | undefined,
+): { url: string; label: string | null } | null {
   const children = (node?.children ?? []).filter(
     (child) => !(child.type === 'text' && child.value.trim() === ''),
   )
   if (children.length !== 1) return null
 
   const child = children[0]
-  const url =
-    child.type === 'text'
-      ? child.value.trim()
-      : child.type === 'element' && child.tagName === 'a'
-        ? String(child.properties?.href ?? '')
-        : ''
+  if (child.type === 'text') {
+    const url = child.value.trim()
+    return /^https?:\/\/\S+$/.test(url) ? { url, label: null } : null
+  }
+  if (child.type === 'element' && child.tagName === 'a') {
+    const url = String(child.properties?.href ?? '')
+    const label = textOf(child).trim()
+    return url ? { url, label: label && label !== url ? label : null } : null
+  }
+  return null
+}
 
-  return url && isYouTubeUrl(url) ? url : null
+// 지도 앱의 '공유'는 "([네이버 지도]\n)장소 이름\n(주소\n)링크"처럼 여러 줄로 복사된다.
+// 앞줄이 텍스트(줄바꿈 포함)뿐이고 마지막이 지도 링크인 문단이면 앞줄을 캡션으로 쓴다.
+const SHARE_HEADER = /^\[?네이버\s?지도\]?$/
+function sharedMapLink(
+  node: Element | undefined,
+): { url: string; caption: string } | null {
+  const children = (node?.children ?? []).filter(
+    (child) => !(child.type === 'text' && child.value.trim() === ''),
+  )
+  const last = children.at(-1)
+  if (!last || last.type !== 'element' || last.tagName !== 'a') return null
+
+  const lines: string[] = []
+  for (const child of children.slice(0, -1)) {
+    if (child.type === 'text') lines.push(child.value.trim())
+    else if (child.type !== 'element' || child.tagName !== 'br') return null
+  }
+  if (lines.length === 0) return null
+
+  return {
+    url: String(last.properties?.href ?? ''),
+    caption: lines
+      .filter((line) => line && !SHARE_HEADER.test(line))
+      .join(' · '),
+  }
 }
 
 // 커스텀 컴포넌트들
@@ -48,14 +94,33 @@ const components: Components = {
       </a>
     )
   },
-  // 단독 유튜브 URL 문단은 <p> 대신 임베드로 교체한다.
+  // 단독 유튜브/지도 URL 문단은 <p> 대신 임베드로 교체한다.
   // (<p> 안에 임베드 <div>가 들어가면 HTML 중첩이 깨져 하이드레이션이 어긋난다)
   p: ({ node, children, ...props }) => {
-    const url = soleYouTubeUrl(node)
-    if (url) {
-      const videoId = extractYouTubeId(url)
+    const link = soleLink(node)
+    if (link) {
+      const videoId = extractYouTubeId(link.url)
       if (videoId) {
         return <YouTubeEmbed videoId={videoId} />
+      }
+      const place = parsePlaceUrl(link.url)
+      if (place) {
+        return (
+          <MapEmbed
+            place={place}
+            href={link.url}
+            title={link.label ?? undefined}
+          />
+        )
+      }
+    }
+    const shared = sharedMapLink(node)
+    if (shared) {
+      const place = parsePlaceUrl(shared.url)
+      if (place) {
+        return (
+          <MapEmbed place={place} href={shared.url} title={shared.caption} />
+        )
       }
     }
     return <p {...props}>{children}</p>
@@ -81,6 +146,17 @@ const components: Components = {
             allowFullScreen
           />
         </div>
+      )
+    }
+    // '지도 퍼가기'로 복사한 구글 지도 iframe → 좌표를 읽어 OSM 지도로 그린다
+    const place = src ? parsePlaceUrl(src) : null
+    if (place) {
+      return (
+        <MapEmbed
+          place={place}
+          href={`https://www.google.com/maps/search/?api=1&query=${place.lat},${place.lng}`}
+          title={props.title}
+        />
       )
     }
     return <iframe {...props} />

@@ -1,7 +1,10 @@
 import { notFound } from 'next/navigation'
 import { getPostBySlug, getAllPosts } from '@/lib/posts'
 import { MarkdownRenderer } from '@/components/MarkdownRenderer'
+import { expandMapLinks } from '@/lib/map-links'
 import type { Metadata } from 'next'
+import Link from 'next/link'
+import { categoryLabel } from '@/lib/categories'
 
 interface PageProps {
   params: Promise<{ slug: string }>
@@ -49,17 +52,28 @@ export default async function BlogPostPage({ params }: PageProps) {
         {post.description && (
           <p className="text-zinc-600 dark:text-zinc-400">{post.description}</p>
         )}
-        {post.date && (
-          <time className="text-sm text-zinc-500 dark:text-zinc-400">
-            {new Date(post.date).toLocaleDateString('ko-KR', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-            })}
-          </time>
-        )}
+        <p className="not-prose text-sm text-zinc-500 dark:text-zinc-400">
+          {post.date && (
+            <time>
+              {new Date(post.date).toLocaleDateString('ko-KR', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              })}
+            </time>
+          )}
+          {post.date && post.category && ' · '}
+          {post.category && (
+            <Link
+              href={`/blog/category/${post.category}`}
+              className="underline decoration-zinc-300 underline-offset-2 transition-colors hover:text-zinc-900 dark:decoration-zinc-600 dark:hover:text-zinc-100"
+            >
+              {categoryLabel(post.category)}
+            </Link>
+          )}
+        </p>
       </header>
-      <MarkdownRenderer content={post.content} />
+      <MarkdownRenderer content={await expandMapLinks(post.content)} />
     </article>
   )
 }

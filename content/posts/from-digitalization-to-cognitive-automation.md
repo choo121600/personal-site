@@ -3,6 +3,7 @@ title: 우리는 이미 5차 산업혁명의 초입에 서 있다
 description: 'Agent, Harness, 그리고 인지 루프의 자동화에 대하여.'
 date: '2026-02-24'
 thumbnail: /images/2026/02/thumbnail-1771915957412-tpdiom.jpeg
+category: essay
 ---
 
 4차 산업혁명이라는 말이 유행한 지 오래되었지만, 여전히 그 실체는 사람마다 다르게 정의된다.  

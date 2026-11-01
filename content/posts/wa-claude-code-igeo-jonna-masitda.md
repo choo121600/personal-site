@@ -3,6 +3,7 @@ title: '와, Claude Code Max, 이거 존나 맛있다.'
 description: ''
 date: '2026-01-10'
 thumbnail: /images/2026/01/image-1768371569634-2b21zy.png
+category: dev
 ---
 온 세상이 바이브인건 알고 있었다.
 

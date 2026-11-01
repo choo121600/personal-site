@@ -4,6 +4,7 @@ description: ''
 date: '2026-10-12'
 thumbnail: >-
   /images/2026/10/8CA25669-71E2-4BDD-8A57-B5AA91602DDB_1_105_c-1791811181128-faz8uo.jpeg
+category: food
 ---
 3달 전쯤 집 근처에 돈카츠집이 하나 생겼다.
 

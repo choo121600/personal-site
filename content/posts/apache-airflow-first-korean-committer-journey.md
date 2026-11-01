@@ -3,6 +3,7 @@ title: 뉴비가 한국에서 첫 번째 Apache Airflow Committer가 되기까�
 description: 뉴비인 내가 Apache Airflow 프로젝트의 커미터가 되기까지의 여정.
 date: '2025-12-25'
 thumbnail: /images/2026/01/1767508367-1767508401956-6cfat1.jpg
+category: dev
 ---
 한국에서 첫 번째 Apache Airflow 커미터가 되었습니다.
 
