@@ -128,6 +128,7 @@ export default function TalksEditorPage() {
   const saveTalk = async () => {
     if (
       !editingSlug &&
+      form.slug.trim() &&
       talks.some((talk) => talk.slug === form.slug.trim()) &&
       !confirm(`"${form.slug}" 발표가 이미 있습니다. 덮어쓸까요?`)
     ) {
@@ -145,6 +146,7 @@ export default function TalksEditorPage() {
         alert(`저장 실패: ${result.error}`)
         return
       }
+      setForm((prev) => ({ ...prev, slug: result.slug }))
       setEditingSlug(result.slug)
       await loadTalks()
       alert('저장되었습니다!')
@@ -191,7 +193,7 @@ export default function TalksEditorPage() {
             </button>
             <button
               onClick={saveTalk}
-              disabled={isSaving || !form.slug.trim()}
+              disabled={isSaving || (!form.slug.trim() && !form.title.trim())}
               className="flex items-center gap-2 rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-zinc-800 disabled:opacity-50 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200"
             >
               <Save className="h-4 w-4" />
@@ -255,7 +257,7 @@ export default function TalksEditorPage() {
                   value={form.slug}
                   onChange={(e) => update('slug', e.target.value)}
                   disabled={editingSlug !== null}
-                  placeholder="airflow-snowflake-harmony"
+                  placeholder="비우면 제목으로 자동 생성"
                   className={INPUT_CLASS}
                 />
               </Field>

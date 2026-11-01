@@ -128,6 +128,10 @@ export function savePost(
   fs.writeFileSync(fullPath, matterString, 'utf8')
 }
 
+export function postExists(slug: string): boolean {
+  return fs.existsSync(path.join(postsDirectory, `${slug}.md`))
+}
+
 // 포스트 삭제
 export function deletePost(slug: string) {
   const fullPath = path.join(postsDirectory, `${slug}.md`)

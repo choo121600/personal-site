@@ -156,6 +156,10 @@ export function saveTalk(talk: TalkDetail): void {
   fs.writeFileSync(filePath, file, 'utf8')
 }
 
+export function talkExists(slug: string): boolean {
+  return fs.existsSync(path.join(talksDirectory, `${slug}.md`))
+}
+
 export function deleteTalk(slug: string): boolean {
   if (!TALK_SLUG_PATTERN.test(slug)) return false
   const filePath = path.join(talksDirectory, `${slug}.md`)

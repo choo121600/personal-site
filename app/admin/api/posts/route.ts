@@ -1,5 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { savePost, getPostBySlug, getAllPosts, deletePost } from '@/lib/posts'
+import {
+  savePost,
+  getPostBySlug,
+  getAllPosts,
+  deletePost,
+  postExists,
+} from '@/lib/posts'
+import { slugify, uniqueSlug } from '@/lib/slug'
 import { expandMapLinks } from '@/lib/map-links'
 
 // GET: 포스트 목록 또는 특정 포스트 가져오기
@@ -23,13 +30,25 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { slug, content, metadata } = body
+    const { content, metadata } = body
+    let slug: string = body.slug?.trim() ?? ''
 
-    if (!slug || !content) {
+    if (!content) {
       return NextResponse.json(
-        { error: 'Slug and content are required' },
+        { error: '본문을 입력해 주세요.' },
         { status: 400 },
       )
+    }
+    // 슬러그를 비워 두면 제목으로 만든다 (기존 글과 겹치지 않게)
+    if (!slug) {
+      const base = slugify(metadata?.title ?? '')
+      if (!base) {
+        return NextResponse.json(
+          { error: '슬러그를 만들 제목을 입력해 주세요.' },
+          { status: 400 },
+        )
+      }
+      slug = uniqueSlug(base, postExists)
     }
 
     // 지도 링크(구글 단축/네이버)는 저장할 때 임베드 가능한 형태로 펼쳐 둔다 (빌드 시 네트워크 의존 제거)

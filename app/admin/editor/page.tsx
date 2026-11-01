@@ -92,8 +92,8 @@ export default function EditorPage() {
 
   // 포스트 저장
   const savePost = async () => {
-    if (!slug.trim()) {
-      alert('슬러그를 입력해주세요.')
+    if (!slug.trim() && !metadata.title.trim()) {
+      alert('제목을 입력해주세요. 슬러그는 비워 두면 제목으로 만들어집니다.')
       return
     }
 
@@ -113,7 +113,8 @@ export default function EditorPage() {
 
       if (response.ok) {
         // 서버가 지도 링크를 펼친 본문을 돌려준다 → 미리보기에도 지도가 뜨도록 반영
-        const saved: { content: string } = await response.json()
+        const saved: { slug: string; content: string } = await response.json()
+        setSlug(saved.slug)
         setContent(saved.content)
         await loadPosts()
         alert('저장되었습니다!')
@@ -319,7 +320,7 @@ export default function EditorPage() {
             </button>
             <button
               onClick={savePost}
-              disabled={isLoading || !slug.trim()}
+              disabled={isLoading || (!slug.trim() && !metadata.title.trim())}
               className="flex items-center gap-2 rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-zinc-800 disabled:opacity-50 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200"
             >
               <Save className="h-4 w-4" />
@@ -373,7 +374,7 @@ export default function EditorPage() {
                   type="text"
                   value={slug}
                   onChange={(e) => setSlug(e.target.value)}
-                  placeholder="my-post-title"
+                  placeholder="비우면 제목으로 자동 생성"
                   className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-800"
                 />
               </div>

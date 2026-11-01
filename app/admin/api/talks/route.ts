@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { slugify, uniqueSlug } from '@/lib/slug'
 import {
   deleteTalk,
   getAllTalks,
   getTalkBySlug,
   saveTalk,
+  talkExists,
   TalkValidationError,
   type TalkDetail,
 } from '@/lib/talks'
@@ -24,6 +26,17 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const talk: TalkDetail = await request.json()
+    // 슬러그를 비워 두면 제목으로 만든다 (기존 발표와 겹치지 않게)
+    if (!talk.slug?.trim()) {
+      const base = slugify(talk.title ?? '')
+      if (!base) {
+        return NextResponse.json(
+          { error: '슬러그를 만들 제목을 입력해 주세요.' },
+          { status: 400 },
+        )
+      }
+      talk.slug = uniqueSlug(base, talkExists)
+    }
     saveTalk(talk)
     return NextResponse.json({ success: true, slug: talk.slug })
   } catch (error) {
