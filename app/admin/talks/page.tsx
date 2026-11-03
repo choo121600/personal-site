@@ -264,7 +264,7 @@ export default function TalksEditorPage() {
               <Field
                 label="날짜"
                 htmlFor="talk-date"
-                hint="YYYY-MM 또는 YYYY-MM-DD"
+                hint="YYYY / YYYY-MM / YYYY-MM-DD"
               >
                 <input
                   id="talk-date"

@@ -64,7 +64,7 @@ function toTalkMetadata(
   const date = requireString({ date: rawDate }, 'date', source)
   if (!TALK_DATE_PATTERN.test(date)) {
     throw new TalkValidationError(
-      `${source}: 'date' must be YYYY-MM or YYYY-MM-DD, got '${date}'`,
+      `${source}: 'date' must be YYYY, YYYY-MM or YYYY-MM-DD, got '${date}'`,
     )
   }
 

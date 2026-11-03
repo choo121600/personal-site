@@ -13,7 +13,7 @@ export interface TalkMetadata {
   slug: string
   title: string
   event: string
-  // 'YYYY-MM' 또는 'YYYY-MM-DD'
+  // 'YYYY', 'YYYY-MM' 또는 'YYYY-MM-DD'
   date: string
   type: TalkType
   description: string
@@ -31,7 +31,7 @@ export interface TalkDetail extends TalkMetadata {
 // 파일 이름으로 쓰이므로 경로 문자가 들어가지 않게 제한한다
 export const TALK_SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
 
-export const TALK_DATE_PATTERN = /^(\d{4})-(\d{2})(?:-(\d{2}))?$/
+export const TALK_DATE_PATTERN = /^(\d{4})(?:-(\d{2})(?:-(\d{2}))?)?$/
 
 const EN_MONTHS = [
   'Jan',
@@ -48,7 +48,7 @@ const EN_MONTHS = [
   'Dec',
 ]
 
-// 'YYYY-MM[-DD]' → 'Feb 2026' / '2026년 2월' (withDay면 일까지)
+// 'YYYY[-MM[-DD]]' → '2026' / 'Feb 2026' (withDay면 일까지)
 export function formatTalkDate(
   date: string,
   locale: Locale,
@@ -58,6 +58,7 @@ export function formatTalkDate(
   if (!match) return date
 
   const year = match[1]
+  if (!match[2]) return locale === 'ko' ? `${year}년` : year
   const month = Number(match[2])
   const day = withDay && match[3] ? Number(match[3]) : null
 
