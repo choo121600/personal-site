@@ -1,10 +1,10 @@
 {
   "name": "추영욱",
-  "title": "데이터 플랫폼 엔지니어 | Apache Airflow 커미터 | 분산 시스템",
+  "title": "Apache Airflow · Apache Magpie 커미터 | Ubuntu 멤버",
   "email": "choo121600@apache.org",
   "phone": "",
-  "location": "",
-  "summary": "데이터 플랫폼과 분산 시스템을 전문으로 하는 Apache Airflow 커미터입니다.\n\n대규모 워크플로우 오케스트레이션 시스템을 설계하고 운영한 경험이 있으며,\n시스템 신뢰성, CI 안정성, 확장 가능한 데이터 파이프라인 구축에 집중해왔습니다.\n\n다양한 금융 데이터를 처리하는 정량적 리서치 플랫폼을 직접 구축 및 운영했으며,\n자동화 및 LLM 기반 파이프라인을 통해 리서치 효율을 향상시켰습니다.",
+  "location": "대한민국 서울",
+  "summary": "워크플로우 오케스트레이션과 분산 시스템을 다루는 데이터 플랫폼 엔지니어이자 Apache Airflow와 Apache Magpie 커미터입니다.\n\n데이터 플랫폼을 설계·운영하며 시스템 신뢰성, CI 안정성, 확장 가능한 파이프라인 구축에 집중해왔습니다. 다양한 금융 데이터를 처리하는 정량적 리서치 플랫폼을 직접 구축·운영하고, 자동화와 LLM 기반 워크플로우를 적용했습니다.\n\nApache Airflow 한국 사용자 모임을 설립해 이끌고 있으며, 건축 분야의 AI 활용을 다루는 Aitecture 커뮤니티도 운영합니다.",
   "links": [
     {
       "label": "GitHub",
@@ -16,6 +16,17 @@
     }
   ],
   "experience": [
+    {
+      "id": "exp-magpie",
+      "company": "Apache Software Foundation",
+      "title": "Apache Magpie 커미터",
+      "location": "",
+      "startDate": "2026년 8월",
+      "endDate": "",
+      "description": "",
+      "technologies": [],
+      "highlights": []
+    },
     {
       "id": "exp-1",
       "company": "Apache Software Foundation",
@@ -37,7 +48,7 @@
       "title": "Founder & Software Engineer",
       "location": "서울",
       "startDate": "2024년 11월",
-      "endDate": "2026년 2월",
+      "endDate": "2026년 8월",
       "description": "퀀트 리서치 스타트업",
       "technologies": [],
       "highlights": [
@@ -47,50 +58,76 @@
       ]
     }
   ],
-  "education": [],
+  "education": [
+    {
+      "id": "education-kmou",
+      "institution": "국립한국해양대학교",
+      "degree": "",
+      "field": "데이터사이언스",
+      "startDate": "2023년 2월",
+      "endDate": "2026년 2월"
+    }
+  ],
   "projects": [],
   "skills": [
     {
       "category": "언어",
-      "items": [
-        "Python",
-        "TypeScript",
-        "SQL"
-      ]
+      "items": ["Python", "TypeScript", "SQL"]
     },
     {
       "category": "프레임워크",
-      "items": [
-        "React",
-        "Next.js",
-        "FastAPI"
-      ]
+      "items": ["React", "Next.js", "FastAPI"]
     },
     {
       "category": "데이터 & 오케스트레이션",
-      "items": [
-        "Apache Airflow",
-        "PostgreSQL"
-      ]
+      "items": ["Apache Airflow", "PostgreSQL"]
     },
     {
       "category": "인프라 & DevOps",
-      "items": [
-        "Docker",
-        "Proxmox",
-        "GitHub Actions"
-      ]
+      "items": ["Docker", "Proxmox", "GitHub Actions"]
     }
   ],
-  "certifications": [],
-  "awards": [],
+  "certifications": [
+    {
+      "id": "cert-astronomer-champions",
+      "name": "Astronomer Champions Program for Apache Airflow",
+      "issuer": "Astronomer",
+      "date": "2026년 1월"
+    },
+    {
+      "id": "cert-airflow3-dag-authoring",
+      "name": "Astronomer Certification DAG Authoring for Apache Airflow 3",
+      "issuer": "Astronomer",
+      "date": "2025년 9월"
+    }
+  ],
+  "awards": [
+    {
+      "id": "award-kogas-2022",
+      "name": "제4회 빅데이터 스타트업 경진대회 — 예비창업자 부문 대상",
+      "issuer": "한국가스공사(KOGAS)",
+      "date": "2022년 12월",
+      "description": "외부 데이터와 시계열·회귀 모델을 활용해 천연가스 장기 수요예측 모델을 개발했습니다."
+    }
+  ],
   "community": [
+    {
+      "id": "community-aitecture",
+      "organization": "Aitecture",
+      "role": "설립자 · 커뮤니티 운영자",
+      "startDate": "2026년 9월",
+      "endDate": "",
+      "description": "",
+      "highlights": [
+        "건축 분야의 AI 활용을 다루는 [Aitecture](https://community.aitecture.org/) 커뮤니티를 운영합니다."
+      ]
+    },
     {
       "id": "community-1",
       "organization": "Apache Airflow Korea User Group",
-      "role": "창립자 & 리더",
+      "role": "설립자 · 대표",
       "startDate": "2023년 12월",
-      "endDate": "",
+      "endDate": "2026년 12월",
       "description": "",
       "highlights": [
         "400명 이상 규모의 오픈소스 커뮤니티를 창립·성장시키며, 5회 밋업과 3회 워크숍 개최",
@@ -103,6 +140,8 @@
     "skills",
     "talks",
     "community",
-    "education"
+    "education",
+    "certifications",
+    "awards"
   ]
 }

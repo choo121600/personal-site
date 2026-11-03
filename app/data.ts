@@ -21,11 +21,13 @@ type WorkExperience = {
 type CommunityItem = {
   organization: string
   organizationKo: string
+  link: string
   role: string
   roleKo: string
   start: string
   startKo: string
   end: string
+  endKo: string
   highlights: string[]
   highlightsKo: string[]
   id: string
@@ -66,9 +68,18 @@ export const PROJECTS: Project[] = [
 export const WORK_EXPERIENCE: WorkExperience[] = [
   {
     company: 'Apache Software Foundation',
+    title: 'Committer for Apache Magpie',
+    titleKo: 'Apache Magpie 커미터',
+    start: '2026-08',
+    end: 'Present',
+    link: 'https://magpie.apache.org/',
+    id: 'work-magpie',
+  },
+  {
+    company: 'Apache Software Foundation',
     title: 'Committer for Apache Airflow',
     titleKo: 'Apache Airflow 커미터',
-    start: '2025',
+    start: '2025-12',
     end: 'Present',
     link: 'https://github.com/apache/airflow',
     id: 'work1',
@@ -77,16 +88,16 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
     company: 'arxtrus',
     title: 'Founder & Software Engineer',
     titleKo: '창업자 · 소프트웨어 엔지니어',
-    start: '2024',
-    end: 'Present',
+    start: '2024-11',
+    end: '2026-08',
     link: 'https://arxtrus.com',
     id: 'work2',
   },
   {
     company: 'Canonical',
-    title: 'Member of the Ubuntu',
+    title: 'Ubuntu Member',
     titleKo: 'Ubuntu 멤버',
-    start: '2024',
+    start: '2024-06',
     end: 'Present',
     link: 'https://launchpad.net/~ubuntumembers',
     id: 'work3',
@@ -97,11 +108,13 @@ export const COMMUNITY: CommunityItem[] = [
   {
     organization: 'Apache Airflow Korea User Group',
     organizationKo: 'Apache Airflow 한국 사용자 모임',
+    link: 'https://discourse.airflow-kr.org/',
     role: 'Founder & Leader',
     roleKo: '설립자 · 대표',
     start: 'Dec 2023',
     startKo: '2023년 12월',
-    end: 'Present',
+    end: 'Dec 2026',
+    endKo: '2026년 12월',
     highlights: [
       'Founded and scaled a 400+ member open-source community, organizing 5 meetups and 3 workshops',
       'Built and operate a community Discourse forum with 100+ posts covering technical guides, Q&A, and OSS contribution onboarding',
@@ -111,6 +124,20 @@ export const COMMUNITY: CommunityItem[] = [
       '기술 가이드, 질의응답, 오픈소스 기여 입문 등 100개 이상의 게시글이 있는 Discourse 커뮤니티 포럼을 구축·운영',
     ],
     id: 'community-1',
+  },
+  {
+    organization: 'Aitecture',
+    organizationKo: 'Aitecture',
+    link: 'https://community.aitecture.org/',
+    role: 'Founder & Community Organizer',
+    roleKo: '설립자 · 커뮤니티 운영자',
+    start: 'Sep 2026',
+    startKo: '2026년 9월',
+    end: 'Present',
+    endKo: '현재',
+    highlights: ['Operate a community focused on AI in architecture.'],
+    highlightsKo: ['건축 분야의 AI 활용을 다루는 커뮤니티를 운영합니다.'],
+    id: 'community-aitecture',
   },
 ]
 

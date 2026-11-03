@@ -1,10 +1,10 @@
 {
   "name": "Yeonguk Choo",
-  "title": "Data Platform Engineer | Apache Airflow Committer | Distributed Systems",
+  "title": "Apache Airflow & Apache Magpie Committer | Ubuntu Member",
   "email": "choo121600@apache.org",
   "phone": "",
-  "location": "",
-  "summary": "Apache Airflow Committer specializing in data platforms and distributed systems.\n\nExperienced in designing and operating large-scale workflow orchestration systems, with a focus on system reliability, CI stability, and scalable data pipelines.\n\nBuilt and operated a quantitative research platform processing multi-source financial data, leveraging automation and LLM-based pipelines to improve research efficiency.",
+  "location": "Seoul, South Korea",
+  "summary": "Data platform engineer and committer to Apache Airflow and Apache Magpie, specializing in workflow orchestration and distributed systems.\n\nExperienced in designing and operating data platforms, with a focus on system reliability, CI stability, and scalable pipelines. Built and operated a quantitative research platform processing multi-source financial data with automation and LLM-based workflows.\n\nFounded and lead the Apache Airflow Korea User Group, and operate Aitecture, a community focused on AI in architecture.",
   "links": [
     {
       "label": "GitHub",
@@ -16,6 +16,17 @@
     }
   ],
   "experience": [
+    {
+      "id": "exp-magpie",
+      "company": "Apache Software Foundation",
+      "title": "Committer, Apache Magpie",
+      "location": "",
+      "startDate": "Aug 2026",
+      "endDate": "",
+      "description": "",
+      "technologies": [],
+      "highlights": []
+    },
     {
       "id": "exp-1",
       "company": "Apache Software Foundation",
@@ -37,7 +48,7 @@
       "title": "Founder & Software Engineer",
       "location": "Seoul",
       "startDate": "Nov 2024",
-      "endDate": "Feb 2026",
+      "endDate": "Aug 2026",
       "description": "Quantitative research startup",
       "technologies": [],
       "highlights": [
@@ -47,50 +58,76 @@
       ]
     }
   ],
-  "education": [],
+  "education": [
+    {
+      "id": "education-kmou",
+      "institution": "Korea Maritime & Ocean University",
+      "degree": "",
+      "field": "Data Science",
+      "startDate": "Feb 2023",
+      "endDate": "Feb 2026"
+    }
+  ],
   "projects": [],
   "skills": [
     {
       "category": "Languages",
-      "items": [
-        "Python",
-        "TypeScript",
-        "SQL"
-      ]
+      "items": ["Python", "TypeScript", "SQL"]
     },
     {
       "category": "Frameworks",
-      "items": [
-        "React",
-        "Next.js",
-        "FastAPI"
-      ]
+      "items": ["React", "Next.js", "FastAPI"]
     },
     {
       "category": "Data & Orchestration",
-      "items": [
-        "Apache Airflow",
-        "PostgreSQL"
-      ]
+      "items": ["Apache Airflow", "PostgreSQL"]
     },
     {
       "category": "Infrastructure & DevOps",
-      "items": [
-        "Docker",
-        "Proxmox",
-        "GitHub Actions"
-      ]
+      "items": ["Docker", "Proxmox", "GitHub Actions"]
     }
   ],
-  "certifications": [],
-  "awards": [],
+  "certifications": [
+    {
+      "id": "cert-astronomer-champions",
+      "name": "Astronomer Champions Program for Apache Airflow",
+      "issuer": "Astronomer",
+      "date": "Jan 2026"
+    },
+    {
+      "id": "cert-airflow3-dag-authoring",
+      "name": "Astronomer Certification DAG Authoring for Apache Airflow 3",
+      "issuer": "Astronomer",
+      "date": "Sep 2025"
+    }
+  ],
+  "awards": [
+    {
+      "id": "award-kogas-2022",
+      "name": "4th Big Data Startup Competition — Grand Prize, Pre-startup Category",
+      "issuer": "Korea Gas Corporation (KOGAS)",
+      "date": "Dec 2022",
+      "description": "Developed a long-term natural gas demand forecasting model using external data and time-series and regression models."
+    }
+  ],
   "community": [
+    {
+      "id": "community-aitecture",
+      "organization": "Aitecture",
+      "role": "Founder & Community Organizer",
+      "startDate": "Sep 2026",
+      "endDate": "",
+      "description": "",
+      "highlights": [
+        "Operate [Aitecture](https://community.aitecture.org/), a community focused on AI in architecture."
+      ]
+    },
     {
       "id": "1772535306102-ls4kff7pc",
       "organization": "Apache Airflow Korea User Group",
       "role": "Founder & Leader",
       "startDate": "Dec 2023",
-      "endDate": "",
+      "endDate": "Dec 2026",
       "description": "",
       "highlights": [
         "Founded and scaled a 400+ member open-source community, organizing 5 meetups and 3 workshops",
@@ -103,6 +140,8 @@
     "skills",
     "talks",
     "community",
-    "education"
+    "education",
+    "certifications",
+    "awards"
   ]
 }

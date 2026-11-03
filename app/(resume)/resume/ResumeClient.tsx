@@ -296,7 +296,9 @@ export function ResumeClient({ resume, locale = 'en' }: ResumeClientProps) {
                             <p className="text-sm text-zinc-600">
                               {locale === 'ko'
                                 ? `${edu.field ? `${edu.field} ` : ''}${edu.degree}`
-                                : `${edu.degree}${edu.field ? ` in ${edu.field}` : ''}`}
+                                : [edu.degree, edu.field]
+                                    .filter(Boolean)
+                                    .join(' in ')}
                               {edu.gpa && ` | ${t.gpa}: ${edu.gpa}`}
                             </p>
                           </div>
@@ -383,6 +385,11 @@ export function ResumeClient({ resume, locale = 'en' }: ResumeClientProps) {
                               {' '}
                               - {award.issuer}
                             </span>
+                            {award.description && (
+                              <p className="mt-1 text-zinc-600">
+                                {award.description}
+                              </p>
+                            )}
                           </div>
                           <span className="text-zinc-500">{award.date}</span>
                         </div>

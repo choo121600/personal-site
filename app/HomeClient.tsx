@@ -152,8 +152,13 @@ export default function HomeClient({
         <div className="flex-1">
           <p className="text-zinc-600 dark:text-zinc-400">
             {ko
-              ? '호기심과 창작으로 세상을 탐험합니다.'
-              : 'Exploring the world through curiosity and creation.'}
+              ? '데이터 플랫폼과 워크플로우를 만드는 엔지니어이자 Apache Airflow · Apache Magpie 커미터입니다.'
+              : 'Data platform and workflow engineer, and committer to Apache Airflow and Apache Magpie.'}
+          </p>
+          <p className="mt-3 text-zinc-600 dark:text-zinc-400">
+            {ko
+              ? 'Apache Airflow 한국 사용자 모임과 건축 분야의 AI 활용을 다루는 Aitecture 커뮤니티를 운영합니다.'
+              : 'I run the Apache Airflow Korea User Group and Aitecture, a community focused on AI in architecture.'}
           </p>
         </div>
       </motion.section>
@@ -220,8 +225,12 @@ export default function HomeClient({
                     </p>
                   </div>
                   <p className="text-zinc-600 dark:text-zinc-400">
-                    {job.start} -{' '}
-                    {ko && job.end === 'Present' ? '현재' : job.end}
+                    {job.start ? `${formatTalkDate(job.start, locale)} - ` : ''}
+                    {job.end === 'Present'
+                      ? ko
+                        ? '현재'
+                        : 'Present'
+                      : formatTalkDate(job.end, locale)}
                   </p>
                 </div>
               </div>
@@ -371,12 +380,19 @@ export default function HomeClient({
                       {ko ? item.roleKo : item.role}
                     </h4>
                     <p className="text-zinc-500 dark:text-zinc-400">
-                      {ko ? item.organizationKo : item.organization}
+                      <a
+                        href={item.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="rounded-sm underline decoration-zinc-300 underline-offset-4 hover:text-zinc-900 focus-visible:outline-2 focus-visible:outline-offset-2 dark:decoration-zinc-600 dark:hover:text-zinc-100"
+                      >
+                        {ko ? item.organizationKo : item.organization}
+                      </a>
                     </p>
                   </div>
                   <p className="text-zinc-600 dark:text-zinc-400">
-                    {ko ? item.startKo : item.start} -{' '}
-                    {ko && item.end === 'Present' ? '현재' : item.end}
+                    {item.start ? `${ko ? item.startKo : item.start} - ` : ''}
+                    {ko ? item.endKo : item.end}
                   </p>
                 </div>
                 {item.highlights.length > 0 && (
