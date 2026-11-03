@@ -1,12 +1,61 @@
 ---
 title: Apache Airflow i18n 한국어 번역 기여 온라인 워크샵
+titleEn: Apache Airflow i18n Korean Translation Contribution Online Workshop
 event: Airflow 한국 사용자 모임 온라인 워크숍
+eventEn: Airflow Korean User Group Online Workshop
 date: '2025-12-04'
 type: workshop
 description: >-
   A hands-on guide to Korean translations in Airflow, including Breeze tooling,
   translation checks, and the pull request workflow.
 descriptionKo: 'Breeze를 이용한 번역 누락 검사와 UI 확인, 한국어 번역 수정, PR 작성 및 리뷰 절차를 다루는 기여 워크숍.'
+contentEn: |
+  This was an online workshop on contributing Korean translations to Airflow, held on December 4, 2025.
+
+  ## About the talk
+
+  Open-source contributions do not have to mean implementing a major feature. Making the wording on a screen you use more natural and filling in missing translations are also ways to improve the user experience.
+
+  This workshop follows the process of turning a Korean UI translation for Airflow into an actual pull request. The goal is to go beyond editing files and experience checking, reviewing the UI, and getting feedback.
+
+  ## Video and presentation materials
+
+  - [Recording](https://youtu.be/-H9V7ypFw9c)
+  - [Slides](https://docs.google.com/presentation/d/1kUbOIA1zkkIK9mQuH6O9qKLsluHXsIYrkUk4l7Ju_gQ/edit)
+  - [Hands-on guide](https://discourse.airflow-kr.org/t/483)
+  - [Example PR #58709](https://github.com/apache/airflow/pull/58709)
+
+  ## Read the talk as an article
+
+  ### Translation is also product work
+
+  Internationalization is more than replacing words on a screen with words in another language. Accessibility improves when people can understand features in a language they know, and using consistent terms for the same concepts reduces confusion.
+
+  The work continues even after Korean became officially supported in Airflow 3.1. Translations need to keep up as features and wording change.
+
+  ### Finding the files to change and the tools to check them
+
+  The hands-on work begins by forking the repository, cloning it locally, and creating a working branch. The English source and Korean translations are stored as language-specific JSON files under `i18n/locales` in the UI.
+
+  It is difficult to find every omission by comparing files by eye alone. The workshop covers using Breeze's `check-translation-completeness --language ko` command to identify missing, extra, and untranslated entries, then fill in what is needed.
+
+  ### Even when the strings look right, check the UI
+
+  After editing the translation files, run the Airflow UI in development mode. This is the step where you check whether the wording fits the context and sounds natural on the actual screen.
+
+  Placeholders such as `{variable}` and `%s` must remain unchanged. Choose natural wording rather than translating literally, while also checking consistency with terms already in use. The work must preserve both translation accuracy and the format expected by the program.
+
+  ### Make a PR that's easy to review
+
+  The slides recommend grouping related items into small PRs. Describe what changed, include the translation-check results, and, when possible, attach before-and-after UI screenshots. This helps reviewers understand the change without having to set up the same environment.
+
+  The workshop also includes tagging the translation review team and requesting a review. Linguistic review and review of code conventions and technical details serve different purposes. Both perspectives are needed to safely incorporate translations that work well on screen into the project.
+
+  ## Takeaways
+
+  - Translation contributions improve how users understand the product.
+  - Use automated checks together with a review of the actual UI.
+  - Providing context and verification results makes even a small change easier to review.
 hideOnResume: true
 slides: >-
   https://docs.google.com/presentation/d/1kUbOIA1zkkIK9mQuH6O9qKLsluHXsIYrkUk4l7Ju_gQ/edit

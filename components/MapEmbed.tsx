@@ -6,10 +6,14 @@
 import { useMemo } from 'react'
 import { MapView } from './MapView'
 import type { PlaceRef } from '@/lib/map-coords'
+import { useLocale } from '@/components/LocaleProvider'
 
-const SOURCE_LINK_LABEL: Record<PlaceRef['source'], string> = {
-  google: 'Google 지도에서 보기',
-  naver: '네이버 지도에서 보기',
+const SOURCE_LINK_LABEL: Record<
+  PlaceRef['source'],
+  Record<'ko' | 'en', string>
+> = {
+  google: { ko: 'Google 지도에서 보기', en: 'View on Google Maps' },
+  naver: { ko: '네이버 지도에서 보기', en: 'View on Naver Map' },
 }
 
 interface MapEmbedProps {
@@ -20,7 +24,8 @@ interface MapEmbedProps {
 }
 
 export function MapEmbed({ place, href, title }: MapEmbedProps) {
-  const label = title || place.name || '지도'
+  const locale = useLocale()
+  const label = title || place.name || (locale === 'ko' ? '지도' : 'Map')
   const places = useMemo(
     () => [{ id: 'place', lat: place.lat, lng: place.lng, name: label }],
     [place.lat, place.lng, label],
@@ -41,7 +46,7 @@ export function MapEmbed({ place, href, title }: MapEmbedProps) {
             rel="noopener noreferrer"
             className="shrink-0 underline decoration-zinc-300 underline-offset-2 transition-colors hover:text-zinc-900 dark:decoration-zinc-600 dark:hover:text-zinc-100"
           >
-            {SOURCE_LINK_LABEL[place.source]} ↗
+            {SOURCE_LINK_LABEL[place.source][locale]} ↗
           </a>
         )}
       </figcaption>

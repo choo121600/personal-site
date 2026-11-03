@@ -22,6 +22,7 @@ import {
 } from './data'
 import type { PostMetadata } from '@/lib/posts'
 import { formatTalkDate, type TalkMetadata } from '@/lib/talk-types'
+import { useLocale } from '@/components/LocaleProvider'
 
 const VARIANTS_CONTAINER = {
   hidden: { opacity: 0 },
@@ -135,6 +136,8 @@ export default function HomeClient({
   latestPosts,
   latestTalks,
 }: HomeClientProps) {
+  const locale = useLocale()
+  const ko = locale === 'ko'
   return (
     <motion.main
       className="space-y-24"
@@ -148,7 +151,9 @@ export default function HomeClient({
       >
         <div className="flex-1">
           <p className="text-zinc-600 dark:text-zinc-400">
-            Exploring the world through curiosity and creation.
+            {ko
+              ? '호기심과 창작으로 세상을 탐험합니다.'
+              : 'Exploring the world through curiosity and creation.'}
           </p>
         </div>
       </motion.section>
@@ -157,7 +162,9 @@ export default function HomeClient({
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
-        <h3 className="mb-5 text-lg font-medium">Projects</h3>
+        <h3 className="mb-5 text-lg font-medium">
+          {ko ? '프로젝트' : 'Projects'}
+        </h3>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           {PROJECTS.map((project) => (
             <div key={project.name} className="space-y-2">
@@ -170,11 +177,11 @@ export default function HomeClient({
                   href={project.link}
                   target="_blank"
                 >
-                  {project.name}
+                  {ko ? project.nameKo : project.name}
                   <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 transition-all duration-200 group-hover:max-w-full"></span>
                 </a>
                 <p className="text-base text-zinc-600 dark:text-zinc-400">
-                  {project.description}
+                  {ko ? project.descriptionKo : project.description}
                 </p>
               </div>
             </div>
@@ -186,7 +193,9 @@ export default function HomeClient({
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
-        <h3 className="mb-5 text-lg font-medium">Experience</h3>
+        <h3 className="mb-5 text-lg font-medium">
+          {ko ? '경력' : 'Experience'}
+        </h3>
         <div className="flex flex-col space-y-2">
           {WORK_EXPERIENCE.map((job) => (
             <a
@@ -201,17 +210,18 @@ export default function HomeClient({
                 size={64}
               />
               <div className="relative h-full w-full rounded-[15px] bg-white p-4 dark:bg-zinc-950">
-                <div className="relative flex w-full flex-row justify-between">
+                <div className="relative flex w-full flex-wrap justify-between gap-2">
                   <div>
                     <h4 className="font-normal dark:text-zinc-100">
-                      {job.title}
+                      {ko ? job.titleKo : job.title}
                     </h4>
                     <p className="text-zinc-500 dark:text-zinc-400">
                       {job.company}
                     </p>
                   </div>
                   <p className="text-zinc-600 dark:text-zinc-400">
-                    {job.start} - {job.end}
+                    {job.start} -{' '}
+                    {ko && job.end === 'Present' ? '현재' : job.end}
                   </p>
                 </div>
               </div>
@@ -225,18 +235,18 @@ export default function HomeClient({
         transition={TRANSITION_SECTION}
       >
         <div className="mb-3 flex items-center justify-between">
-          <h3 className="text-lg font-medium">Blog</h3>
+          <h3 className="text-lg font-medium">{ko ? '블로그' : 'Blog'}</h3>
           <Link
             href="/blog"
             className="text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-zinc-100"
           >
-            View all →
+            {ko ? '전체 보기 →' : 'View all →'}
           </Link>
         </div>
         <div className="space-y-3">
           {latestPosts.length === 0 ? (
             <p className="py-4 text-zinc-500 dark:text-zinc-400">
-              아직 작성된 포스트가 없습니다.
+              {ko ? '아직 작성된 포스트가 없습니다.' : 'No posts yet.'}
             </p>
           ) : (
             latestPosts.map((post) => (
@@ -267,11 +277,14 @@ export default function HomeClient({
                   )}
                   {post.date && (
                     <time className="mt-1.5 text-xs text-zinc-400 dark:text-zinc-500">
-                      {new Date(post.date).toLocaleDateString('ko-KR', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                      })}
+                      {new Date(post.date).toLocaleDateString(
+                        ko ? 'ko-KR' : 'en-US',
+                        {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric',
+                        },
+                      )}
                     </time>
                   )}
                 </div>
@@ -286,12 +299,14 @@ export default function HomeClient({
         transition={TRANSITION_SECTION}
       >
         <div className="mb-3 flex items-center justify-between">
-          <h3 className="text-lg font-medium">My 3 latest talks</h3>
+          <h3 className="text-lg font-medium">
+            {ko ? '최근 발표 3개' : 'My 3 latest talks'}
+          </h3>
           <Link
             href="/talks"
             className="text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-zinc-100"
           >
-            View all →
+            {ko ? '전체 보기 →' : 'View all →'}
           </Link>
         </div>
         <div className="flex flex-col space-y-0">
@@ -314,14 +329,16 @@ export default function HomeClient({
                 <div className="flex flex-col space-y-1">
                   <div className="flex items-center justify-between gap-3">
                     <h4 className="font-normal dark:text-zinc-100">
-                      {talk.title}
+                      {ko ? talk.title : (talk.titleEn ?? talk.title)}
                     </h4>
                     <span className="shrink-0 text-sm text-zinc-400 dark:text-zinc-500">
-                      {formatTalkDate(talk.date, 'en')}
+                      {formatTalkDate(talk.date, locale)}
                     </span>
                   </div>
                   <p className="text-zinc-500 dark:text-zinc-400">
-                    {talk.description}
+                    {ko
+                      ? (talk.descriptionKo ?? talk.description)
+                      : talk.description}
                   </p>
                 </div>
               </Link>
@@ -334,7 +351,9 @@ export default function HomeClient({
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
-        <h3 className="mb-5 text-lg font-medium">Community</h3>
+        <h3 className="mb-5 text-lg font-medium">
+          {ko ? '커뮤니티' : 'Community'}
+        </h3>
         <div className="flex flex-col space-y-2">
           {COMMUNITY.map((item) => (
             <div
@@ -346,24 +365,27 @@ export default function HomeClient({
                 size={64}
               />
               <div className="relative h-full w-full rounded-[15px] bg-white p-4 dark:bg-zinc-950">
-                <div className="flex w-full flex-row justify-between">
+                <div className="flex w-full flex-wrap justify-between gap-2">
                   <div>
                     <h4 className="font-normal dark:text-zinc-100">
-                      {item.role}
+                      {ko ? item.roleKo : item.role}
                     </h4>
                     <p className="text-zinc-500 dark:text-zinc-400">
-                      {item.organization}
+                      {ko ? item.organizationKo : item.organization}
                     </p>
                   </div>
                   <p className="text-zinc-600 dark:text-zinc-400">
-                    {item.start} - {item.end}
+                    {ko ? item.startKo : item.start} -{' '}
+                    {ko && item.end === 'Present' ? '현재' : item.end}
                   </p>
                 </div>
                 {item.highlights.length > 0 && (
                   <ul className="mt-3 list-disc space-y-1 pl-4 text-sm text-zinc-600 dark:text-zinc-400">
-                    {item.highlights.map((highlight) => (
-                      <li key={highlight}>{highlight}</li>
-                    ))}
+                    {(ko ? item.highlightsKo : item.highlights).map(
+                      (highlight) => (
+                        <li key={highlight}>{highlight}</li>
+                      ),
+                    )}
                   </ul>
                 )}
               </div>
@@ -376,9 +398,11 @@ export default function HomeClient({
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
-        <h3 className="mb-5 text-lg font-medium">Connect</h3>
+        <h3 className="mb-5 text-lg font-medium">
+          {ko ? '연락하기' : 'Connect'}
+        </h3>
         <p className="mb-5 text-zinc-600 dark:text-zinc-400">
-          Feel free to contact me at{' '}
+          {ko ? '편하게 연락 주세요: ' : 'Feel free to contact me at '}
           <a className="underline dark:text-zinc-300" href={`mailto:${EMAIL}`}>
             {EMAIL}
           </a>

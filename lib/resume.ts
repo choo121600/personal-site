@@ -34,8 +34,8 @@ function getResumeTalks(locale: Locale): Talk[] {
     .filter((talk) => !talk.hideOnResume)
     .map((talk) => ({
       id: talk.slug,
-      title: talk.title,
-      event: talk.event,
+      title: locale === 'en' ? talk.titleEn || talk.title : talk.title,
+      event: locale === 'en' ? talk.eventEn || talk.event : talk.event,
       date: formatTalkDate(talk.date, locale),
       url: talk.eventUrl,
       description:

@@ -1,6 +1,8 @@
 ---
 title: '워크플로우 자동화의 세계: Apache Airflow 101'
+titleEn: 'The World of Workflow Automation: Apache Airflow 101'
 event: PyCon Busan 2026
+eventEn: PyCon Busan 2026
 date: '2026-05-09'
 type: talk
 slides: >-
@@ -11,6 +13,53 @@ description: >-
 descriptionKo: PyCon Busan에서 Apache Airflow를 통한 워크플로우 자동화의 기초를 소개한 발표.
 hideOnResume: true
 eventUrl: 'https://discourse.airflow-kr.org/t/570'
+contentEn: |
+  This is an introductory talk on Apache Airflow presented at PyCon Busan 2026.
+
+  ## About the Talk
+
+  The word workflow may sound grand, but connecting multiple tasks in sequence and according to conditions is common in everyday life. This talk starts with making a hamburger and explains Tasks, DAGs, Operators, and Providers.
+
+  The focus is helping people who are new to Airflow understand what the tool manages and consider how they might apply it to their own recurring work.
+
+  ## Presentation Materials
+
+  - [Slides](https://docs.google.com/presentation/d/1lLgVkr9nLnZ3UEjbif7U8ZnxuEryArEKdJWKlnWVjhc/edit)
+  - [Event recap](https://discourse.airflow-kr.org/t/570)
+
+  ## Read the Talk as an Article
+
+  ### A Hamburger Is a Workflow, Too
+
+  Take an order, cook the patty, add the ingredients, assemble the burger, and deliver it to the customer. Each is a task that takes input and produces a result, and the whole process is a flow made up of connected tasks.
+
+  Software automation is similar. There are tasks for retrieving data, processing it, and delivering the result. When things are simple, the process is easy to understand all at once. But as the number of tasks grows and dependencies emerge, managing who runs what and when becomes more complex.
+
+  ### When Automation That Started with Cron Gets Complex
+
+  Cron is useful for running commands at a scheduled time. But when you also need to manage the order of multiple tasks, execution history, causes of errors, and reruns, additional mechanisms are needed.
+
+  Airflow handles this entire flow. It lets you define tasks and their connections in code, check execution status, and trace failed parts.
+
+  ### DAGs, Operators, and Providers
+
+  In Airflow, connected tasks are represented as a DAG. An Operator provides a reusable form for a Task, and a Provider offers features for connecting to external services.
+
+  For example, a task implemented in Python and one that accesses an external storage service require different approaches. Instead of writing every task from scratch, you can combine the features you need to build a workflow.
+
+  The UI is where you inspect this structure and its execution results. Being able to see the status of the flow defined in code creates an experience different from simply scheduling commands.
+
+  ### It's Not Just a Tool for Loading Data
+
+  The slides give examples beyond data pipelines, including model training and evaluation, recurring reports and notifications, and operational tasks such as backups and settlements. What these have in common is that they connect multiple steps and need to be run repeatedly with their status monitored.
+
+  When learning Airflow, the first thing to look for is not a large system in a particular industry, but a task you perform repeatedly. By breaking down the inputs it needs, the results it produces, and where it might fail, you can begin to see the shape of a workflow.
+
+  ## Summary
+
+  - A Task is a unit of work with inputs and outputs.
+  - As the order and dependencies among tasks become more complex, managing their execution becomes important.
+  - Airflow lets you define that flow in code and inspect its status.
 ---
 PyCon Busan 2026에서 진행한 Apache Airflow 입문 발표입니다.
 

@@ -1,16 +1,68 @@
 ---
 title: Airflow Contributions Using Breeze & Astronomer Agents
+titleEn: Contributing to Apache Airflow with Breeze & Astronomer Agents
 event: Apache Airflow 한국사용자모임 제5회 밋업
+eventEn: Apache Airflow Korean User Group 5th Meetup
 date: '2026-02-26'
 type: talk
 description: >-
   An introduction to contributing to Airflow with Breeze and Prek, and using
   Astronomer Agents for DAG development, debugging, and migration.
 descriptionKo: >-
-  Breeze와 Prek으로 Airflow 기여 환경을 구성하고 Astronomer Agents를 통해 DAG 생성·디버깅·최적화 및
-  Airflow 2에서 3으로의 마이그레이션을 소개한 발표.
+  Breeze와 Prek으로 Airflow 기여를 시작하고 Astronomer Agents로 DAG 개발·디버깅과 Airflow 2에서 3으로의
+  마이그레이션을 다룬 발표.
 eventUrl: 'https://discourse.airflow-kr.org/t/539'
 slides: 'https://docs.google.com/presentation/d/1Dt-XPXJtfCMevp1Wvzr2aONg_zsWescWRX46SJBrGxM/edit'
+contentEn: |
+  I spoke at the [Apache Airflow Korean User Group 5th Meetup](https://discourse.airflow-kr.org/t/539) on February 26, 2026.
+
+  ## About the Talk
+
+  Even when you want to contribute to open source, there are many hurdles before writing your first line of code. You may worry about which environment to install, whether the tests will run on your computer, and what to do if a PR's CI fails.
+
+  The first part of this talk covers getting started with contributions using Breeze and Prek. The second part discusses how Astronomer Agents, which can access actual Airflow execution information, can help with DAG development and debugging.
+
+  ## Talk Materials
+
+  - [Slides](https://docs.google.com/presentation/d/1Dt-XPXJtfCMevp1Wvzr2aONg_zsWescWRX46SJBrGxM/edit)
+  - [Meetup recap](https://discourse.airflow-kr.org/t/539)
+  - [Introduction to Astronomer Agents](https://discourse.airflow-kr.org/t/astronomer-agents-airflow/521)
+
+  ## The Talk in Writing
+
+  ### The first hurdle is setting up the environment
+
+  The more mature a project is, the larger its codebase and test suite tend to be, and the more checks it has. Even when you want to make a small contribution, it can be easy to get stuck setting up the development environment.
+
+  Breeze is a tool for running the components needed to develop and test Airflow in a consistent way. In development mode, you can see logs while your changes are applied. The talk introduced hot reloading and using mprocs to inspect logs as a starting point for contributing.
+
+  ### A PR is not finished just by changing the code
+
+  The contribution process proceeds through finding an area to work on, preparing the development environment, making changes, running static checks, opening a PR, review, and merge. Prek appears in this process as a tool for running style and check hooks.
+
+  Reviewers need more than the code diff. You should explain in what situation the problem occurs, why it happens, and how the change fixes it. For UI changes, screenshots checked locally help reviewers understand the change.
+
+  A merge is not the final step, either. If a change is included in a release candidate, it still needs to be checked in the actual RC version. Following your change through the release process is part of the contribution cycle.
+
+  ### From a tool that guesses to a tool that checks
+
+  Now the focus shifts from contributing to using Airflow. When a DAG fails, if you copy the logs and ask a model about them, the model has to infer the cause from only the information it was given.
+
+  The distinction emphasized in the introduction to Astronomer Agents is that they query actual Airflow APIs, DagRuns, and logs. The talk explains connected authoring, testing, and debugging features, and distinguishes simple question answering over documentation from tasks that check execution state. This does not mean you no longer need to review the tool's answers. It means you can get the information behind your judgment more directly.
+
+  ### Break migration into small checks, too
+
+  Moving from Airflow 2 to 3 involves several changes, including imports, context, and how metadata is accessed. The slides give examples such as changes detectable with Ruff's AIR rules, the transition from Dataset to Asset, and replacing direct database access with API calls.
+
+  Agents are tools that can reduce the effort involved in this work. But you still need to test whether the changes work in the actual environment. As with the contribution cycle in the first part, quick changes should be followed by verification.
+
+  ## Summary
+
+  1. A consistent contribution environment can reduce the effort required before writing code.
+  2. Reviews are easier when you share reproduction steps and verification results.
+  3. The value of agents lies not only in plausible answers, but also in checking actual state.
+
+  *This article is a draft reconstructed from the slides and the event recap. Command and tool names follow those materials; it is not a video transcript or a report of a reproduced migration.*
 ---
 2026년 2월 26일, [Apache Airflow 한국사용자모임 제5회 밋업](https://discourse.airflow-kr.org/t/539)에서 발표했습니다.
 

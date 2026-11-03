@@ -1,6 +1,8 @@
 ---
 title: '3시간 만에 만드는 데이터 자동화 시스템, Apache Airflow 핸즈온'
+titleEn: 'Build a Data Automation System in 3 Hours: Apache Airflow Hands-on'
 event: 부산 소프트웨어 혁신 오픈 포럼
+eventEn: Busan Software Innovation Open Forum
 date: '2026-08-20'
 type: workshop
 slides: >-
@@ -12,6 +14,52 @@ descriptionKo: Apache Airflow를 활용해 워크플로우 자동화 시스템�
 hideOnResume: true
 eventUrl: >-
   https://www.d-startup.kr/board.es?act=view&bid=0001&list_no=16669&mid=a10710000000
+contentEn: |
+  These are the hands-on materials for the Busan Software Innovation Open Forum on August 20, 2026. The event was listed as a side event of the Nationwide University Software Outcomes Sharing Forum.
+
+  ## About the Talk
+
+  The most direct way to understand workflow automation is to build a small flow. These materials proceed from running Airflow with Astro CLI and writing a DAG to connecting an external Provider and an AI agent.
+
+  The goal is not to complete a massive system, but to experience the structure of automation from input through delivery of the result.
+
+  ## Presentation Materials
+
+  - [Slides](https://docs.google.com/presentation/d/1ftY0mdLc1VgQQ9Y4m1HPcJ2_Q22ODyPmnMw68nd_ebI/edit)
+  - [Hands-on repository](https://github.com/choo121600/Airflow-Workshop)
+  - [Event announcement](https://www.d-startup.kr/board.es?act=view&bid=0001&list_no=16669&mid=a10710000000)
+
+  ## Read the Talk as an Article
+
+  ### Start Small, Run It, and Change It
+
+  The hands-on session starts by installing Astro CLI and creating a project. You need to learn how to start, stop, and restart the environment so you can check the results whenever you change the code later.
+
+  The first DAG can be small. Rather than making the execution environment and task structure complicated at the same time, it is easier to understand problems if you first confirm that one thing works and then add features.
+
+  ### Connecting Functions and Using Operators
+
+  The materials create DAGs in two ways: with TaskFlow and with Classic Operators. They compare representing a custom Python function as a Task with using an Operator from an external Provider.
+
+  They then cover branching, where the next task is selected according to a condition. This is a step beyond always running tasks in a line: the flow can choose a different path based on the result.
+
+  ### Connecting External Tools
+
+  You do not need to build every capability directly inside a DAG. You can connect to external services through Providers and assign each tool's strengths to Tasks.
+
+  The hands-on session then moves on to an AI agent workflow using the Common AI Provider. An agent call is also treated as a task within the overall flow, so the preceding and following steps and delivery of the result can be managed together.
+
+  ### Receiving Analysis Results by Email
+
+  The final example is an educational pipeline that evaluates stock prices and sends the results by email. The materials include connecting to the Anthropic API, configuring email, and writing an agent DAG.
+
+  What matters in this example is not a judgment about any particular stock, but how to connect data, a model, and a delivery channel. The slides also caution against using it for actual trading decisions. Credentials and keys are not included in this article.
+
+  ## Summary
+
+  1. Start by running a small DAG locally.
+  2. Learn how to represent tasks and branch on conditions, then connect external services.
+  3. Build the delivery step into the workflow as well as producing the model's result.
 ---
 2026년 8월 20일 부산 소프트웨어 혁신 오픈 포럼의 핸즈온 자료입니다. 전국대학 소프트웨어 성과 공유 포럼의 부대행사로 안내되었습니다.
 

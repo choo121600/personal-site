@@ -1,12 +1,67 @@
 ---
 title: Airflow 한국 사용자 모임이 만들어지기까지
+titleEn: The Making of the Korean Airflow User Group
 event: Apache Airflow 생일파티
+eventEn: Apache Airflow Birthday Party
 date: '2026-10-07'
 type: talk
 description: >-
   A retrospective on building the Korean Airflow community, its contributors,
   and its rotating leadership model over three years.
 descriptionKo: 'Airflow 한국 사용자 모임의 시작과 성장, 도움을 준 사람들, 운영진 기수제와 대표 임기 등 지난 3년의 커뮤니티 운영을 돌아본 발표.'
+contentEn: |
+  This is a story shared at the Airflow Birthday Party, looking back on the Korean user group's past three years.
+
+  ## About the talk
+
+  A community does not come together in a single event. It gradually takes shape as people with shared interests gather, find reasons to meet again, someone prepares the next gathering, and others begin contributing.
+
+  This talk looks back on a journey that began with an online Airflow study group and expanded to meetups, organizers, open-source contributions, and connections with other communities. It is a story not about the technology's features, but about the people who gathered around it.
+
+  ## Presentation materials
+
+  - [Slides](https://docs.google.com/presentation/d/1OoPsR1C3-HPQpHgsA11LR-EwKrxEcWjwXRs88XjHGmw/edit)
+  - [Birthday party recap](https://discourse.airflow-kr.org/t/635)
+
+  ## Read the talk as an article
+
+  ### Starting with names that kept appearing
+
+  I kept encountering the name Apache Airflow at various seminars and in communities. That interest led to an online study group, and at a Christmas Solothon we created a forum where we could collect our discussions.
+
+  We did not start by designing a group like the one we have today. It began with creating a place to learn and talk together. People who helped make those early connections, including Kaxil and Briana, were part of that process.
+
+  ### From meetups to a community
+
+  After the first meetup, Snowflake proposed a community booth, and we recruited people to help run it together. We began to gain experience not just attending talks, but creating events ourselves.
+
+  We also established a regular cadence for meeting. Meetups in February, June, and October, along with introductory sessions such as Airflow 101, created opportunities for newcomers as well as people already familiar with Airflow to take part.
+
+  ### A structure for passing experience on
+
+  When organizing depends only on certain people's experience and energy, the group can easily falter as soon as they take a break. The slides address this issue with rotating organizer cohorts.
+
+  Organizers gain experience in their first year, then take on mentoring and handover in their second. This creates an overlap in which people with experience have time to help the next group.
+
+  The goal is not simply for a small group of long-serving organizers to do everything well. More members should have the chance to gain experience planning events, collaborating, and connecting people.
+
+  ### From user to contributor
+
+  A year-end gathering conversation about there being no Airflow committers in Korea led to a contribution study group. People who had been learning how to use the project began to take part in building it, too.
+
+  The talk looks back on the trial and error along the way, the experience of becoming a committer, and the connection to the Open Source Contribution Academy. It is a story about how user groups and open-source contributions can support one another rather than exist as separate activities.
+
+  ### Broadening the connections
+
+  A joint meetup with AWSKRUG was an opportunity for people using the same tool from different perspectives to meet. The Airflow Birthday Party created a different kind of reason to come together than a technical session.
+
+  The final slides also mention a PyCon Taiwan and Hong Kong trip and the idea of an Airflow Asia Meetup. Rather than listing all of these as completed achievements, it is more accurate to read them as a direction: building future opportunities to connect with people beyond Korea as well.
+
+  ## Takeaways
+
+  - Communities grow through small, recurring opportunities to learn and talk together.
+  - A structure for passing on organizing experience makes it possible for new people to participate.
+  - The roles of user, contributor, and organizer are connected.
 hideOnResume: true
 slides: >-
   https://docs.google.com/presentation/d/1OoPsR1C3-HPQpHgsA11LR-EwKrxEcWjwXRs88XjHGmw/edit

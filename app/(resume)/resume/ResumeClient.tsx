@@ -10,7 +10,6 @@ import {
   Globe,
   Languages,
 } from 'lucide-react'
-import Link from 'next/link'
 import type { Resume, Locale, SectionKey } from '@/lib/resume-types'
 import { DEFAULT_SECTION_ORDER } from '@/lib/resume-types'
 
@@ -110,13 +109,16 @@ export function ResumeClient({ resume, locale = 'en' }: ResumeClientProps) {
           <Download className="h-4 w-4" />
           {t.download}
         </button>
-        <Link
+        <a
           href={t.switchLangPath}
+          onClick={() => {
+            document.cookie = `site-locale=${locale === 'en' ? 'ko' : 'en'}; path=/; max-age=31536000; SameSite=Lax`
+          }}
           className="flex items-center gap-2 rounded-lg border border-zinc-300 bg-white px-4 py-2 text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-50 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-200 dark:hover:bg-zinc-700"
         >
           <Languages className="h-4 w-4" />
           {t.switchLang}
-        </Link>
+        </a>
       </div>
 
       {/* A4 Page - Conservative Single Column ATS-Optimized */}

@@ -28,19 +28,32 @@ const CodeMirrorEditor = dynamic(() => import('../editor/CodeMirrorEditor'), {
 
 type TalkForm = Omit<
   TalkDetail,
-  'descriptionKo' | 'eventUrl' | 'slides' | 'video'
+  | 'descriptionKo'
+  | 'eventUrl'
+  | 'slides'
+  | 'video'
+  | 'titleEn'
+  | 'eventEn'
+  | 'contentEn'
+  | 'language'
 > & {
   descriptionKo: string
   eventUrl: string
   slides: string
   video: string
+  titleEn: string
+  eventEn: string
+  contentEn: string
+  language: 'ko' | 'en' | ''
 }
 
 function emptyTalk(): TalkForm {
   return {
     slug: '',
     title: '',
+    titleEn: '',
     event: '',
+    eventEn: '',
     date: new Date().toISOString().slice(0, 7),
     type: 'talk',
     description: '',
@@ -50,16 +63,22 @@ function emptyTalk(): TalkForm {
     video: '',
     hideOnResume: false,
     content: '',
+    contentEn: '',
+    language: '',
   }
 }
 
 function toForm(talk: TalkDetail): TalkForm {
   return {
     ...talk,
+    titleEn: talk.titleEn ?? '',
+    eventEn: talk.eventEn ?? '',
     descriptionKo: talk.descriptionKo ?? '',
     eventUrl: talk.eventUrl ?? '',
     slides: talk.slides ?? '',
     video: talk.video ?? '',
+    contentEn: talk.contentEn ?? '',
+    language: talk.language ?? '',
   }
 }
 
@@ -97,6 +116,7 @@ export default function TalksEditorPage() {
   // 불러온 발표를 고치는 중이면 그 slug (slug 변경 = 다른 파일이 되므로 막는다)
   const [editingSlug, setEditingSlug] = useState<string | null>(null)
   const [isSaving, setIsSaving] = useState(false)
+  const [previewLanguage, setPreviewLanguage] = useState<'ko' | 'en'>('ko')
 
   const loadTalks = async () => {
     const response = await fetch('/admin/api/talks')
@@ -109,6 +129,13 @@ export default function TalksEditorPage() {
 
   const update = <K extends keyof TalkForm>(key: K, value: TalkForm[K]) =>
     setForm((prev) => ({ ...prev, [key]: value }))
+
+  const previewTitle =
+    previewLanguage === 'en' ? form.titleEn || form.title : form.title
+  const previewEvent =
+    previewLanguage === 'en' ? form.eventEn || form.event : form.event
+  const previewContent =
+    previewLanguage === 'en' ? form.contentEn : form.content
 
   const loadTalk = async (slug: string) => {
     const response = await fetch(`/admin/api/talks?slug=${slug}`)
@@ -246,7 +273,7 @@ export default function TalksEditorPage() {
 
         <main className="flex flex-1 flex-col overflow-hidden">
           <div className="space-y-4 overflow-y-auto border-b border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-5">
               <Field
                 label="슬러그 (URL 경로)"
                 htmlFor="talk-slug"
@@ -290,6 +317,20 @@ export default function TalksEditorPage() {
                   ))}
                 </select>
               </Field>
+              <Field label="발표 언어" htmlFor="talk-language">
+                <select
+                  id="talk-language"
+                  value={form.language}
+                  onChange={(e) =>
+                    update('language', e.target.value as TalkForm['language'])
+                  }
+                  className={INPUT_CLASS}
+                >
+                  <option value="">선택 안 함</option>
+                  <option value="ko">한국어</option>
+                  <option value="en">영어</option>
+                </select>
+              </Field>
               <div className="flex items-end pb-2">
                 <label className="flex items-center gap-2 text-sm text-zinc-700 dark:text-zinc-300">
                   <input
@@ -304,7 +345,7 @@ export default function TalksEditorPage() {
             </div>
 
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-              <Field label="제목" htmlFor="talk-title">
+              <Field label="제목 (국문)" htmlFor="talk-title">
                 <input
                   id="talk-title"
                   value={form.title}
@@ -313,12 +354,30 @@ export default function TalksEditorPage() {
                   className={INPUT_CLASS}
                 />
               </Field>
-              <Field label="행사" htmlFor="talk-event">
+              <Field label="행사 (국문)" htmlFor="talk-event">
                 <input
                   id="talk-event"
                   value={form.event}
                   onChange={(e) => update('event', e.target.value)}
                   placeholder="Snowflake World Tour Seoul 2025"
+                  className={INPUT_CLASS}
+                />
+              </Field>
+              <Field label="제목 (영문)" htmlFor="talk-title-en">
+                <input
+                  id="talk-title-en"
+                  value={form.titleEn}
+                  onChange={(e) => update('titleEn', e.target.value)}
+                  placeholder="Presentation title"
+                  className={INPUT_CLASS}
+                />
+              </Field>
+              <Field label="행사 (영문)" htmlFor="talk-event-en">
+                <input
+                  id="talk-event-en"
+                  value={form.eventEn}
+                  onChange={(e) => update('eventEn', e.target.value)}
+                  placeholder="Event name"
                   className={INPUT_CLASS}
                 />
               </Field>
@@ -338,7 +397,7 @@ export default function TalksEditorPage() {
               <Field
                 label="설명 (국문)"
                 htmlFor="talk-description-ko"
-                hint="국문 이력서, 비우면 영문 사용"
+                hint="국문 홈·발표 페이지·이력서, 비우면 영문 사용"
               >
                 <textarea
                   id="talk-description-ko"
@@ -389,19 +448,56 @@ export default function TalksEditorPage() {
           </div>
 
           <div className="flex flex-1 overflow-hidden">
-            <div className="w-1/2 min-w-0 flex-shrink-0 border-r border-zinc-200 dark:border-zinc-800">
-              <CodeMirrorEditor
-                value={form.content}
-                onChange={(value) => update('content', value)}
-              />
+            <div className="flex w-1/2 min-w-0 flex-shrink-0 flex-col border-r border-zinc-200 dark:border-zinc-800">
+              <div className="flex items-center justify-between border-b border-zinc-200 px-4 py-2 dark:border-zinc-800">
+                <label
+                  htmlFor="talk-preview-language"
+                  className="text-xs font-medium text-zinc-600 dark:text-zinc-400"
+                >
+                  본문 편집·미리보기 언어
+                </label>
+                <select
+                  id="talk-preview-language"
+                  value={previewLanguage}
+                  onChange={(e) =>
+                    setPreviewLanguage(e.target.value as 'ko' | 'en')
+                  }
+                  className="rounded-md border border-zinc-300 bg-white px-2 py-1 text-xs dark:border-zinc-700 dark:bg-zinc-800"
+                >
+                  <option value="ko">한국어</option>
+                  <option value="en">영어</option>
+                </select>
+              </div>
+              <div className="min-h-0 flex-1">
+                <CodeMirrorEditor
+                  value={previewContent}
+                  onChange={(value) =>
+                    update(
+                      previewLanguage === 'ko' ? 'content' : 'contentEn',
+                      value,
+                    )
+                  }
+                />
+              </div>
             </div>
             <div className="w-1/2 min-w-0 flex-shrink-0 overflow-y-auto p-8">
-              {form.content.trim() ? (
-                <MarkdownRenderer content={form.content} />
+              {(previewTitle || previewEvent) && (
+                <header className="mb-6 border-b border-zinc-200 pb-4 dark:border-zinc-800">
+                  {previewTitle && (
+                    <h1 className="text-2xl font-semibold">{previewTitle}</h1>
+                  )}
+                  {previewEvent && (
+                    <p className="mt-1 text-sm text-zinc-500">{previewEvent}</p>
+                  )}
+                </header>
+              )}
+              {previewContent.trim() ? (
+                <MarkdownRenderer content={previewContent} />
               ) : (
                 <p className="text-sm text-zinc-500">
-                  본문은 선택입니다. 초록, 후기, 관련 링크를 마크다운으로 적으면
-                  발표 페이지 아래에 나옵니다.
+                  {previewLanguage === 'en'
+                    ? '영문 본문이 비어 있습니다.'
+                    : '본문은 선택입니다. 초록, 후기, 관련 링크를 마크다운으로 적으면 발표 페이지 아래에 나옵니다.'}
                 </p>
               )}
             </div>

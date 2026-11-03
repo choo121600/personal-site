@@ -1,6 +1,8 @@
 ---
 title: 'Apache Airflow 3.x: 무엇이 달라졌고, 어디로 가고 있는가?'
+titleEn: 'Apache Airflow 3.x: What Has Changed, and Where Is It Headed?'
 event: AWSKRUG 데이터 모임 × Apache Airflow 한국 사용자 모임 (제70회 데이터 모임)
+eventEn: AWSKRUG Data Group × Apache Airflow Korea User Group (Data Meetup #70)
 date: '2026-09-18'
 type: talk
 description: >-
@@ -12,6 +14,104 @@ descriptionKo: >-
 hideOnResume: true
 slides: 'https://drive.google.com/file/d/1_MF8zuADdNf0i3eOuPbCH_auQ35ANQgB/view'
 eventUrl: 'https://www.meetup.com/ko-kr/awskrug/events/316306742/'
+contentEn: |
+  On September 18, 2026, I presented at the [AWSKRUG Data Group × Apache Airflow Korea User Group](https://www.meetup.com/ko-kr/awskrug/events/316306742/) event held at Seocho OpenUP.
+
+  ## About the Talk
+
+  When introducing Airflow, saying “a scheduler used for ETL” usually gets the point across. But after explaining it that way, something feels slightly off. Moving data at scheduled times alone does not adequately describe the workflows we build today.
+
+  This talk looks at changes in Airflow 3.x along three dimensions: an architecture that separates execution from orchestration, a public interface DAG authors can rely on, and workflows connected by data and events as well as time. Finally, it discusses what these changes mean for observing and controlling AI agent execution.
+
+  ## Presentation Materials
+
+  - [Slide deck (PDF)](https://drive.google.com/file/d/1_MF8zuADdNf0i3eOuPbCH_auQ35ANQgB/view)
+  - [Original Google Slides](https://docs.google.com/presentation/d/16DWzHPkv1q8sCnDl_dG1Cr7YaxMxuk4IXvxWZZQftt8/edit)
+  - [Event recap](https://discourse.airflow-kr.org/t/634)
+
+  ## Read the Talk as an Article
+
+  ### What a Scheduler Explanation Misses
+
+  A familiar data pipeline can be shown as a simple diagram. When the time comes, a DAG runs, its Tasks execute in sequence, and the results are loaded into a data warehouse.
+
+  ```text
+  Scheduled time → DAG → Task → Data warehouse
+  ```
+
+  What matters in this picture is when to run things. So it is natural to think of Airflow as a somewhat smarter Cron.
+
+  But a new workflow may end not with loading data, but with taking action. An event arrives, data is checked, a model makes an inference, and that result informs a decision and action. At some steps, the workflow needs to wait for human approval.
+
+  ```text
+  Event → Data → Model → Inference → Decision → Action
+  ```
+
+  When looking at Airflow 3.x, the important question is not only “What features have been added?” We should also ask: **How has the scope of workflows Airflow is meant to handle expanded?**
+
+  ### Separate Execution from Orchestration
+
+  In Airflow 2.x, it was familiar for Tasks to access the metadata database directly while running. Connections, Variables, XCom, and status information all crossed this boundary.
+
+  In 3.x, the Task Execution API becomes the point of contact between execution and the Airflow core. Rather than accessing the database directly, Tasks communicate with Airflow through the API. The Supervisor and Task SDK have roles in establishing this execution boundary. DAG parsing is also handled by an independent DAG Processor.
+
+  The distinction here is between two things:
+
+  - **Orchestration:** deciding what to run, when and in what order, and how to handle failures
+  - **Execution:** running actual user code in a particular environment
+
+  Separating the two makes it possible to handle the choice of execution environment independently from workflow coordination. It also makes it possible to move beyond granting every execution environment access to the metadata database when isolating workers or expanding to remote environments.
+
+  ### DAG Authors Need Stable Guarantees
+
+  The people operating a system and the people writing DAGs are not always on the same team. If every DAG has to keep up whenever the core's internal structure changes, upgrading the platform becomes a project to modify all the user code.
+
+  This is why `airflow.sdk` matters. It defines the public interface DAG authors can depend on and creates a boundary between internal implementation and user code.
+
+  This does not mean upgrades will never require changes. It does make clear which interface to write code against, instead of referring directly to internal implementation. It creates a contract that operations teams, DAG authors, and Provider developers can share.
+
+  ### When the Data Is Ready, Not Just When the Time Comes
+
+  It is common to schedule the next DAG for the time when the previous step is expected to finish. But if execution takes longer, the next task may start before the data is ready; conversely, even if the data arrives early, it may have to wait until the scheduled time.
+
+  Asset-based scheduling represents this connection through data state. For example, when a Task updates an Asset, it can run the DAG that consumes that Asset. The talk also notes that an update occurs when a Task succeeds. A failed or skipped task should not be treated as a signal that the data is ready.
+
+  Instead of looking at each DAG separately, you can view one larger flow: which task wakes up when data changes, and what data that task produces in turn.
+
+  ```text
+  Event → Asset A → Workflow A → Asset B → Workflow B
+  ```
+
+  ### Workflows Need Versions, Too
+
+  When investigating a problem where “it worked last week, but not today,” the code in the repository now may not be enough. You also need to know which code was used for last week's run.
+
+  DAG Bundles are a move toward treating workflows as versioned artifacts. Tracking the code version along with execution history should make it easier to understand past runs and reproduce problems.
+
+  Connecting tasks by data state instead of time, and tracking the code used at execution time, may seem like separate features. But both are part of a shift toward treating workflows more explicitly than as simple schedules.
+
+  ### Keep a Record of the Execution, Not Just the Agent's Answer
+
+  An AI agent producing an answer does not mean the work is done. You need to be able to explain which tools it called, which step failed, and what needs to be run again.
+
+  If LLM calls and tool usage are split into named Tasks, each step can retain its logs, results, and retry history. Parallel work can be expanded with Dynamic Task Mapping, and HITL can be placed where human judgment is needed.
+
+  HITL here does not simply mean that a person reads the result later. Approval, selection, or input becomes a step in the workflow that determines what happens next.
+
+  This does not mean every agent is unobservable. What matters is **which records and control points we explicitly retain in our execution structure**. Airflow's Task-based execution model is one way to answer that question.
+
+  ## Summary
+
+  1. **Separate execution from orchestration.** You can design where code runs independently from what runs and when.
+  2. **Clarify the authoring interface and execution version.** You need a contract for user code to depend on and a basis for tracing past runs.
+  3. **Time is not the only trigger.** Changes in data, events, and human judgment can also be part of a workflow.
+
+  Airflow 3.x is an upgrade to the DAG scheduler, but more broadly, it is a change that expands the scope of what a workflow orchestrator can handle.
+
+  ## Related Links
+
+  - [AWSKRUG presentation materials](https://github.com/awskrug/data-group)
+  - [Event announcement](https://discourse.airflow-kr.org/t/617)
 ---
 2026년 9월 18일, 서초 OpenUP에서 열린 [AWSKRUG 데이터 모임 × Apache Airflow 한국 사용자 모임](https://www.meetup.com/ko-kr/awskrug/events/316306742/)에서 발표했습니다.
 

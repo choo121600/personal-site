@@ -1,6 +1,8 @@
 ---
 title: 'Airflow + Snowflake, 함께 만드는 완벽한 하모니'
+titleEn: 'Airflow + Snowflake: Creating Perfect Harmony Together'
 event: 스노우플레이크 유저그룹 온라인 밋업 12회 — 월드 투어 커뮤니티 세션 나누기
+eventEn: 'Snowflake User Group Online Meetup #12 — Sharing World Tour Community Sessions'
 date: '2025-11-05'
 type: talk
 description: >-
@@ -9,6 +11,28 @@ description: >-
 descriptionKo: >-
   Snowflake World Tour Seoul의 커뮤니티 세션을 온라인에서 다시 나누며 Airflow와 Snowflake의 결합을 소개하는
   발표.
+contentEn: |
+  This was a session scheduled for the 12th Snowflake User Group Online Meetup on November 5, 2025.
+
+  ## About the talk
+
+  This was an opportunity to share stories from a range of technology communities online for people who could not attend Snowflake World Tour Seoul or missed the Community Village session. The program scheduled the Korean Airflow User Group's “Airflow + Snowflake: Creating Perfect Harmony Together” for 15 minutes starting at 20:00.
+
+  ## Event and related materials
+
+  - [Online meetup program](https://discourse.airflow-kr.org/t/455)
+  - [Event registration page](https://event-us.kr/flakers/event/115157)
+  - [September World Tour talk and slides](/talks/airflow-snowflake-harmony)
+
+  ## Read the talk as an article
+
+  ### Bringing the in-person stories online
+
+  The meetup was presented as a way to share again the community sessions from World Tour. Although the title was the same, the September event and the November online meetup were separate events.
+
+  ### Why use Airflow and Snowflake together?
+
+  The linked September talk compares Airflow to the conductor of a pipeline. Snowflake and Snowpark ML handle data processing and model training, while Airflow coordinates loading, preprocessing, training, and evaluation as a single workflow. The original slides and article for that talk are available at the link above.
 hideOnResume: true
 eventUrl: 'https://event-us.kr/flakers/event/115157'
 ---

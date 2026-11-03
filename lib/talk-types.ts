@@ -12,12 +12,15 @@ export type TalkType = (typeof TALK_TYPES)[number]['value']
 export interface TalkMetadata {
   slug: string
   title: string
+  titleEn?: string
   event: string
+  eventEn?: string
   // 'YYYY', 'YYYY-MM' 또는 'YYYY-MM-DD'
   date: string
   type: TalkType
   description: string
   descriptionKo?: string
+  language?: Locale
   eventUrl?: string
   slides?: string
   video?: string
@@ -26,6 +29,7 @@ export interface TalkMetadata {
 
 export interface TalkDetail extends TalkMetadata {
   content: string
+  contentEn?: string
 }
 
 // 파일 이름으로 쓰이므로 경로 문자가 들어가지 않게 제한한다

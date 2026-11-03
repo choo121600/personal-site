@@ -4,11 +4,43 @@ import { useEffect, useRef } from 'react'
 import { useTheme } from 'next-themes'
 import type { Map as MapLibreMap, Marker } from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
+import { useLocale } from '@/components/LocaleProvider'
 
 // OpenFreeMap: OSM 기반 벡터 타일. 키/요금 없음, 저작자 표시는 지도 우측 하단에 자동으로 붙는다.
 const STYLE = {
   light: 'https://tiles.openfreemap.org/styles/positron',
   dark: 'https://tiles.openfreemap.org/styles/dark',
+}
+const KOREAN_MAP_LOCALE: Record<string, string> = {
+  'AttributionControl.ToggleAttribution': '지도 출처 표시 전환',
+  'AttributionControl.MapFeedback': '지도에 의견 보내기',
+  'FullscreenControl.Enter': '전체 화면으로 보기',
+  'FullscreenControl.Exit': '전체 화면 종료',
+  'GeolocateControl.FindMyLocation': '내 위치 찾기',
+  'GeolocateControl.LocationNotAvailable': '현재 위치를 사용할 수 없습니다',
+  'LogoControl.Title': 'MapLibre 로고',
+  'Map.Title': '지도',
+  'Marker.Title': '지도 마커',
+  'NavigationControl.ResetBearing':
+    '지도를 드래그해 회전하고 클릭해 북쪽 방향으로 되돌리기',
+  'NavigationControl.ZoomIn': '확대',
+  'NavigationControl.ZoomOut': '축소',
+  'Popup.Close': '팝업 닫기',
+  'ScaleControl.Feet': '피트',
+  'ScaleControl.Meters': '미터',
+  'ScaleControl.Kilometers': '킬로미터',
+  'ScaleControl.Miles': '마일',
+  'ScaleControl.NauticalMiles': '해리',
+  'GlobeControl.Enable': '지구본 보기로 전환',
+  'GlobeControl.Disable': '지구본 보기 끄기',
+  'TerrainControl.Enable': '지형 보기 켜기',
+  'TerrainControl.Disable': '지형 보기 끄기',
+  'CooperativeGesturesHandler.WindowsHelpText':
+    'Ctrl 키를 누른 채 스크롤하여 지도를 확대/축소하세요',
+  'CooperativeGesturesHandler.MacHelpText':
+    '⌘ 키를 누른 채 스크롤하여 지도를 확대/축소하세요',
+  'CooperativeGesturesHandler.MobileHelpText':
+    '두 손가락으로 지도를 이동하세요',
 }
 const SINGLE_PLACE_ZOOM = 15
 const FIT_PADDING = 56
@@ -42,17 +74,20 @@ export function MapView({
   onSelect,
   className,
 }: MapViewProps) {
+  const locale = useLocale()
   const containerRef = useRef<HTMLDivElement>(null)
   const mapRef = useRef<MapLibreMap | null>(null)
   const markersRef = useRef(new Map<string, Marker>())
   const onSelectRef = useRef(onSelect)
   onSelectRef.current = onSelect
+  const selectedIdRef = useRef(selectedId)
+  selectedIdRef.current = selectedId
   const { resolvedTheme } = useTheme()
   const theme: keyof typeof STYLE = resolvedTheme === 'dark' ? 'dark' : 'light'
   const themeRef = useRef(theme)
   themeRef.current = theme
 
-  // 지도와 마커 생성 (places가 바뀔 때만 다시 만든다)
+  // 장소나 언어가 바뀌면 지도와 마커를 다시 만든다.
   useEffect(() => {
     const container = containerRef.current
     if (!container || places.length === 0) return
@@ -76,6 +111,7 @@ export function MapView({
         fitBoundsOptions: { padding: FIT_PADDING, maxZoom: SINGLE_PLACE_ZOOM },
         cooperativeGestures: true,
         attributionControl: { compact: true },
+        locale: locale === 'ko' ? KOREAN_MAP_LOCALE : undefined,
       })
       mapRef.current = map
 
@@ -83,8 +119,15 @@ export function MapView({
         const element = document.createElement('button')
         element.type = 'button'
         element.className = MARKER_CLASS
-        element.setAttribute('aria-label', place.name)
+        element.setAttribute(
+          'aria-label',
+          `${locale === 'ko' ? '지도 위치' : 'Map location'}: ${place.name}`,
+        )
         element.title = place.name
+        element.setAttribute(
+          'aria-pressed',
+          String(place.id === selectedIdRef.current),
+        )
         const dot = document.createElement('span')
         dot.className = MARKER_DOT_CLASS
         element.append(dot)
@@ -97,6 +140,15 @@ export function MapView({
           new Marker({ element }).setLngLat([place.lng, place.lat]).addTo(map),
         )
       }
+      const selected = places.find(
+        (place) => place.id === selectedIdRef.current,
+      )
+      if (selected) {
+        map.jumpTo({
+          center: [selected.lng, selected.lat],
+          zoom: Math.max(map.getZoom(), SELECTED_ZOOM),
+        })
+      }
     })
 
     return () => {
@@ -105,7 +157,7 @@ export function MapView({
       mapRef.current?.remove()
       mapRef.current = null
     }
-  }, [places])
+  }, [places, locale])
 
   // 테마가 바뀌면 스타일만 교체한다 (마커는 DOM이라 유지된다)
   useEffect(() => {

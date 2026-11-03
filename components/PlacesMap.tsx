@@ -5,10 +5,11 @@ import Link from 'next/link'
 import { XIcon } from 'lucide-react'
 import { MapView } from './MapView'
 import type { MapPlace } from '@/lib/map-places'
+import { useLocale } from '@/components/LocaleProvider'
 
-function formatDate(date: string) {
+function formatDate(date: string, locale: 'ko' | 'en') {
   return date
-    ? new Date(date).toLocaleDateString('ko-KR', {
+    ? new Date(date).toLocaleDateString(locale === 'ko' ? 'ko-KR' : 'en-US', {
         year: 'numeric',
         month: 'long',
         day: 'numeric',
@@ -16,7 +17,13 @@ function formatDate(date: string) {
     : ''
 }
 
-function PlacePosts({ place }: { place: MapPlace }) {
+function PlacePosts({
+  place,
+  locale,
+}: {
+  place: MapPlace
+  locale: 'ko' | 'en'
+}) {
   return (
     <ul className="space-y-1">
       {place.posts.map((post) => (
@@ -29,7 +36,7 @@ function PlacePosts({ place }: { place: MapPlace }) {
           </Link>
           {post.date && (
             <span className="ml-2 text-xs text-zinc-500 tabular-nums dark:text-zinc-400">
-              {formatDate(post.date)}
+              {formatDate(post.date, locale)}
             </span>
           )}
         </li>
@@ -39,6 +46,7 @@ function PlacePosts({ place }: { place: MapPlace }) {
 }
 
 export function PlacesMap({ places }: { places: MapPlace[] }) {
+  const locale = useLocale()
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const selected = places.find((place) => place.id === selectedId)
   const mapFrameRef = useRef<HTMLDivElement>(null)
@@ -70,13 +78,13 @@ export function PlacesMap({ places }: { places: MapPlace[] }) {
               <button
                 type="button"
                 onClick={() => setSelectedId(null)}
-                aria-label="닫기"
+                aria-label={locale === 'ko' ? '닫기' : 'Close'}
                 className="-m-1 rounded p-1 text-zinc-500 hover:text-zinc-900 focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:outline-none dark:hover:text-zinc-100"
               >
                 <XIcon className="size-4" />
               </button>
             </div>
-            <PlacePosts place={selected} />
+            <PlacePosts place={selected} locale={locale} />
           </div>
         )}
       </div>
@@ -93,7 +101,7 @@ export function PlacesMap({ places }: { places: MapPlace[] }) {
               {place.name}
             </button>
             <div className="mt-1 text-sm">
-              <PlacePosts place={place} />
+              <PlacePosts place={place} locale={locale} />
             </div>
           </li>
         ))}

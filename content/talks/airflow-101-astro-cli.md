@@ -1,6 +1,8 @@
 ---
 title: Apache Airflow 101 with Astro CLI
+titleEn: Apache Airflow 101 with Astro CLI
 event: 'Python PIP 배포 실습 및 Airflow 소개 Hands-On!, 부산'
+eventEn: 'Python PIP Deployment & Airflow Introduction Hands-On!, Busan'
 date: '2024-10-26'
 type: workshop
 slides: >-
@@ -11,6 +13,53 @@ description: >-
 eventUrl: 'https://www.meetup.com/korea-apache-airflow-user-group/events/303680210/'
 hideOnResume: true
 descriptionKo: 'Astro CLI로 Airflow를 시작하고, 데일리 뉴스 요약과 투자 조언 메시징 서비스를 구현하는 실습.'
+contentEn: |
+  This was a hands-on workshop held on October 26, 2024, at Elice-Lab in Busan as part of [Python PIP & Airflow Hands-On](https://www.meetup.com/korea-apache-airflow-user-group/events/303680210/).
+
+  ## About the Workshop
+
+  You do not need to build a production environment from scratch to learn Airflow. It is important to first run it on your own computer, connect small tasks, and learn where to look when something fails. In this workshop, we used Astro CLI to bring news collection, summarization, evaluation, and email delivery together in one workflow.
+
+  ## Workshop Materials
+
+  - [Slides](https://docs.google.com/presentation/d/1XXIk5Gv_Tut427IKsBzjIUPpkNp64jseWK1lc3uK3Lg/edit)
+  - [Event announcement](https://discourse.airflow-kr.org/t/273)
+
+  ## The Workshop in Writing
+
+  ### Focus on the workflow, not installation
+
+  Spending all the time on environment setup in an introductory workshop can be exhausting before you even begin learning what you came for. Astro CLI was chosen in these materials so that starting and stopping local Airflow and checking DAG changes could be handled as one development workflow.
+
+  After initializing the project, run it with `astro dev start` and control the environment with `stop` and `restart`. The important thing is not memorizing commands, but creating a short cycle of changing code and checking the results.
+
+  ### Split one script into multiple tasks
+
+  The functionality for fetching news and sending an email could be implemented as one long function. But if you want to know where a failure happened and rerun only the necessary part, it is better to make the task boundaries explicit.
+
+  ```text
+  Collect news → Summarize → Evaluate → Send email
+  ```
+
+  After looking at DAGs written in both the basic and decorator styles, the workshop expresses each of these stages as a Task. A failure while collecting news is a different problem from a failure while sending email. When the workflow's structure is visible in both the code and the UI, it is easier to find that difference.
+
+  ### Notifications are part of automation, too
+
+  If people have to open and check every automated task themselves, a management burden remains. That is why, before processing news in depth, the workshop covers a DAG that sends email and Slack notifications on success or failure.
+
+  The slides explain how to configure email authentication and a Slack webhook, and describe how to manage the required settings in a container environment. Actual keys and credentials are not included in this article.
+
+  ### A pipeline that reads and delivers the news
+
+  The workshop materials use yfinance to fetch relevant news, ChatGPT to create summaries and positive or negative evaluations, and email to deliver the results. A model call is also an independent task, so its output can be checked between the data collection and delivery stages.
+
+  The goal here is to learn how to manage the execution order of multiple tools, not the accuracy of investment decisions. The example's evaluation is for learning and is not verified advice for actual trading.
+
+  ## Summary
+
+  - A local environment should be easy to run repeatedly so you can focus on the workshop.
+  - Making task boundaries visible makes it easier to understand which part failed and what to rerun.
+  - For automation to be useful day to day, connect not only data processing, but also result delivery and failure notifications.
 ---
 2024년 10월 26일, 부산 Elice-Lab의 [Python PIP & Airflow Hands-On](https://www.meetup.com/korea-apache-airflow-user-group/events/303680210/)에서 진행한 실습입니다.
 

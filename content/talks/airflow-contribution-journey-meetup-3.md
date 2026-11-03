@@ -1,6 +1,8 @@
 ---
 title: '대격변의 시대, Apache Airflow에 기여하기 위한 여정'
+titleEn: 'In an Era of Great Upheaval: The Journey to Contributing to Apache Airflow'
 event: Apache Airflow 한국사용자모임 제3회 밋업
+eventEn: Apache Airflow Korean User Group 3rd Meetup
 date: '2025-06-21'
 type: talk
 description: >-
@@ -10,6 +12,16 @@ descriptionKo: 큰 변화를 겪고 있는 Apache Airflow 프로젝트에 기여
 hideOnResume: true
 video: 'https://youtu.be/9shlznVQcIA'
 eventUrl: 'https://discourse.airflow-kr.org/t/371'
+contentEn: |
+  This talk about contributing to Apache Airflow was given at the Apache Airflow Korean User Group 3rd Meetup in June 2025.
+
+  ## About the Talk
+
+  Under the title “In an Era of Great Change: The Journey to Contributing to Apache Airflow,” I shared my experience contributing to Airflow. The event covered changes in Airflow 3.0, the Semantic Layer, security vulnerabilities, and contribution experiences in separate sessions. This page collects the record of the contribution-journey session among them.
+
+  ## Video
+
+  - [Individual session video](https://youtu.be/9shlznVQcIA)
 ---
 2025년 6월, Apache Airflow 한국사용자모임 제3회 밋업에서 진행한 기여 경험 발표입니다.
 

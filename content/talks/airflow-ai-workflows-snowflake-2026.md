@@ -1,6 +1,8 @@
 ---
 title: 'ETL을 넘어 AI 워크플로우로: Airflow의 새로운 진화'
+titleEn: 'Beyond ETL to AI Workflows: The Next Evolution of Airflow'
 event: Snowflake World Tour Seoul 2026
+eventEn: Snowflake World Tour Seoul 2026
 date: '2026-08-27'
 type: talk
 description: >-
@@ -14,6 +16,57 @@ slides: >-
   https://docs.google.com/presentation/d/1voZwqpGhHL2GRaPJfllyHsAJp0ScZIbwr_btIaRst_A/edit
 eventUrl: >-
   https://kr.linkedin.com/posts/yeonguk-choo_지난-8월-27일-snowflake-world-tour-seoul-2026에서-activity-7499765058139353088-YjYp
+contentEn: |
+  This was a community session held at Snowflake World Tour Seoul on August 27, 2026.
+
+  ## About the Talk
+
+  Having AI read documents and write reports does not, by itself, solve real work problems. It also matters which data can be sent outside, where approval is needed, and whether the results can be explained later.
+
+  This talk connects Airflow's Common AI Provider with Snowflake Cortex. The approach divides workflows according to data boundaries and domain requirements, not just model performance.
+
+  ## Presentation Materials
+
+  - [Slides](https://docs.google.com/presentation/d/1voZwqpGhHL2GRaPJfllyHsAJp0ScZIbwr_btIaRst_A/edit)
+  - [Speaker's recap](https://kr.linkedin.com/posts/yeonguk-choo_지난-8월-27일-snowflake-world-tour-seoul-2026에서-activity-7499765058139353088-YjYp)
+
+  ## Read the Talk as an Article
+
+  ### What Comes After ETL
+
+  Loading data into a warehouse is an important goal for many pipelines. But in work that uses agents, the process continues: the data is read, a judgment is made, and an action follows.
+
+  Airflow Tasks and Providers are units for connecting this process as well. The workflow now includes not only predefined transformations, but also model routing, tool calls, and human approval.
+
+  ### Which Data Can Leave the Boundary?
+
+  The example in the slides builds a stock briefing by reading disclosures, stock prices, and research materials. Should all of these materials be sent to a model in the same way? Subscription agreements or terms of use may prevent some materials from being sent outside.
+
+  The demo therefore splits the processing paths. Documents restricted from external transfer are explored and structured inside the warehouse using Snowflake Cortex. Data that can be made public follows a path that uses external models and tools.
+
+  The question behind this routing is not, “Which model is better?” It is: **What processing is permitted for this data and this task?**
+
+  ### Representing Approval as a Task
+
+  ```text
+  Prepare materials → Process and structure internally → Validate disclosure scope → Human approval → Analysis and report
+  ```
+
+  The materials currently show a flow that blocks data after the cutoff date, validates the boundaries of the information to be shared, and then obtains human approval through HITL. Instead of leaving the approval process outside execution as a chat in a messenger, this approach makes it explicit within the workflow.
+
+  The Common AI Provider is used for model routing and agent tool calls, while Cortex handles document processing inside the warehouse. Representing each as a separate task makes it possible to inspect where inputs and outputs changed.
+
+  ### What Matters Remains After the Run
+
+  A similar report could be produced with a different agent setup. What these materials emphasize is not only the output, but also the record left behind after execution.
+
+  Named Tasks, model-call logs, retry history, and tables containing results and execution details provide a path to follow when something goes wrong. That is the difference between getting one good answer and running and explaining a process repeatedly.
+
+  ## Summary
+
+  1. Define data boundaries and task constraints before choosing a model.
+  2. Explicitly connect internal processing, external tools, and human approval.
+  3. Record the execution process as well as its results so it can be audited and improved later.
 ---
 2026년 8월 27일, Snowflake World Tour Seoul에서 진행한 커뮤니티 세션입니다.
 

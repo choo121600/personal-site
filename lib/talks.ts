@@ -17,7 +17,10 @@ const talksDirectory = path.join(process.cwd(), 'content', 'talks')
 
 // frontmatter에 쓰는 선택 필드. 비어 있으면 파일에서 뺀다
 const OPTIONAL_FIELDS = [
+  'titleEn',
+  'eventEn',
   'descriptionKo',
+  'language',
   'eventUrl',
   'slides',
   'video',
@@ -29,6 +32,23 @@ function optionalString(value: unknown): string | undefined {
   return typeof value === 'string' && value.trim() !== ''
     ? value.trim()
     : undefined
+}
+
+function optionalLanguage(
+  value: unknown,
+  source: string,
+): TalkMetadata['language'] {
+  if (value === undefined) return undefined
+  if (typeof value !== 'string') {
+    throw new TalkValidationError(`${source}: 'language' must be 'ko' or 'en'`)
+  }
+
+  const language = value.trim()
+  if (!language) return undefined
+  if (language !== 'ko' && language !== 'en') {
+    throw new TalkValidationError(`${source}: 'language' must be 'ko' or 'en'`)
+  }
+  return language
 }
 
 function requireString(
@@ -78,11 +98,14 @@ function toTalkMetadata(
   return {
     slug,
     title: requireString(data, 'title', source),
+    titleEn: optionalString(data.titleEn),
     event: requireString(data, 'event', source),
+    eventEn: optionalString(data.eventEn),
     date,
     type: type as TalkType,
     description: requireString(data, 'description', source),
     descriptionKo: optionalString(data.descriptionKo),
+    language: optionalLanguage(data.language, source),
     eventUrl: optionalString(data.eventUrl),
     slides: optionalString(data.slides),
     video: optionalString(data.video),
@@ -95,7 +118,11 @@ function readTalk(slug: string): TalkDetail {
   const { data, content } = matter(
     fs.readFileSync(talkPath(slug, source), 'utf8'),
   )
-  return { ...toTalkMetadata(slug, data, source), content: content.trim() }
+  return {
+    ...toTalkMetadata(slug, data, source),
+    content: content.trim(),
+    contentEn: optionalString(data.contentEn),
+  }
 }
 
 // 최신순 발표 목록 (본문 제외)
@@ -106,10 +133,12 @@ export function getAllTalks(): TalkMetadata[] {
     .readdirSync(talksDirectory)
     .filter((name) => name.endsWith('.md'))
     .map((fileName) => {
-      const talk: TalkMetadata & { content?: string } = readTalk(
+      const talk: TalkMetadata &
+        Partial<Pick<TalkDetail, 'content' | 'contentEn'>> = readTalk(
         fileName.replace(/\.md$/, ''),
       )
       delete talk.content
+      delete talk.contentEn
       return talk
     })
     .sort((a, b) => (a.date < b.date ? 1 : -1))
@@ -146,6 +175,9 @@ export function saveTalk(talk: TalkDetail): void {
     if (meta[key]) frontmatter[key] = meta[key]
     else delete frontmatter[key]
   }
+  const contentEn = optionalString(talk.contentEn)
+  if (contentEn) frontmatter.contentEn = contentEn
+  else delete frontmatter.contentEn
   if (meta.hideOnResume) frontmatter.hideOnResume = true
   else delete frontmatter.hideOnResume
 

@@ -2,22 +2,35 @@
 import { TextMorph } from '@/components/ui/text-morph'
 import { ScrollProgress } from '@/components/ui/scroll-progress'
 import { useEffect, useState } from 'react'
+import { useLocale } from '@/components/LocaleProvider'
 
 function CopyButton() {
-  const [text, setText] = useState('Copy')
+  const locale = useLocale()
+  const [copied, setCopied] = useState(false)
+  const text = copied
+    ? locale === 'ko'
+      ? '복사됨'
+      : 'Copied'
+    : locale === 'ko'
+      ? '복사'
+      : 'Copy'
   const currentUrl = typeof window !== 'undefined' ? window.location.href : ''
 
   useEffect(() => {
-    setTimeout(() => {
-      setText('Copy')
-    }, 2000)
-  }, [text])
+    if (!copied) return
+    const timeout = setTimeout(() => setCopied(false), 2000)
+    return () => clearTimeout(timeout)
+  }, [copied])
 
   return (
     <button
-      onClick={() => {
-        setText('Copied')
-        navigator.clipboard.writeText(currentUrl)
+      onClick={async () => {
+        try {
+          await navigator.clipboard.writeText(currentUrl)
+          setCopied(true)
+        } catch {
+          setCopied(false)
+        }
       }}
       className="font-base flex items-center gap-1 text-center text-sm text-zinc-500 transition-colors dark:text-zinc-400"
       type="button"

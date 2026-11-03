@@ -1,16 +1,67 @@
 ---
 title: 'Airflow + Snowflake: 함께 만드는 완벽한 하모니'
+titleEn: 'Airflow + Snowflake: Creating Perfect Harmony Together'
 event: Snowflake World Tour Seoul 2025
+eventEn: Snowflake World Tour Seoul 2025
 date: '2025-09-09'
 type: talk
 description: >-
-  Orchestrating a Snowpark ML pipeline with Airflow, from CSV ingestion and
-  preprocessing to training, model staging, and evaluation.
+  A demo of using Airflow with Snowflake to orchestrate a Snowpark ML pipeline,
+  from CSV ingestion and preprocessing through training, model staging, and evaluation.
 descriptionKo: Airflow와 Snowflake를 연결해 CSV 적재·전처리·Snowpark ML 학습·모델 스테이징·평가를 조율하는 파이프라인 데모.
 slides: >-
   https://docs.google.com/presentation/d/1x_NmspwRy3WDqGb_TWLjUiw1XStMkIk0ULAL-aFVwRA/edit
 eventUrl: >-
   https://kr.linkedin.com/posts/yeonguk-choo_어제-airflow-한국-사용자-모임은-snowflake-world-tour-activity-7371230974702993410-oFsD
+contentEn: |
+  In September 2025, I introduced ways to use Airflow and Snowflake together in a community session at Snowflake World Tour Seoul.
+
+  ## About the Talk
+
+  Think of a pipeline as an orchestra. Even with good instruments and musicians, it is hard to make music together if no one coordinates who plays when.
+
+  This talk compares Airflow to a conductor and demonstrates a small model-training pipeline connecting Snowflake and Snowpark ML. It looks at who does what, and where to check execution, from data loading through model evaluation.
+
+  ## Talk Materials
+
+  - [Slides](https://docs.google.com/presentation/d/1x_NmspwRy3WDqGb_TWLjUiw1XStMkIk0ULAL-aFVwRA/edit)
+  - [My recap](https://kr.linkedin.com/posts/yeonguk-choo_어제-airflow-한국-사용자-모임은-snowflake-world-tour-activity-7371230974702993410-oFsD)
+
+  ## The Talk in Writing
+
+  ### A pipeline without a conductor
+
+  You can prepare tools for storing data, code for preprocessing it, and capabilities for training and evaluation separately. But if the next task starts before the previous one finishes, or a failure goes unnoticed, the pipeline as a whole will not behave as expected.
+
+  Airflow's role is to express this execution order and these dependencies in code, schedule them, and let you check their status. It does not perform every part itself; it coordinates the tools so they work together.
+
+  ### Connecting to Snowflake
+
+  The demo starts by configuring Snowflake connection details in an Airflow Connection. Once the connection is ready, tasks related to Snowflake can be run from a DAG.
+
+  The slides use a simple example that predicts which slushie someone who has been skiing will choose. The example is designed to focus on understanding the overall execution flow rather than the complexity of the model itself.
+
+  ### From loading to evaluation
+
+  ```text
+  Create table → Load CSV → Preprocess → Train and stage model → Evaluate
+  ```
+
+  Each stage prepares what the next stage needs. After data is loaded into Snowflake, it is preprocessed; a model trained with Snowpark ML is then staged and evaluated. Airflow connects these steps and treats them as one run.
+
+  After running the tasks, check successes and failures in the Airflow UI. Open the logs for a failed task to investigate the cause. In Snowflake, check the loaded data and the versioned model. No single screen replaces every capability; instead, you look at the roles of each tool and how their execution is connected.
+
+  ### Harmony is completed together
+
+  Airflow is not a tool that solves every problem on its own. Its value becomes apparent when it connects a good data platform with processing tools. That is why Snowflake's capabilities and Airflow's execution management have different roles.
+
+  Finally, the talk shifts from connections between tools to connections between people. The role of a user group is for people who want to use Airflow better to share experiences and problems. Adopting a tool and building up experience in using it well are separate things.
+
+  ## Summary
+
+  - Airflow coordinates the execution order and dependencies in a pipeline.
+  - Snowpark ML training can also be viewed as part of an end-to-end flow connected to loading, preprocessing, and evaluation.
+  - Connecting people who share their experience is as important as connecting tools.
 ---
 2025년 9월, Snowflake World Tour Seoul의 커뮤니티 세션에서 Airflow와 Snowflake를 함께 사용하는 방법을 소개했습니다.
 
