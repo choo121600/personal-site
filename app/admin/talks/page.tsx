@@ -455,6 +455,9 @@ export default function TalksEditorPage() {
                   className="text-xs font-medium text-zinc-600 dark:text-zinc-400"
                 >
                   본문 편집·미리보기 언어
+                  <span className="ml-2 font-normal text-zinc-400">
+                    이미지는 붙여넣거나 드래그
+                  </span>
                 </label>
                 <select
                   id="talk-preview-language"

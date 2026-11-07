@@ -13,21 +13,38 @@ import type { Extension } from '@codemirror/state'
 interface CodeMirrorEditorProps {
   value: string
   onChange: (value: string) => void
-  onPaste?: (e: React.ClipboardEvent) => void
-  onDrop?: (e: React.DragEvent) => void
 }
 
 export interface CodeMirrorEditorHandle {
-  insertAtCursor: (text: string) => void
+  insertImage: (file: File) => Promise<void>
+}
+
+// 이미지를 올리고 본문에 넣을 마크다운을 돌려준다
+async function uploadImage(file: File): Promise<string | null> {
+  const formData = new FormData()
+  formData.append('file', file)
+  try {
+    const response = await fetch('/admin/api/images', {
+      method: 'POST',
+      body: formData,
+    })
+    if (!response.ok) {
+      alert('이미지 업로드에 실패했습니다.')
+      return null
+    }
+    const data = await response.json()
+    return `![${file.name}](${data.path})`
+  } catch (error) {
+    console.error('Image upload error:', error)
+    alert('이미지 업로드 중 오류가 발생했습니다.')
+    return null
+  }
 }
 
 const CodeMirrorEditorComponent = forwardRef<
   CodeMirrorEditorHandle,
   CodeMirrorEditorProps
->(function CodeMirrorEditorComponent(
-  { value, onChange, onPaste, onDrop },
-  ref,
-) {
+>(function CodeMirrorEditorComponent({ value, onChange }, ref) {
   const [isMounted, setIsMounted] = useState(false)
   const [extensions, setExtensions] = useState<{
     CodeMirror: typeof import('@uiw/react-codemirror').default
@@ -37,19 +54,44 @@ const CodeMirrorEditorComponent = forwardRef<
   const [theme, setTheme] = useState<Extension | null>(null)
   const editorRef = useRef<ReactCodeMirrorRef>(null)
 
-  // 커서 위치에 텍스트 삽입 함수 노출
-  useImperativeHandle(ref, () => ({
-    insertAtCursor: (text: string) => {
-      const view = editorRef.current?.view
-      if (view) {
-        const { from, to } = view.state.selection.main
-        view.dispatch({
-          changes: { from, to, insert: text },
-          selection: { anchor: from + text.length },
-        })
-      }
-    },
-  }))
+  const insertAtCursor = (text: string) => {
+    const view = editorRef.current?.view
+    if (!view) return
+    const { from, to } = view.state.selection.main
+    view.dispatch({
+      changes: { from, to, insert: text },
+      selection: { anchor: from + text.length },
+    })
+  }
+
+  const insertImage = async (file: File) => {
+    const markdown = await uploadImage(file)
+    if (markdown) insertAtCursor(`\n${markdown}\n`)
+  }
+
+  const insertImages = async (files: File[]) => {
+    for (const file of files) await insertImage(file)
+  }
+
+  const handlePaste = (e: React.ClipboardEvent) => {
+    const images = Array.from(e.clipboardData.files).filter((file) =>
+      file.type.startsWith('image/'),
+    )
+    if (images.length === 0) return
+    e.preventDefault()
+    insertImages(images)
+  }
+
+  const handleDrop = (e: React.DragEvent) => {
+    const images = Array.from(e.dataTransfer.files).filter((file) =>
+      file.type.startsWith('image/'),
+    )
+    if (images.length === 0) return
+    e.preventDefault()
+    insertImages(images)
+  }
+
+  useImperativeHandle(ref, () => ({ insertImage }))
 
   useEffect(() => {
     // 클라이언트에서만 확장 로드
@@ -83,8 +125,8 @@ const CodeMirrorEditorComponent = forwardRef<
 
   return (
     <div
-      onPaste={onPaste}
-      onDrop={onDrop}
+      onPasteCapture={handlePaste}
+      onDropCapture={handleDrop}
       onDragOver={(e) => e.preventDefault()}
       className="h-full overflow-auto"
     >

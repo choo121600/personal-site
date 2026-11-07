@@ -176,74 +176,11 @@ export default function EditorPage() {
     })
   }
 
-  // 이미지 드래그 앤 드롭 처리
-  const handleDrop = async (e: React.DragEvent) => {
-    e.preventDefault()
-    const files = e.dataTransfer.files
-    for (let i = 0; i < files.length; i++) {
-      if (files[i].type.startsWith('image/')) {
-        await uploadImage(files[i])
-      }
-    }
-  }
-
-  // 이미지 붙여넣기 처리
-  const handlePaste = async (e: React.ClipboardEvent) => {
-    const items = e.clipboardData.items
-
-    for (let i = 0; i < items.length; i++) {
-      if (items[i].type.indexOf('image') !== -1) {
-        e.preventDefault()
-        const file = items[i].getAsFile()
-        if (file) {
-          await uploadImage(file)
-        }
-        return
-      }
-    }
-  }
-
-  // 이미지 업로드
-  const uploadImage = async (file: File) => {
-    try {
-      const formData = new FormData()
-      formData.append('file', file)
-
-      const response = await fetch('/admin/api/images', {
-        method: 'POST',
-        body: formData,
-      })
-
-      if (response.ok) {
-        const data = await response.json()
-        const imageMarkdown = `![${file.name}](${data.path})`
-
-        // 커서 위치에 이미지 마크다운 삽입
-        if (editorRef.current) {
-          editorRef.current.insertAtCursor(`\n${imageMarkdown}\n`)
-        } else {
-          // 폴백: 끝에 추가
-          setContent((prev) => {
-            const trimmed = prev.trim()
-            return trimmed
-              ? `${trimmed}\n\n${imageMarkdown}\n`
-              : `${imageMarkdown}\n`
-          })
-        }
-      } else {
-        alert('이미지 업로드에 실패했습니다.')
-      }
-    } catch (error) {
-      console.error('Image upload error:', error)
-      alert('이미지 업로드 중 오류가 발생했습니다.')
-    }
-  }
-
-  // 파일 선택으로 이미지 업로드
+  // 파일 선택으로 이미지 업로드 (붙여넣기·드래그는 에디터가 직접 처리)
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (file && file.type.startsWith('image/')) {
-      await uploadImage(file)
+      await editorRef.current?.insertImage(file)
     }
     if (fileInputRef.current) {
       fileInputRef.current.value = ''
@@ -537,8 +474,6 @@ export default function EditorPage() {
                       ref={editorRef}
                       value={content}
                       onChange={setContent}
-                      onPaste={handlePaste}
-                      onDrop={handleDrop}
                     />
                   </Suspense>
                 </div>
@@ -572,7 +507,6 @@ export default function EditorPage() {
                     ref={editorRef}
                     value={content}
                     onChange={setContent}
-                    onPaste={handlePaste}
                   />
                 </Suspense>
               </div>
