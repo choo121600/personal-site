@@ -168,37 +168,6 @@ export default function HomeClient({
         transition={TRANSITION_SECTION}
       >
         <h3 className="mb-5 text-lg font-medium">
-          {ko ? '프로젝트' : 'Projects'}
-        </h3>
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-          {PROJECTS.map((project) => (
-            <div key={project.name} className="space-y-2">
-              <div className="relative rounded-2xl bg-zinc-50/40 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950/40 dark:ring-zinc-800/50">
-                <ProjectVideo src={project.video} />
-              </div>
-              <div className="px-1">
-                <a
-                  className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"
-                  href={project.link}
-                  target="_blank"
-                >
-                  {ko ? project.nameKo : project.name}
-                  <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 transition-all duration-200 group-hover:max-w-full"></span>
-                </a>
-                <p className="text-base text-zinc-600 dark:text-zinc-400">
-                  {ko ? project.descriptionKo : project.description}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </motion.section>
-
-      <motion.section
-        variants={VARIANTS_SECTION}
-        transition={TRANSITION_SECTION}
-      >
-        <h3 className="mb-5 text-lg font-medium">
           {ko ? '경력' : 'Experience'}
         </h3>
         <div className="flex flex-col space-y-2">
@@ -236,70 +205,6 @@ export default function HomeClient({
               </div>
             </a>
           ))}
-        </div>
-      </motion.section>
-
-      <motion.section
-        variants={VARIANTS_SECTION}
-        transition={TRANSITION_SECTION}
-      >
-        <div className="mb-3 flex items-center justify-between">
-          <h3 className="text-lg font-medium">{ko ? '블로그' : 'Blog'}</h3>
-          <Link
-            href="/blog"
-            className="text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-zinc-100"
-          >
-            {ko ? '전체 보기 →' : 'View all →'}
-          </Link>
-        </div>
-        <div className="space-y-3">
-          {latestPosts.length === 0 ? (
-            <p className="py-4 text-zinc-500 dark:text-zinc-400">
-              {ko ? '아직 작성된 포스트가 없습니다.' : 'No posts yet.'}
-            </p>
-          ) : (
-            latestPosts.map((post) => (
-              <Link
-                key={post.slug}
-                href={`/blog/${post.slug}`}
-                className="group flex gap-4 rounded-lg border border-zinc-200 p-3 transition-colors hover:bg-zinc-50 dark:border-zinc-800 dark:hover:bg-zinc-900"
-              >
-                {post.thumbnail && (
-                  <div className="relative aspect-video w-32 flex-shrink-0 overflow-hidden rounded-md sm:w-40">
-                    <Image
-                      src={post.thumbnail}
-                      alt={post.title}
-                      fill
-                      className="object-cover object-center transition-transform duration-300 group-hover:scale-105"
-                      sizes="(max-width: 640px) 128px, 160px"
-                    />
-                  </div>
-                )}
-                <div className="flex min-w-0 flex-1 flex-col justify-center">
-                  <h4 className="text-base leading-snug font-medium sm:text-lg">
-                    {post.title}
-                  </h4>
-                  {post.description && (
-                    <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
-                      {post.description}
-                    </p>
-                  )}
-                  {post.date && (
-                    <time className="mt-1.5 text-xs text-zinc-400 dark:text-zinc-500">
-                      {new Date(post.date).toLocaleDateString(
-                        ko ? 'ko-KR' : 'en-US',
-                        {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric',
-                        },
-                      )}
-                    </time>
-                  )}
-                </div>
-              </Link>
-            ))
-          )}
         </div>
       </motion.section>
 
@@ -404,6 +309,101 @@ export default function HomeClient({
                     )}
                   </ul>
                 )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </motion.section>
+
+      <motion.section
+        variants={VARIANTS_SECTION}
+        transition={TRANSITION_SECTION}
+      >
+        <div className="mb-3 flex items-center justify-between">
+          <h3 className="text-lg font-medium">{ko ? '블로그' : 'Blog'}</h3>
+          <Link
+            href="/blog"
+            className="text-sm text-zinc-500 transition-colors hover:text-zinc-900 dark:hover:text-zinc-100"
+          >
+            {ko ? '전체 보기 →' : 'View all →'}
+          </Link>
+        </div>
+        <div className="space-y-3">
+          {latestPosts.length === 0 ? (
+            <p className="py-4 text-zinc-500 dark:text-zinc-400">
+              {ko ? '아직 작성된 포스트가 없습니다.' : 'No posts yet.'}
+            </p>
+          ) : (
+            latestPosts.map((post) => (
+              <Link
+                key={post.slug}
+                href={`/blog/${post.slug}`}
+                className="group flex gap-4 rounded-lg border border-zinc-200 p-3 transition-colors hover:bg-zinc-50 dark:border-zinc-800 dark:hover:bg-zinc-900"
+              >
+                {post.thumbnail && (
+                  <div className="relative aspect-video w-32 flex-shrink-0 overflow-hidden rounded-md sm:w-40">
+                    <Image
+                      src={post.thumbnail}
+                      alt={post.title}
+                      fill
+                      className="object-cover object-center transition-transform duration-300 group-hover:scale-105"
+                      sizes="(max-width: 640px) 128px, 160px"
+                    />
+                  </div>
+                )}
+                <div className="flex min-w-0 flex-1 flex-col justify-center">
+                  <h4 className="text-base leading-snug font-medium sm:text-lg">
+                    {post.title}
+                  </h4>
+                  {post.description && (
+                    <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
+                      {post.description}
+                    </p>
+                  )}
+                  {post.date && (
+                    <time className="mt-1.5 text-xs text-zinc-400 dark:text-zinc-500">
+                      {new Date(post.date).toLocaleDateString(
+                        ko ? 'ko-KR' : 'en-US',
+                        {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric',
+                        },
+                      )}
+                    </time>
+                  )}
+                </div>
+              </Link>
+            ))
+          )}
+        </div>
+      </motion.section>
+
+      <motion.section
+        variants={VARIANTS_SECTION}
+        transition={TRANSITION_SECTION}
+      >
+        <h3 className="mb-5 text-lg font-medium">
+          {ko ? '프로젝트' : 'Projects'}
+        </h3>
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+          {PROJECTS.map((project) => (
+            <div key={project.name} className="space-y-2">
+              <div className="relative rounded-2xl bg-zinc-50/40 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950/40 dark:ring-zinc-800/50">
+                <ProjectVideo src={project.video} />
+              </div>
+              <div className="px-1">
+                <a
+                  className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"
+                  href={project.link}
+                  target="_blank"
+                >
+                  {ko ? project.nameKo : project.name}
+                  <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 transition-all duration-200 group-hover:max-w-full"></span>
+                </a>
+                <p className="text-base text-zinc-600 dark:text-zinc-400">
+                  {ko ? project.descriptionKo : project.description}
+                </p>
               </div>
             </div>
           ))}
