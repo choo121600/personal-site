@@ -12,32 +12,70 @@ descriptionKo: Apache Airflow UI 한국어 번역(i18n)을 주제로 참가자�
 language: ko
 slides: >-
   https://docs.google.com/presentation/d/1_yfr5eRGQiua1qTTHU_ytOBSBin5ZyzxV6d11S4bhIw/edit?usp=sharing
-contentEn: |
-  A two-hour hands-on workshop held as a developer lecture during AI Innovation Week at Dong-A University.
+contentEn: >-
+  A two-hour hands-on workshop held as a developer lecture during AI Innovation
+  Week at Dong-A University.
+
 
   ## About the workshop
 
-  Rather than talking about open source contribution in the abstract, everyone opened a real pull request to Apache Airflow. The subject was the Airflow UI's Korean translation (i18n). Korean is one of the officially supported languages, translation keys are small and self-contained, and the project has a written contribution policy and tooling, which makes it a good first contribution.
 
-  The goal for the day was to submit one verified PR, starting from a single translation key. Merging happens later, after the review and revision cycle, so the finish line in the room was sharing the URL of a PR that had passed local checks.
+  Rather than talking about open source contribution in the abstract, everyone
+  opened a real pull request to Apache Airflow. The subject was the Airflow UI's
+  Korean translation (i18n). Korean is one of the officially supported
+  languages, translation keys are small and self-contained, and the project has
+  a written contribution policy and tooling, which makes it a good first
+  contribution.
+
+
+  The goal for the day was to submit one verified PR, starting from a single
+  translation key. Merging happens later, after the review and revision cycle,
+  so the finish line in the room was sharing the URL of a PR that had passed
+  local checks.
+
 
   ## What we covered
 
-  1. **Why Airflow**: the de facto standard for workflow orchestration, with 40M+ monthly downloads, 45K+ GitHub stars, and 3.8K+ contributors
+
+  1. **Why Airflow**: the de facto standard for workflow orchestration, with
+  40M+ monthly downloads, 45K+ GitHub stars, and 3.8K+ contributors
+
   2. **Setup**: checking GitHub, an editor, Git, uv, and Docker
-  3. **The contribution flow**: what Fork, Clone, Branch, Push, and PR each do, then forking and cloning `apache/airflow` and creating a working branch
-  4. **Translation files**: comparing the `en` source and `ko` translation under `airflow-core/src/airflow/ui/public/i18n/locales`, and editing only the value while keeping keys, variables, and punctuation intact
-  5. **Airflow Breeze**: checking translation completeness with `breeze ui check-translation-completeness --language ko` and seeing the change in the real UI with `breeze start-airflow --dev-mode`
-  6. **Commit, Push, PR**: reviewing your own diff, choosing the base and head branches, and writing the PR title, description, and verification results
-  7. **Review process**: per Airflow's i18n policy, a Translation Owner approves the language and a Code Owner or committer checks formatting before merging
+
+  3. **The contribution flow**: what Fork, Clone, Branch, Push, and PR each do,
+  then forking and cloning `apache/airflow` and creating a working branch
+
+  4. **Translation files**: comparing the `en` source and `ko` translation under
+  `airflow-core/src/airflow/ui/public/i18n/locales`, and editing only the value
+  while keeping keys, variables, and punctuation intact
+
+  5. **Airflow Breeze**: checking translation completeness with `breeze ui
+  check-translation-completeness --language ko` and seeing the change in the
+  real UI with `breeze start-airflow --dev-mode`
+
+  6. **Commit, Push, PR**: reviewing your own diff, choosing the base and head
+  branches, and writing the PR title, description, and verification results
+
+  7. **Review process**: per Airflow's i18n policy, a Translation Owner approves
+  the language and a Code Owner or committer checks formatting before merging
+
 
   ## Materials
 
-  - [Slides](https://docs.google.com/presentation/d/1_yfr5eRGQiua1qTTHU_ytOBSBin5ZyzxV6d11S4bhIw/edit?usp=sharing)
+
+  -
+  [Slides](https://docs.google.com/presentation/d/1_yfr5eRGQiua1qTTHU_ytOBSBin5ZyzxV6d11S4bhIw/edit?usp=sharing)
+
   - [Example PR](https://github.com/apache/airflow/pull/58709)
-  - [Airflow i18n contribution policy](https://github.com/apache/airflow/blob/main/airflow-core/src/airflow/ui/public/i18n/README.md)
+
+  - [Airflow i18n contribution
+  policy](https://github.com/apache/airflow/blob/main/airflow-core/src/airflow/ui/public/i18n/README.md)
 ---
 동아대학교 AI Innovation Week의 개발자 특강으로 진행한 2시간짜리 실습 워크샵입니다.
+
+
+![image.png](/images/2026/11/image-1794063792645-8f23lg.png)
+
 
 ## 워크샵 소개
 
@@ -58,5 +96,4 @@ contentEn: |
 ## 관련 자료
 
 - [발표 자료](https://docs.google.com/presentation/d/1_yfr5eRGQiua1qTTHU_ytOBSBin5ZyzxV6d11S4bhIw/edit?usp=sharing)
-- [예시 PR](https://github.com/apache/airflow/pull/58709)
 - [Airflow i18n 기여 정책](https://github.com/apache/airflow/blob/main/airflow-core/src/airflow/ui/public/i18n/README.md)
