@@ -94,62 +94,75 @@ export function MapView({
     let cancelled = false
     const markers = markersRef.current
 
-    import('maplibre-gl').then(({ Map, Marker, LngLatBounds }) => {
-      if (cancelled) return
-      const single = places.length === 1
-      const map = new Map({
-        container,
-        style: STYLE[themeRef.current],
-        center: single ? [places[0].lng, places[0].lat] : undefined,
-        zoom: single ? SINGLE_PLACE_ZOOM : undefined,
-        bounds: single
-          ? undefined
-          : places.reduce(
-              (bounds, p) => bounds.extend([p.lng, p.lat]),
-              new LngLatBounds(),
-            ),
-        fitBoundsOptions: { padding: FIT_PADDING, maxZoom: SINGLE_PLACE_ZOOM },
-        cooperativeGestures: true,
-        attributionControl: { compact: true },
-        locale: locale === 'ko' ? KOREAN_MAP_LOCALE : undefined,
-      })
-      mapRef.current = map
+    import('maplibre-gl').then(
+      ({ Map, Marker, LngLatBounds, setWorkerUrl }) => {
+        if (cancelled) return
+        // maplibre 6은 워커를 번들 청크 옆의 별도 파일에서 찾는데, Next 빌드에는 그 파일이
+        // 없다. new URL(..., import.meta.url)로 지정해 webpack이 워커 파일을 함께 내보내게 한다.
+        setWorkerUrl(
+          new URL('maplibre-gl/dist/maplibre-gl-worker.mjs', import.meta.url)
+            .href,
+        )
+        const single = places.length === 1
+        const map = new Map({
+          container,
+          style: STYLE[themeRef.current],
+          center: single ? [places[0].lng, places[0].lat] : undefined,
+          zoom: single ? SINGLE_PLACE_ZOOM : undefined,
+          bounds: single
+            ? undefined
+            : places.reduce(
+                (bounds, p) => bounds.extend([p.lng, p.lat]),
+                new LngLatBounds(),
+              ),
+          fitBoundsOptions: {
+            padding: FIT_PADDING,
+            maxZoom: SINGLE_PLACE_ZOOM,
+          },
+          cooperativeGestures: true,
+          attributionControl: { compact: true },
+          locale: locale === 'ko' ? KOREAN_MAP_LOCALE : undefined,
+        })
+        mapRef.current = map
 
-      for (const place of places) {
-        const element = document.createElement('button')
-        element.type = 'button'
-        element.className = MARKER_CLASS
-        element.setAttribute(
-          'aria-label',
-          `${locale === 'ko' ? '지도 위치' : 'Map location'}: ${place.name}`,
+        for (const place of places) {
+          const element = document.createElement('button')
+          element.type = 'button'
+          element.className = MARKER_CLASS
+          element.setAttribute(
+            'aria-label',
+            `${locale === 'ko' ? '지도 위치' : 'Map location'}: ${place.name}`,
+          )
+          element.title = place.name
+          element.setAttribute(
+            'aria-pressed',
+            String(place.id === selectedIdRef.current),
+          )
+          const dot = document.createElement('span')
+          dot.className = MARKER_DOT_CLASS
+          element.append(dot)
+          element.addEventListener('click', (event) => {
+            event.stopPropagation()
+            onSelectRef.current?.(place.id)
+          })
+          markers.set(
+            place.id,
+            new Marker({ element })
+              .setLngLat([place.lng, place.lat])
+              .addTo(map),
+          )
+        }
+        const selected = places.find(
+          (place) => place.id === selectedIdRef.current,
         )
-        element.title = place.name
-        element.setAttribute(
-          'aria-pressed',
-          String(place.id === selectedIdRef.current),
-        )
-        const dot = document.createElement('span')
-        dot.className = MARKER_DOT_CLASS
-        element.append(dot)
-        element.addEventListener('click', (event) => {
-          event.stopPropagation()
-          onSelectRef.current?.(place.id)
-        })
-        markers.set(
-          place.id,
-          new Marker({ element }).setLngLat([place.lng, place.lat]).addTo(map),
-        )
-      }
-      const selected = places.find(
-        (place) => place.id === selectedIdRef.current,
-      )
-      if (selected) {
-        map.jumpTo({
-          center: [selected.lng, selected.lat],
-          zoom: Math.max(map.getZoom(), SELECTED_ZOOM),
-        })
-      }
-    })
+        if (selected) {
+          map.jumpTo({
+            center: [selected.lng, selected.lat],
+            zoom: Math.max(map.getZoom(), SELECTED_ZOOM),
+          })
+        }
+      },
+    )
 
     return () => {
       cancelled = true
