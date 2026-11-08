@@ -5,6 +5,7 @@ event: Apache Airflow 한국사용자모임 제3회 밋업
 eventEn: Apache Airflow Korean User Group 3rd Meetup
 date: '2025-06-21'
 type: talk
+category: contribution
 description: >-
   A talk about the journey of contributing to Apache Airflow during a period of
   major change in the project.

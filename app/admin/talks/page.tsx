@@ -5,8 +5,10 @@ import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { Plus, Save, Trash2 } from 'lucide-react'
 import {
+  TALK_CATEGORIES,
   TALK_TYPES,
   formatTalkDate,
+  type TalkCategory,
   type TalkDetail,
   type TalkMetadata,
 } from '@/lib/talk-types'
@@ -36,7 +38,9 @@ type TalkForm = Omit<
   | 'eventEn'
   | 'contentEn'
   | 'language'
+  | 'category'
 > & {
+  category: TalkCategory | ''
   descriptionKo: string
   eventUrl: string
   slides: string
@@ -56,6 +60,7 @@ function emptyTalk(): TalkForm {
     eventEn: '',
     date: new Date().toISOString().slice(0, 7),
     type: 'talk',
+    category: '',
     description: '',
     descriptionKo: '',
     eventUrl: '',
@@ -79,6 +84,7 @@ function toForm(talk: TalkDetail): TalkForm {
     video: talk.video ?? '',
     contentEn: talk.contentEn ?? '',
     language: talk.language ?? '',
+    category: talk.category ?? '',
   }
 }
 
@@ -273,7 +279,7 @@ export default function TalksEditorPage() {
 
         <main className="flex flex-1 flex-col overflow-hidden">
           <div className="space-y-4 overflow-y-auto border-b border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-5">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-6">
               <Field
                 label="슬러그 (URL 경로)"
                 htmlFor="talk-slug"
@@ -313,6 +319,23 @@ export default function TalksEditorPage() {
                   {TALK_TYPES.map((type) => (
                     <option key={type.value} value={type.value}>
                       {type.label}
+                    </option>
+                  ))}
+                </select>
+              </Field>
+              <Field label="카테고리" htmlFor="talk-category">
+                <select
+                  id="talk-category"
+                  value={form.category}
+                  onChange={(e) =>
+                    update('category', e.target.value as TalkForm['category'])
+                  }
+                  className={INPUT_CLASS}
+                >
+                  <option value="">없음</option>
+                  {TALK_CATEGORIES.map((category) => (
+                    <option key={category.slug} value={category.slug}>
+                      {category.label}
                     </option>
                   ))}
                 </select>

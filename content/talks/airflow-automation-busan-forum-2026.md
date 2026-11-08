@@ -5,6 +5,7 @@ event: 부산 소프트웨어 혁신 오픈 포럼
 eventEn: Busan Software Innovation Open Forum
 date: '2026-08-20'
 type: workshop
+category: intro
 slides: >-
   https://docs.google.com/presentation/d/1ftY0mdLc1VgQQ9Y4m1HPcJ2_Q22ODyPmnMw68nd_ebI/edit
 description: >-

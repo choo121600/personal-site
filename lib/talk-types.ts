@@ -9,6 +9,25 @@ export const TALK_TYPES = [
 
 export type TalkType = (typeof TALK_TYPES)[number]['value']
 
+// 발표 주제 카테고리. 발표당 하나, 목록은 여기서만 관리한다
+export const TALK_CATEGORIES = [
+  { slug: 'intro', label: '입문', labelEn: 'Intro' },
+  { slug: 'contribution', label: '기여·오픈소스', labelEn: 'Contributing' },
+  { slug: 'tech', label: '기술', labelEn: 'Tech' },
+  { slug: 'community', label: '커뮤니티', labelEn: 'Community' },
+] as const
+
+export type TalkCategory = (typeof TALK_CATEGORIES)[number]['slug']
+
+export function isTalkCategory(value: unknown): value is TalkCategory {
+  return TALK_CATEGORIES.some((category) => category.slug === value)
+}
+
+export function talkCategoryLabel(slug: TalkCategory, locale: Locale): string {
+  const category = TALK_CATEGORIES.find((c) => c.slug === slug)!
+  return locale === 'en' ? category.labelEn : category.label
+}
+
 export interface TalkMetadata {
   slug: string
   title: string
@@ -18,6 +37,7 @@ export interface TalkMetadata {
   // 'YYYY', 'YYYY-MM' 또는 'YYYY-MM-DD'
   date: string
   type: TalkType
+  category?: TalkCategory
   description: string
   descriptionKo?: string
   language?: Locale

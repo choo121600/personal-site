@@ -5,6 +5,7 @@ event: Airflow 한국 사용자 모임 온라인 워크숍
 eventEn: Airflow Korean User Group Online Workshop
 date: '2025-12-04'
 type: workshop
+category: contribution
 description: >-
   A hands-on guide to Korean translations in Airflow, including Breeze tooling,
   translation checks, and the pull request workflow.

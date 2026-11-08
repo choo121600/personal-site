@@ -5,6 +5,7 @@ event: Apache Airflow 생일파티
 eventEn: Apache Airflow Birthday Party
 date: '2026-10-07'
 type: talk
+category: community
 description: >-
   A retrospective on building the Korean Airflow community, its contributors,
   and its rotating leadership model over three years.

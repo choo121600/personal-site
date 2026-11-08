@@ -5,6 +5,7 @@ event: 스노우플레이크 유저그룹 온라인 밋업 12회 — 월드 투�
 eventEn: 'Snowflake User Group Online Meetup #12 — Sharing World Tour Community Sessions'
 date: '2025-11-05'
 type: talk
+category: tech
 description: >-
   An online community session revisiting the Airflow and Snowflake collaboration
   presented at Snowflake World Tour Seoul.

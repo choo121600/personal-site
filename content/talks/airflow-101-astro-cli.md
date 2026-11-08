@@ -5,6 +5,7 @@ event: 'Python PIP 배포 실습 및 Airflow 소개 Hands-On!, 부산'
 eventEn: 'Python PIP Deployment & Airflow Introduction Hands-On!, Busan'
 date: '2024-10-26'
 type: workshop
+category: intro
 slides: >-
   https://docs.google.com/presentation/d/1XXIk5Gv_Tut427IKsBzjIUPpkNp64jseWK1lc3uK3Lg/edit
 description: >-

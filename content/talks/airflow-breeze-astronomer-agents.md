@@ -5,6 +5,7 @@ event: Apache Airflow 한국사용자모임 제5회 밋업
 eventEn: Apache Airflow Korean User Group 5th Meetup
 date: '2026-02-26'
 type: talk
+category: contribution
 description: >-
   An introduction to contributing to Airflow with Breeze and Prek, and using
   Astronomer Agents for DAG development, debugging, and migration.

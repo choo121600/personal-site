@@ -1,7 +1,12 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import type { Metadata } from 'next'
-import { getAllTalks, getTalkBySlug, formatTalkDate } from '@/lib/talks'
+import {
+  getAllTalks,
+  getTalkBySlug,
+  formatTalkDate,
+  talkCategoryLabel,
+} from '@/lib/talks'
 import { MarkdownRenderer } from '@/components/MarkdownRenderer'
 import { expandMapLinks } from '@/lib/map-links'
 import { YouTubeEmbed } from '@/components/YouTubeEmbed'
@@ -85,9 +90,22 @@ export default async function TalkPage({ params }: PageProps) {
           {talk.type === 'workshop' &&
             ` · ${locale === 'ko' ? '워크숍' : 'Workshop'}`}
         </p>
-        <time className="block text-sm text-zinc-500 tabular-nums dark:text-zinc-400">
-          {formatTalkDate(talk.date, locale, true)}
-        </time>
+        <p className="text-sm text-zinc-500 dark:text-zinc-400">
+          <time className="tabular-nums">
+            {formatTalkDate(talk.date, locale, true)}
+          </time>
+          {talk.category && (
+            <>
+              {' · '}
+              <Link
+                href={`/talks/category/${talk.category}`}
+                className="underline decoration-zinc-300 underline-offset-2 transition-colors hover:text-zinc-900 dark:decoration-zinc-600 dark:hover:text-zinc-100"
+              >
+                {talkCategoryLabel(talk.category, locale)}
+              </Link>
+            </>
+          )}
+        </p>
         <p className="text-sm text-zinc-500 dark:text-zinc-400">
           {talk.language
             ? locale === 'ko'

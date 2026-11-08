@@ -5,6 +5,7 @@ event: Snowflake World Tour Seoul 2025
 eventEn: Snowflake World Tour Seoul 2025
 date: '2025-09-09'
 type: talk
+category: tech
 description: >-
   A demo of using Airflow with Snowflake to orchestrate a Snowpark ML pipeline,
   from CSV ingestion and preprocessing through training, model staging, and evaluation.

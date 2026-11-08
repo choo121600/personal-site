@@ -5,13 +5,25 @@ import {
   TALK_DATE_PATTERN,
   TALK_SLUG_PATTERN,
   TALK_TYPES,
+  TALK_CATEGORIES,
+  isTalkCategory,
   type TalkDetail,
   type TalkMetadata,
   type TalkType,
 } from './talk-types'
 
-export type { TalkDetail, TalkMetadata, TalkType } from './talk-types'
-export { formatTalkDate } from './talk-types'
+export type {
+  TalkCategory,
+  TalkDetail,
+  TalkMetadata,
+  TalkType,
+} from './talk-types'
+export {
+  TALK_CATEGORIES,
+  formatTalkDate,
+  isTalkCategory,
+  talkCategoryLabel,
+} from './talk-types'
 
 const talksDirectory = path.join(process.cwd(), 'content', 'talks')
 
@@ -19,6 +31,7 @@ const talksDirectory = path.join(process.cwd(), 'content', 'talks')
 const OPTIONAL_FIELDS = [
   'titleEn',
   'eventEn',
+  'category',
   'descriptionKo',
   'language',
   'eventUrl',
@@ -95,6 +108,13 @@ function toTalkMetadata(
     )
   }
 
+  const category = optionalString(data.category)
+  if (category !== undefined && !isTalkCategory(category)) {
+    throw new TalkValidationError(
+      `${source}: 'category' must be one of ${TALK_CATEGORIES.map((c) => c.slug).join(', ')}`,
+    )
+  }
+
   return {
     slug,
     title: requireString(data, 'title', source),
@@ -103,6 +123,7 @@ function toTalkMetadata(
     eventEn: optionalString(data.eventEn),
     date,
     type: type as TalkType,
+    category,
     description: requireString(data, 'description', source),
     descriptionKo: optionalString(data.descriptionKo),
     language: optionalLanguage(data.language, source),

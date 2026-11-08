@@ -5,6 +5,7 @@ event: PyCon Korea 2026 튜토리얼
 eventEn: PyCon Korea 2026 Tutorial
 date: '2026-08-17'
 type: workshop
+category: intro
 description: >-
   A hands-on tutorial introducing Airflow with Astro CLI and building agent
   workflows with the AI Provider.

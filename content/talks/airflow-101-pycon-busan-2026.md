@@ -5,6 +5,7 @@ event: PyCon Busan 2026
 eventEn: PyCon Busan 2026
 date: '2026-05-09'
 type: talk
+category: intro
 slides: >-
   https://docs.google.com/presentation/d/1lLgVkr9nLnZ3UEjbif7U8ZnxuEryArEKdJWKlnWVjhc/edit
 description: >-

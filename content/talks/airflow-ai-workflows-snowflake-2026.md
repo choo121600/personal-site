@@ -5,6 +5,7 @@ event: Snowflake World Tour Seoul 2026
 eventEn: Snowflake World Tour Seoul 2026
 date: '2026-08-27'
 type: talk
+category: tech
 description: >-
   A session on AI agent workflows using Airflow's common-ai-provider and
   Snowflake Cortex.

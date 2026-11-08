@@ -5,6 +5,7 @@ event: 동아대학교 AI Innovation Week 개발자 특강
 eventEn: Dong-A University AI Innovation Week Developer Lecture
 date: '2026-11-05'
 type: workshop
+category: contribution
 description: >-
   A two-hour hands-on workshop where participants open a real pull request to
   Apache Airflow through the Korean UI translation (i18n) project.

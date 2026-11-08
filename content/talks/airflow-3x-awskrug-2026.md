@@ -5,6 +5,7 @@ event: AWSKRUG 데이터 모임 × Apache Airflow 한국 사용자 모임 (제70
 eventEn: AWSKRUG Data Group × Apache Airflow Korea User Group (Data Meetup #70)
 date: '2026-09-18'
 type: talk
+category: tech
 description: >-
   Airflow 3.x is more than a scheduler upgrade: separating execution from
   orchestration changes how we author, trigger, and observe workflows.
