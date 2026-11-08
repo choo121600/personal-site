@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation'
 import { Save, Eye, FileText, X, Plus, Trash2, Image } from 'lucide-react'
 import type { CodeMirrorEditorHandle } from './CodeMirrorEditor'
 import { CATEGORIES, type CategorySlug } from '@/lib/categories'
+import { useExpandedMapLinks } from '../useExpandedMapLinks'
 
 // MarkdownRenderer를 동적으로 로드 (SSR 방지)
 const MarkdownRenderer = dynamic(
@@ -50,6 +51,7 @@ export default function EditorPage() {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const thumbnailInputRef = useRef<HTMLInputElement>(null)
   const editorRef = useRef<CodeMirrorEditorHandle>(null)
+  const previewContent = useExpandedMapLinks(content)
 
   // 포스트 목록 로드
   useEffect(() => {
@@ -488,7 +490,7 @@ export default function EditorPage() {
                       </div>
                     }
                   >
-                    <MarkdownRenderer content={content} />
+                    <MarkdownRenderer content={previewContent} />
                   </Suspense>
                 </div>
               </>

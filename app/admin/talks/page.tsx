@@ -12,6 +12,7 @@ import {
   type TalkDetail,
   type TalkMetadata,
 } from '@/lib/talk-types'
+import { useExpandedMapLinks } from '../useExpandedMapLinks'
 
 const MarkdownRenderer = dynamic(
   () =>
@@ -142,6 +143,7 @@ export default function TalksEditorPage() {
     previewLanguage === 'en' ? form.eventEn || form.event : form.event
   const previewContent =
     previewLanguage === 'en' ? form.contentEn : form.content
+  const renderedPreview = useExpandedMapLinks(previewContent)
 
   const loadTalk = async (slug: string) => {
     const response = await fetch(`/admin/api/talks?slug=${slug}`)
@@ -518,7 +520,7 @@ export default function TalksEditorPage() {
                 </header>
               )}
               {previewContent.trim() ? (
-                <MarkdownRenderer content={previewContent} />
+                <MarkdownRenderer content={renderedPreview} />
               ) : (
                 <p className="text-sm text-zinc-500">
                   {previewLanguage === 'en'

@@ -90,6 +90,13 @@ function googlePlace(parsed: URL): PlaceRef | null {
   const placeName = parsed.pathname.match(/^\/maps\/place\/([^/@]+)/)
   const name = placeName ? decodeSegment(placeName[1]) : null
 
+  // 장소 이름만 있는 링크는 lib/map-links.ts가 저장/빌드 시점에 '#위도,경도'를 붙여 둔다
+  const hash = parsed.hash.match(COORD_HASH)
+  if (hash) {
+    const coords = toLatLng(hash[1], hash[2])
+    return coords ? { ...coords, name, source: 'google' } : null
+  }
+
   // '/maps/place/…/data=…!3d<위도>!4d<경도>' 의 장소 좌표.
   // '@위도,경도'는 화면 중심이라 장소 좌표로 쓰지 않는다.
   const place = parsed.toString().match(GOOGLE_PLACE_COORD)
