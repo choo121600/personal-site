@@ -68,6 +68,15 @@ export const PROJECTS: Project[] = [
 export const WORK_EXPERIENCE: WorkExperience[] = [
   {
     company: 'Apache Software Foundation',
+    title: 'PMC Member for Apache Magpie',
+    titleKo: 'Apache Magpie PMC 멤버',
+    start: '2026-11',
+    end: 'Present',
+    link: 'https://magpie.apache.org/',
+    id: 'work-magpie-pmc',
+  },
+  {
+    company: 'Apache Software Foundation',
     title: 'Committer for Apache Magpie',
     titleKo: 'Apache Magpie 커미터',
     start: '2026-08',

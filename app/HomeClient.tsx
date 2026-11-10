@@ -152,8 +152,8 @@ export default function HomeClient({
         <div className="flex-1">
           <p className="text-zinc-600 dark:text-zinc-400">
             {ko
-              ? '데이터 플랫폼과 워크플로우를 만드는 엔지니어이자 Apache Airflow · Apache Magpie 커미터입니다.'
-              : 'Data platform and workflow engineer, and committer to Apache Airflow and Apache Magpie.'}
+              ? '데이터 플랫폼과 워크플로우를 만드는 엔지니어이자 Apache Magpie PMC 멤버, Apache Airflow 커미터입니다.'
+              : 'Data platform and workflow engineer, Apache Magpie PMC member, and Apache Airflow committer.'}
           </p>
           <p className="mt-3 text-zinc-600 dark:text-zinc-400">
             {ko
