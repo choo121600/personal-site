@@ -1,10 +1,10 @@
 {
   "name": "Yeonguk Choo",
-  "title": "Apache Airflow & Apache Magpie Committer | Ubuntu Member",
+  "title": "Apache Magpie PMC Member | Apache Airflow Committer | Ubuntu Member",
   "email": "choo121600@apache.org",
   "phone": "",
   "location": "Seoul, South Korea",
-  "summary": "Data platform engineer and committer to Apache Airflow and Apache Magpie, specializing in workflow orchestration and distributed systems.\n\nExperienced in designing and operating data platforms, with a focus on system reliability, CI stability, and scalable pipelines. Built and operated a quantitative research platform processing multi-source financial data with automation and LLM-based workflows.\n\nFounded and lead the Apache Airflow Korea User Group, and operate Aitecture, a community focused on AI in architecture.",
+  "summary": "Data platform engineer, Apache Magpie PMC member, and Apache Airflow committer, specializing in workflow orchestration and distributed systems.\n\nExperienced in designing and operating data platforms, with a focus on system reliability, CI stability, and scalable pipelines. Built and operated a quantitative research platform processing multi-source financial data with automation and LLM-based workflows.\n\nFounded and lead the Apache Airflow Korea User Group, and operate Aitecture, a community focused on AI in architecture.",
   "links": [
     {
       "label": "GitHub",
@@ -16,6 +16,17 @@
     }
   ],
   "experience": [
+    {
+      "id": "exp-magpie-pmc",
+      "company": "Apache Software Foundation",
+      "title": "PMC Member, Apache Magpie",
+      "location": "",
+      "startDate": "Nov 2026",
+      "endDate": "",
+      "description": "",
+      "technologies": [],
+      "highlights": []
+    },
     {
       "id": "exp-magpie",
       "company": "Apache Software Foundation",

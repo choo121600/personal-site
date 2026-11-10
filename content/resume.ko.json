@@ -1,10 +1,10 @@
 {
   "name": "추영욱",
-  "title": "Apache Airflow · Apache Magpie 커미터 | Ubuntu 멤버",
+  "title": "Apache Magpie PMC 멤버 | Apache Airflow 커미터 | Ubuntu 멤버",
   "email": "choo121600@apache.org",
   "phone": "",
   "location": "대한민국 서울",
-  "summary": "워크플로우 오케스트레이션과 분산 시스템을 다루는 데이터 플랫폼 엔지니어이자 Apache Airflow와 Apache Magpie 커미터입니다.\n\n데이터 플랫폼을 설계·운영하며 시스템 신뢰성, CI 안정성, 확장 가능한 파이프라인 구축에 집중해왔습니다. 다양한 금융 데이터를 처리하는 정량적 리서치 플랫폼을 직접 구축·운영하고, 자동화와 LLM 기반 워크플로우를 적용했습니다.\n\nApache Airflow 한국 사용자 모임을 설립해 이끌고 있으며, 건축 분야의 AI 활용을 다루는 Aitecture 커뮤니티도 운영합니다.",
+  "summary": "워크플로우 오케스트레이션과 분산 시스템을 다루는 데이터 플랫폼 엔지니어이자 Apache Magpie PMC 멤버, Apache Airflow 커미터입니다.\n\n데이터 플랫폼을 설계·운영하며 시스템 신뢰성, CI 안정성, 확장 가능한 파이프라인 구축에 집중해왔습니다. 다양한 금융 데이터를 처리하는 정량적 리서치 플랫폼을 직접 구축·운영하고, 자동화와 LLM 기반 워크플로우를 적용했습니다.\n\nApache Airflow 한국 사용자 모임을 설립해 이끌고 있으며, 건축 분야의 AI 활용을 다루는 Aitecture 커뮤니티도 운영합니다.",
   "links": [
     {
       "label": "GitHub",
@@ -16,6 +16,17 @@
     }
   ],
   "experience": [
+    {
+      "id": "exp-magpie-pmc",
+      "company": "Apache Software Foundation",
+      "title": "Apache Magpie PMC 멤버",
+      "location": "",
+      "startDate": "2026년 11월",
+      "endDate": "",
+      "description": "",
+      "technologies": [],
+      "highlights": []
+    },
     {
       "id": "exp-magpie",
       "company": "Apache Software Foundation",
